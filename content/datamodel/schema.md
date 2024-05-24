@@ -3,11 +3,12 @@ title = "Schema and Entities"
 weight = 1
 +++
 
-Discret uses a schema language to describe what kind of data can be inserted and queried. This document only focus on the concepts and does not provides executable code.
+Discret uses a schema language to describe what kind of data can be inserted and queried.
+
 
 # Basic Syntax 
 
-Let's start with a basic example.
+Let's start with a basic example:
 ```gql
 {
     Person {
@@ -20,14 +21,14 @@ Let's start with a basic example.
 We defined an entity named **Person** that contains three fields:
 - **name** which must contains a **String**. By default, fields are not nullable 
 - **nickname** which is defined as nullable and may contain a **String**
-- **parents** contains an array of **Person**. We we call it a *relation* field in the documentation 
+- **parents** contains an array of **Person**. We we call it a *relation field* in the documentation 
 
 Entity names are *case censitive*, **Person** and  **person** would define two different entities.
 
 Field names are *case censitive*, a field **name** will be different from **Name** 
 
 # Scalar Fields
-Discret used the following scalar type that will store your data:
+Discret used the following scalar type to store your data:
 
 - **Integer**: A signed 64‐bit integer,
 - **Float**: A 64-bit floating-point value,
@@ -42,7 +43,7 @@ By default scalar type are *not* nullable. but it is possible to :
     - provide a default value
     - make the field not nullable
     - 
-You cannot combine not nullable and default value for the same field.
+You cannot combine **nullable** and **default** for the same field.
 
 ```gql
 {   
@@ -52,15 +53,15 @@ You cannot combine not nullable and default value for the same field.
         age: Integer default 0,
         height: Float default 3.2,
         is_nice: Boolean default true,
-        Is_Nice: boolean default True, //check case sensitivity
+        Is_Nice: boolean default True, //true is case incensitive
         profile: Json default "{}",                
         thumbnail: Base64 default ""
     }
 
-    //with null values
+    //with nullable values
     ScalarsNullable {
         name: String nullablE,
-        age: Integer NULLABLE,
+        age: Integer NULLABLE, //nullable is case incensitive
         height: Float nullable,
         is_nice: Boolean nullable,
         Is_Nice: boolean nullable, 
@@ -69,8 +70,6 @@ You cannot combine not nullable and default value for the same field.
     }
 }
 ``` 
-
-
 
 
 # Relation Field
@@ -95,7 +94,7 @@ The syntax is the following.
     }
 }
 ```
-Sadly, the **Person** defined in this model can only have one **Pet**. But they can have has many **parents** as you want.
+Sadly, the **Person** defined by this entity can only have one **Pet**. But they can have has many **parents** as you want.
 
 # Namespace
 Complex applications can have a large number of entities. It is possible to separate entity definition in *namespace*. This can greatly improve the modularity of your code and should be considered for large codebase.
@@ -143,7 +142,7 @@ Every entity have a set of system fields. Those fields can be queried like regul
 
 
 # Index
-If an entity contains a very large number of object, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. Putting two many indexes can result in degraded insertion performances, so you should use this feature *wisely*. The base system allready have a set of indexes that should be enought for a lot of use cases. 
+If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. Putting two many indexes can result in degraded insertion performances, so you should use this feature *wisely*. The base system allready have a set of indexes that should be enought for a lot of use cases. 
  
 Indexes can only be put on scalar field and system fields. 
 ```gql
@@ -160,7 +159,7 @@ The example creates an index on the **(name, id)** tuple
 
 
 # Disabling full text indexing
-By default, every String fields are indexed to perform full text query. It can be disabled using the **no_full_text_index** flag.
+By default, every String fields are indexed to allow full text search. It can be disabled using the **no_full_text_index** flag.
 The index defined inside the entity will still be functional.
 
 ```gql
@@ -177,7 +176,7 @@ my_data {
 
 
 # Deprecation
-We just saw in the previous chapter that entities and fields cannot be deleted. It is however possible to mark them as 'deprecated' to indicate the developers of your application to stop using them. Deprecated field and entitie can still be used and no warning or error will be thrown.
+We just saw in the previous chapter that entities and fields cannot be deleted. It is however possible to mark them as 'deprecated' to indicate the developers of your application to stop using them. This is only a documentation flag, deprecated fields and entities can still be used and no warning or error will be thrown.
 
 Deprecation uses the **@deprecated** keyword:
 ```gql
