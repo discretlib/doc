@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1 class="title">
-    This is my blog made with Zola.
+    {{ section.title }}
 </h1>
+{{ section.content | safe }}
 {% endblock content %}
