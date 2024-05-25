@@ -13,51 +13,43 @@
 </head>
 
 <body>
-    <section class="header">
-        <div>
-            Discret Documentation
-        </div>
-    </section>
-    <div class="menu">
-        {% block menu %}
-        <ul>
-          {% set index = get_section(path="_index.md") %}
-          <li {% if current_path==index.path %}class="active" {% endif %}>
-            <a href="{{ index.permalink | safe }}" >
-                {{ index.title }}
-            </a>
+  <section class="header">
+    <span>Discret Doc</span><span>Learn</span>
+  </section>
+  <section class="menu">
+    {% block menu %}
+    <ul>
+      {% set index = get_section(path="_index.md") %}
+      <li {% if current_path==index.path %}class="active" {% endif %}>
+          <a href="{{ index.permalink | safe }}">
+              {{ index.title }}
+          </a>
+      </li>
+      {% for s in index.subsections %}
+      {% set subsection = get_section(path=s) %}
+      <li {% if current_path==subsection.path %}class="active" {% endif %}>
+          <a href="{{ subsection.permalink | safe }}">
+              {{ subsection.title }}
+          </a>
+      </li>
+      <ul class="sub_menu">
+          {% for page in subsection.pages %}
+          <li {% if current_path==page.path %}class="active" {% endif %}>
+              <a href="{{ page.permalink | safe }}">
+                  {{ page.title }}
+              </a>
           </li>
-          {% for s in index.subsections %}
-          {% set subsection = get_section(path=s) %}
-          <li {% if current_path==subsection.path %}class="active" {% endif %}>
-            <a href="{{ subsection.permalink | safe }}" >
-                {{ subsection.title }}
-            </a>
-          </li>
-          <ul class="sub_menu">
-              {% for page in subsection.pages %}
-              <li {% if current_path==page.path %}class="active" {% endif %}>
-                  <a href="{{ page.permalink | safe }}">
-                      {{ page.title }}
-                  </a>
-              </li>
-              {% endfor %}
-          </ul>
           {% endfor %}
-        <ul>
-        {% endblock menu %}
-    </div>
+      </ul>
+      {% endfor %}
+    <ul>
+    {% endblock menu %}
+  </section>
 
-    <section class="content">
-        <div>
-            {% block content %} {% endblock %}
-        </div>
-    </section>
-    <section class="footer">
-        <div>
-            footer
-        </div>
-    </section>
+  <section class="content">
+    {% block content %} {% endblock %}
+  </section>
+  
 </body>
 
 </html>

@@ -6,96 +6,367 @@
     <title>Discret Documentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="https://adsalais.github.io/discret_doc/ style.css">
+    <link rel="stylesheet" href="https://adsalais.github.io/discret_doc/style.css">
     
+
+
 </head>
 
 <body>
-    <section class="header">
-        <div>
-            Discret Documentation
-        </div>
-    </section>
-    <div class="menu">
-        
-        <ul>
-            
-            <li>
-                <a href="https://adsalais.github.io/discret_doc/">
-                    Introduction
-                </a>
-            </li>
-            
-            
-            <li>
-                <a href="https://adsalais.github.io/discret_doc/authorisations/">
-                    Rooms and Access Rights
-                </a>
-                <ul>
-                    
-                </ul>
-            </li>
-            
-            
-            <li>
-                <a href="https://adsalais.github.io/discret_doc/datamodel/">
-                    Managing data
-                </a>
-                <ul>
-                    
-                    <li>
-                        <a href="https://adsalais.github.io/discret_doc/datamodel/schema/">
-                            Schema and Entities
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://adsalais.github.io/discret_doc/datamodel/mutation/">
-                            Mutations and Deletions
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://adsalais.github.io/discret_doc/datamodel/query/">
-                            Queries
-                        </a>
-                    </li>
-                    
-                </ul>
-            </li>
-            
-            
-            <li>
-                <a href="https://adsalais.github.io/discret_doc/invitations/">
-                    Invitations and Peers
-                </a>
-                <ul>
-                    
-                </ul>
-            </li>
-            
-            </li>
-        </ul>
-        
-    </div>
+  <section class="header">
+    <span>Discret Doc</span><span>Learn</span>
+  </section>
+  <section class="menu">
+    
+    <ul>
+      
+      <li >
+          <a href="https://adsalais.github.io/discret_doc/">
+              Introduction
+          </a>
+      </li>
+      
+      
+      <li >
+          <a href="https://adsalais.github.io/discret_doc/datamodel/">
+              Managing data
+          </a>
+      </li>
+      <ul class="sub_menu">
+          
+          <li class="active" >
+              <a href="https://adsalais.github.io/discret_doc/datamodel/schema/">
+                  Schema and Entities
+              </a>
+          </li>
+          
+          <li >
+              <a href="https://adsalais.github.io/discret_doc/datamodel/mutation/">
+                  Mutations and Deletions
+              </a>
+          </li>
+          
+          <li >
+              <a href="https://adsalais.github.io/discret_doc/datamodel/query/">
+                  Queries
+              </a>
+          </li>
+          
+      </ul>
+      
+      
+      <li >
+          <a href="https://adsalais.github.io/discret_doc/authorisations/">
+              Rooms and Access Rights
+          </a>
+      </li>
+      <ul class="sub_menu">
+          
+      </ul>
+      
+      
+      <li >
+          <a href="https://adsalais.github.io/discret_doc/invitations/">
+              Invitations and Peers
+          </a>
+      </li>
+      <ul class="sub_menu">
+          
+      </ul>
+      
+    <ul>
+    
+  </section>
 
-    <section class="content">
-        <div>
-            
-<h1 class="title">
+  <section class="content">
+    
+
+
+<div class="toc">
+    <strong>On this page</strong>
+    <ul>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#basic-syntax">Basic Syntax</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#scalar-fields">Scalar Fields</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#relation-field">Relation Field</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#namespace">Namespace</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#system-fields">System fields</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#index">Index</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#disabling-full-text-indexing">Disabling full text indexing</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#updating-the-datamodel">Updating the datamodel</a>
+        </li>
+        
+        <li>
+            <a href="https://adsalais.github.io/discret_doc/datamodel/schema/#deprecation">Deprecation</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+<h1>
     Schema and Entities
 </h1>
-<p class="subtitle"><strong></strong></p>
-<p>Data Model schema</p>
+<section class="data">
+    <p>Discret uses a schema language to describe what kind of data can be inserted and queried.</p>
+<h1 id="basic-syntax">Basic Syntax</h1>
+<p>Let's start with a basic example:</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        nickname: </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullable</span><span>,
+</span><span>        parents:[</span><span style="color:#bf616a;">Person</span><span>]
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>We defined an entity named <strong>Person</strong> that contains three fields:</p>
+<ul>
+<li><strong>name</strong> which must contains a <strong>String</strong>. By default, fields are not nullable </li>
+<li><strong>nickname</strong> which is defined as nullable and may contain a <strong>String</strong></li>
+<li><strong>parents</strong> contains an array of <strong>Person</strong>. We we call it a <em>relation field</em> in the documentation </li>
+</ul>
+<p>Entity names are <em>case censitive</em>, <strong>Person</strong> and  <strong>person</strong> would define two different entities.</p>
+<p>Field names are <em>case censitive</em>, a field <strong>name</strong> will be different from <strong>Name</strong> </p>
+<h1 id="scalar-fields">Scalar Fields</h1>
+<p>Discret defines the following scalar types to store your data:</p>
+<ul>
+<li><strong>Integer</strong>: A signed 64‐bit integer,</li>
+<li><strong>Float</strong>: A 64-bit floating-point value,</li>
+<li><strong>String</strong>: A UTF‐8 character sequence,</li>
+<li><strong>Boolean</strong>: true or false,</li>
+<li><strong>Json</strong>: a Json String,</li>
+<li><strong>Base64</strong>: a base64 encoded String to store binary data.</li>
+</ul>
+<p>Scalar types are <em>case incensitive</em>. for example, <strong>integer</strong> or <strong>iNteGer</strong> is valid.</p>
+<p>By default scalar types are <em>not</em> nullable. but it is possible to :
+- provide a default value
+- make the field not nullable</p>
+<p>You cannot combine <strong>nullable</strong> and <strong>default</strong> for the same field.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{   
+</span><span>    </span><span style="color:#65737e;">//with default values
+</span><span>    </span><span style="color:#bf616a;">ScalarsDefault </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String </span><span style="color:#b48ead;">default </span><span>&quot;</span><span style="color:#a3be8c;">someone</span><span>&quot;,
+</span><span>        age: </span><span style="color:#bf616a;">Integer </span><span style="color:#b48ead;">default </span><span style="color:#d08770;">0</span><span>,
+</span><span>        height: </span><span style="color:#bf616a;">Float </span><span style="color:#b48ead;">default </span><span style="color:#d08770;">3.2</span><span>,
+</span><span>        is_nice: </span><span style="color:#ebcb8b;">Boolean </span><span style="color:#b48ead;">default </span><span style="color:#d08770;">true</span><span>,
+</span><span>        Is_Nice: </span><span style="color:#bf616a;">boolean </span><span style="color:#b48ead;">default </span><span style="color:#bf616a;">True</span><span>, </span><span style="color:#65737e;">//true is case incensitive
+</span><span>        profile: </span><span style="color:#bf616a;">Json </span><span style="color:#b48ead;">default </span><span>&quot;</span><span style="color:#a3be8c;">{}</span><span>&quot;,                
+</span><span>        thumbnail: </span><span style="color:#bf616a;">Base64 </span><span style="color:#b48ead;">default </span><span>&quot;&quot;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;">//with nullable values
+</span><span>    </span><span style="color:#bf616a;">ScalarsNullable </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullablE</span><span>,
+</span><span>        age: </span><span style="color:#bf616a;">Integer NULLABLE</span><span>, </span><span style="color:#65737e;">//nullable is case incensitive
+</span><span>        height: </span><span style="color:#bf616a;">Float nullable</span><span>,
+</span><span>        is_nice: </span><span style="color:#ebcb8b;">Boolean </span><span style="color:#bf616a;">nullable</span><span>,
+</span><span>        profile: </span><span style="color:#bf616a;">Json nullable</span><span>,                 
+</span><span>        thumbnail: </span><span style="color:#bf616a;">Base64 Nullable
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h1 id="relation-field">Relation Field</h1>
+<p>Relation fields link object together, allowing for complex data modelisation and query.
+There is two kinds of relation field:</p>
+<ul>
+<li><em>single</em> relationship where the field can reference one object at most </li>
+<li><em>multiple</em> relationship where the field can reference many objects</li>
+</ul>
+<p>It is not possible to define default values for relation fields. </p>
+<p>The syntax is the following.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        pet: </span><span style="color:#bf616a;">Pet</span><span>,           </span><span style="color:#65737e;">//single relationship
+</span><span>        parents:[</span><span style="color:#bf616a;">Person</span><span>]    </span><span style="color:#65737e;">//mutiple relationship
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">Pet </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Sadly, the <strong>Person</strong> defined by this entity can only have one <strong>Pet</strong>. But they can have has many <strong>parents</strong> as you want.</p>
+<h1 id="namespace">Namespace</h1>
+<p>Complex applications can have a large number of entities. It is possible to separate entity definition in <em>namespace</em>. This can greatly improve the modularity of your code and should be considered for large codebase.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#bf616a;">mod_one </span><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        name : </span><span style="color:#ebcb8b;">String </span><span>,
+</span><span>        surname : </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        child : [</span><span style="color:#bf616a;">mod_one</span><span>.</span><span style="color:#bf616a;">Person</span><span>] ,
+</span><span>        pets: [</span><span style="color:#bf616a;">mod_one</span><span>.</span><span style="color:#bf616a;">Pet</span><span>]
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">Pet </span><span>{
+</span><span>        name : </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>    }
+</span><span>}
+</span><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        surname : </span><span style="color:#ebcb8b;">String </span><span>,
+</span><span>        parents : [</span><span style="color:#bf616a;">Person</span><span>] ,
+</span><span>        pets: [</span><span style="color:#bf616a;">mod_one</span><span>.</span><span style="color:#bf616a;">Pet</span><span>]
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>In this example two namespace are defined: <strong>mod_one</strong> and the default namespace without a name, we can notice that:</p>
+<ul>
+<li>Both namespace contains a <strong>Person</strong> entity</li>
+<li>Relation field must references the namespace of the linked entity like <strong>mod_one.Person</strong></li>
+<li>Relation field can references external namespace. In the empty namespace, the pet field references <strong>mod_one.Pet</strong></li>
+</ul>
+<h1 id="system-fields">System fields</h1>
+<p>Every entity have a set of system fields. Those fields can be queried like regular fields, but only <strong>room_id</strong> and <strong>_binary</strong> can be modified directly.</p>
+<ul>
+<li><strong>id</strong>: the unique identifier of the object.</li>
+<li><strong>room_id</strong>: id of the room that contains the access right for the object</li>
+<li><strong>cdate</strong>: creation date</li>
+<li><strong>mdate</strong>: last modification date</li>
+<li><strong>verifying_key</strong> : identity of the user that created or last modified the object</li>
+<li><strong>_json</strong>: stores the entity data</li>
+<li><strong>_binary</strong>: a binary field to store anything</li>
+<li><strong>_signature</strong>: upon insertion, the verifying_key is used to verify this signature to ensure data integrity</li>
+</ul>
+<h1 id="index">Index</h1>
+<p>The base system allready possesses indexes that should be enought for a lot of use cases. 
+If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature <em>wisely</em>, two many indexes can result in degraded insertion performances, . </p>
+<p>Indexes can only be put on scalar and system fields. </p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        nickname: </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullable</span><span>,
+</span><span>        parents:[</span><span style="color:#bf616a;">Person</span><span>],
+</span><span>        </span><span style="color:#8fa1b3;">index</span><span>(</span><span style="color:#bf616a;">name</span><span>, </span><span style="color:#bf616a;">id</span><span>),
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>The example creates an index on the <strong>(name, id)</strong> tuple</p>
+<h1 id="disabling-full-text-indexing">Disabling full text indexing</h1>
+<p>By default, every String fields are indexed to allow full text search. It can be disabled using the <strong>no_full_text_index</strong> flag.
+The index defined inside the entity will still be functional.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#bf616a;">my_data </span><span>{
+</span><span>    </span><span style="color:#8fa1b3;">Person</span><span>( </span><span style="color:#bf616a;">no_full_text_index</span><span>) {
+</span><span>        name : </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h1 id="updating-the-datamodel">Updating the datamodel</h1>
+<p>During the lifetime of a software, the datamodel is likely to be modified many times. A set of rules must be respected to ensure that adding new fields and entities will not introduce breaking changes. </p>
+<p>A data model modification must contains the full data model, not just the changes. Discret will compare the new model against the existing one to enforce the following rules:</p>
+<ul>
+<li>Entities, Fields and Namespaces cannot be deleted.</li>
+<li>Namespace must be inserted in the same order, new Namespaces must be inserted at the end.</li>
+<li>Entities must be inserted in the same order wihtin their namespace. New entities must be inserted at the end of a namespace.</li>
+<li>Fields must appear in the same order in an entity. New fields must be inserted at the end of the entity.</li>
+</ul>
+<p>Fields update and insertion must obey strict rules:</p>
+<ul>
+<li>Fields type cannot be updated.</li>
+<li>Fields can be made <em>nullable</em>.</li>
+<li>Fields can be made not nullable only if a <em>default</em> value is provided. </li>
+<li>New Fields must be either <em>nullable</em> or contains a default value.</li>
+</ul>
+<p>This set of constraints allows the datamodel to evolve without requiring versionning.</p>
+<p>Let take an example, if we consider the following to be the old data model </p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        name : </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullable</span><span>,
+</span><span>        surname: </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullable</span><span>,
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>The following update will be valid</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        </span><span style="color:#65737e;">//changed to nullable
+</span><span>        name : </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">nullable</span><span>, 
+</span><span>
+</span><span>        </span><span style="color:#65737e;">//changed to not nullable with a default value        
+</span><span>        surname : </span><span style="color:#ebcb8b;">String </span><span style="color:#b48ead;">default </span><span>&quot;</span><span style="color:#a3be8c;">john</span><span>&quot;,
+</span><span>        
+</span><span>        </span><span style="color:#65737e;">//new field at the end
+</span><span>        parents : [</span><span style="color:#bf616a;">Person</span><span>],
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;">//new entity at the end of the namespace
+</span><span>    </span><span style="color:#bf616a;">Pet </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String
+</span><span>    }
+</span><span>}
+</span><span style="color:#65737e;">//new namespace after the existing one
+</span><span style="color:#bf616a;">my_data </span><span>{
+</span><span>
+</span><span>}
+</span></code></pre>
+<p>But this one will be rejected</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#65737e;">//error:: new namespace before the existing one
+</span><span style="color:#bf616a;">my_data </span><span>{
+</span><span>
+</span><span>}
+</span><span>{
+</span><span>    </span><span style="color:#65737e;">//Error: new entity before an existing one
+</span><span>    </span><span style="color:#bf616a;">Pet </span><span>{
+</span><span>        name: </span><span style="color:#ebcb8b;">String
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">Person </span><span>{
+</span><span>        </span><span style="color:#65737e;">//Error: name field is removed
+</span><span>
+</span><span>        </span><span style="color:#65737e;">//Error: new field before an existing one
+</span><span>        parents : [</span><span style="color:#bf616a;">Person</span><span>],
+</span><span>
+</span><span>        </span><span style="color:#65737e;">//Error: changed to not nullable without a default value
+</span><span>        surname : </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h1 id="deprecation">Deprecation</h1>
+<p>We saw in the previous chapter that entities and fields cannot be deleted. It is however possible to mark them as 'deprecated' to indicate the developers of your application to stop using them. This is only a documentation flag, deprecated fields and entities can still be used and no warning or error will be thrown.</p>
+<p>Deprecation uses the <strong>@deprecated</strong> keyword:</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span>{
+</span><span>    @</span><span style="color:#bf616a;">deprecated Person </span><span>{
+</span><span>        name : </span><span style="color:#ebcb8b;">String </span><span>,
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">Pet </span><span>{
+</span><span>        name : </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>        @</span><span style="color:#bf616a;">deprecated  </span><span>age : </span><span style="color:#bf616a;">Float NULLABLE</span><span>,
+</span><span>        weight : </span><span style="color:#bf616a;">Integer NULLABLE</span><span>,
+</span><span>        is_vaccinated: </span><span style="color:#ebcb8b;">Boolean </span><span style="color:#bf616a;">NULLABLE</span><span>,
+</span><span>        </span><span style="color:#8fa1b3;">INDEX</span><span>(</span><span style="color:#bf616a;">weight</span><span>),
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>In this example, the <strong>Person</strong> entity and the <strong>Pet.age</strong> field are marked deprecated. </p>
 
+</section>
 
-        </div>
-    </section>
-    <section class="footer">
-        <div>
-            footer
-        </div>
-    </section>
+  </section>
+  
 </body>
 
 </html>

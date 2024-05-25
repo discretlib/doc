@@ -9,7 +9,7 @@ Discret uses a schema language to describe what kind of data can be inserted and
 # Basic Syntax 
 
 Let's start with a basic example:
-```gql
+```js
 {
     Person {
         name: String,
@@ -28,7 +28,7 @@ Entity names are *case censitive*, **Person** and  **person** would define two d
 Field names are *case censitive*, a field **name** will be different from **Name** 
 
 # Scalar Fields
-Discret used the following scalar type to store your data:
+Discret defines the following scalar types to store your data:
 
 - **Integer**: A signed 64‐bit integer,
 - **Float**: A 64-bit floating-point value,
@@ -39,13 +39,13 @@ Discret used the following scalar type to store your data:
 
 Scalar types are *case incensitive*. for example, **integer** or **iNteGer** is valid.
 
-By default scalar type are *not* nullable. but it is possible to :
+By default scalar types are *not* nullable. but it is possible to :
     - provide a default value
     - make the field not nullable
-    - 
+  
 You cannot combine **nullable** and **default** for the same field.
 
-```gql
+```js
 {   
     //with default values
     ScalarsDefault {
@@ -64,7 +64,6 @@ You cannot combine **nullable** and **default** for the same field.
         age: Integer NULLABLE, //nullable is case incensitive
         height: Float nullable,
         is_nice: Boolean nullable,
-        Is_Nice: boolean nullable, 
         profile: Json nullable,                 
         thumbnail: Base64 Nullable
     }
@@ -73,15 +72,15 @@ You cannot combine **nullable** and **default** for the same field.
 
 
 # Relation Field
-Relation fields link object together, allowing complex data modelisation and query.
-There is two kind of relation field:
+Relation fields link object together, allowing for complex data modelisation and query.
+There is two kinds of relation field:
 - *single* relationship where the field can reference one object at most 
 - *multiple* relationship where the field can reference many objects
 
-It is not possible to define default values for relation fields 
+It is not possible to define default values for relation fields. 
 
 The syntax is the following.
-```gql
+```js
 {
     Person {
         name: String,
@@ -99,7 +98,7 @@ Sadly, the **Person** defined by this entity can only have one **Pet**. But they
 # Namespace
 Complex applications can have a large number of entities. It is possible to separate entity definition in *namespace*. This can greatly improve the modularity of your code and should be considered for large codebase.
 
-```gql
+```js
 mod_one {
     Person {
         name : String ,
@@ -112,24 +111,22 @@ mod_one {
         name : String,
     }
 }
-mod_two{
+{
     Person {
         surname : String ,
-        parents : [mod_two.Person] ,
+        parents : [Person] ,
         pets: [mod_one.Pet]
     }
 }
-
 ```
-In this example two namespace are defined: **mod_one** and **mod_two**, we can notice that:
+In this example two namespace are defined: **mod_one** and the default namespace without a name, we can notice that:
  - Both namespace contains a **Person** entity
  - Relation field must references the namespace of the linked entity like **mod_one.Person**
- - Relation field can references external namespace. In **mod_two**, the pet field references **mod_one.Pet**
-
+ - Relation field can references external namespace. In the empty namespace, the pet field references **mod_one.Pet**
 
 
 # System fields 
-Every entity have a set of system fields. Those fields can be queried like regular fields, but only **room_id** and **_bin** can be modified directly.
+Every entity have a set of system fields. Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
 
 - **id**: the unique identifier of the object.
 - **room_id**: id of the room that contains the access right for the object
@@ -137,15 +134,16 @@ Every entity have a set of system fields. Those fields can be queried like regul
 - **mdate**: last modification date
 - **verifying_key** : identity of the user that created or last modified the object
 - **_json**: stores the entity data
-- **_bin**: a binary field to store anything
+- **_binary**: a binary field to store anything
 - **_signature**: upon insertion, the verifying_key is used to verify this signature to ensure data integrity
 
 
 # Index
-If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. Putting two many indexes can result in degraded insertion performances, so you should use this feature *wisely*. The base system allready have a set of indexes that should be enought for a lot of use cases. 
+The base system allready possesses indexes that should be enought for a lot of use cases. 
+If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
  
-Indexes can only be put on scalar field and system fields. 
-```gql
+Indexes can only be put on scalar and system fields. 
+```js
 {
     Person {
         name: String,
@@ -162,7 +160,7 @@ The example creates an index on the **(name, id)** tuple
 By default, every String fields are indexed to allow full text search. It can be disabled using the **no_full_text_index** flag.
 The index defined inside the entity will still be functional.
 
-```gql
+```js
 my_data {
     Person( no_full_text_index) {
         name : String,
@@ -170,16 +168,93 @@ my_data {
 }
 ```
 
-# Update constraints
+# Updating the datamodel
 
+During the lifetime of a software, the datamodel is likely to be modified many times. A set of rules must be respected to ensure that adding new fields and entities will not introduce breaking changes. 
+
+A data model modification must contains the full data model, not just the changes. Discret will compare the new model against the existing one to enforce the following rules:
+
+- Entities, Fields and Namespaces cannot be deleted.
+- Namespace must be inserted in the same order, new Namespaces must be inserted at the end.
+- Entities must be inserted in the same order wihtin their namespace. New entities must be inserted at the end of a namespace.
+- Fields must appear in the same order in an entity. New fields must be inserted at the end of the entity.
+
+Fields update and insertion must obey strict rules:
+- Fields type cannot be updated.
+- Fields can be made *nullable*.
+- Fields can be made not nullable only if a *default* value is provided. 
+- New Fields must be either *nullable* or contains a default value.
+
+This set of constraints allows the datamodel to evolve without requiring versionning.
+
+Let take an example, if we consider the following to be the old data model 
+```js
+{
+    Person {
+        name : String nullable,
+        surname: String nullable,
+    }
+}
+```
+
+The following update will be valid
+```js
+{
+    Person {
+        //changed to nullable
+        name : String nullable, 
+
+        //changed to not nullable with a default value        
+        surname : String default "john",
+        
+        //new field at the end
+        parents : [Person],
+    }
+
+    //new entity at the end of the namespace
+    Pet {
+        name: String
+    }
+}
+//new namespace after the existing one
+my_data {
+
+}
+```
+
+
+But this one will be rejected
+```js
+//error:: new namespace before the existing one
+my_data {
+
+}
+{
+    //Error: new entity before an existing one
+    Pet {
+        name: String
+    }
+
+    Person {
+        //Error: name field is removed
+
+        //Error: new field before an existing one
+        parents : [Person],
+
+        //Error: changed to not nullable without a default value
+        surname : String,
+        
+    }
+}
+```
 
 
 
 # Deprecation
-We just saw in the previous chapter that entities and fields cannot be deleted. It is however possible to mark them as 'deprecated' to indicate the developers of your application to stop using them. This is only a documentation flag, deprecated fields and entities can still be used and no warning or error will be thrown.
+We saw in the previous chapter that entities and fields cannot be deleted. It is however possible to mark them as 'deprecated' to indicate the developers of your application to stop using them. This is only a documentation flag, deprecated fields and entities can still be used and no warning or error will be thrown.
 
 Deprecation uses the **@deprecated** keyword:
-```gql
+```js
 {
     @deprecated Person {
         name : String ,
@@ -190,7 +265,7 @@ Deprecation uses the **@deprecated** keyword:
         @deprecated  age : Float NULLABLE,
         weight : Integer NULLABLE,
         is_vaccinated: Boolean NULLABLE,
-        INDEX(weight)
+        INDEX(weight),
     }
 }
 ```
