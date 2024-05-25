@@ -1,8 +1,45 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<h1 class="title">
-    {{ section.title }}
-</h1>
-{{ section.content | safe }}
-{% endblock content %}
+<head>
+    <meta charset="utf-8">
+    <title>Discret Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}
+    <link rel="stylesheet" href="{{ get_url(path="index.css") | safe }}">
+    {% endblock css %}
+</head>
+
+<body>
+    <section class="header">
+        {% block header %}
+        <ul>
+            {% set id = get_section(path="_index.md") %}
+            <li>
+              <a href="{{ id.permalink | safe }}" {% if current_path==id.path %}class="active" {% endif %}>
+                Discret Documentation
+              </a>
+            </li>
+            {% set id = get_section(path="learn/_index.md") %}
+            <li>
+              <a href="{{ id.permalink | safe }}" {% if current_path==id.path %}class="active" {% endif %}>
+                Learn
+              </a>
+            </li>
+            <li><a href="">About</a></li>
+        </ul>
+        {% endblock header %}
+    </section>
+
+
+    <section class="content">
+        {% block content %}
+        <h1 class="title">
+            {{ section.title }}
+        </h1>
+        {{ section.content | safe }}{% endblock %}
+    </section>
+
+</body>
+
+</html>

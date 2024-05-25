@@ -1,6 +1,19 @@
-{% extends "base.html" %}
+{% extends "learn.html" %}
 
 {% block content %}
+{% if page.toc %}
+<div class="toc">
+    <strong>On this page</strong>
+    <ul>
+        {% for h1 in page.toc %}
+        <li>
+            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <h1>
     {{ section.title }}
 </h1>

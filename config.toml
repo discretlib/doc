@@ -1,11 +1,11 @@
 # The URL the site will be built for
-base_url = "https://adsalais.github.io/discret_doc/"
+base_url = "https://discretlib.github.io/doc/"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
-build_search_index = true
+build_search_index = false
 
 output_dir = "docs"
 

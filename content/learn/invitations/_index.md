@@ -1,7 +1,7 @@
 +++
 title = "Invitations and Peers"
 sort_by = "weight"
-template = "doc-section.html"
-page_template = "doc-page.html"
+template = "learn-section.html"
+page_template = "learn-page.html"
 weight = 3
 +++
