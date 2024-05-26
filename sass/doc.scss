@@ -23,8 +23,6 @@
     --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-
-
 body {
     background: var(--background-color-dark);
     color: var(--text-color-dark);
@@ -89,7 +87,6 @@ pre {
         text-align: center;
     }
 
-    /* Change the link color to #111 (black) on hover */
     li a:hover {
         color: var(--header-over-color);
     }

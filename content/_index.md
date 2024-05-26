@@ -1,6 +1,6 @@
 +++
 title = "Discret"
-description = "Create local first, peer to peer application (P2P) using a GraphQL inspired API"
+description = "A Rust library to create peer to peer (P2P) applications, using a GraphQL inspired API"
 weight = 0
 template = "index-section.html"
 page_template = "index-page.html"
