@@ -315,6 +315,18 @@ article {
     }
 }
 
+.footer {
+    display: block;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    color: #aaa;
+    line-height: 2rem;
+    font-size: 0.90rem;
+}
+
 
 @media screen and (max-width: 86rem) {
     .toc {
