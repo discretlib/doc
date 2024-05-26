@@ -40,8 +40,8 @@ Discret defines the following scalar types to store your data:
 Scalar types are *case incensitive*. for example, **integer** or **iNteGer** is valid.
 
 By default scalar types are *not* nullable. but it is possible to :
-    - provide a default value
-    - make the field not nullable
+- provide a default value
+- make the field not nullable
   
 You cannot combine **nullable** and **default** for the same field.
 

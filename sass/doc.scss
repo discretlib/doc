@@ -1,52 +1,60 @@
-/* Variables */
 :root {
-    --desktop-font-size: 1.1rem;
-    --mobile-font-size: 1rem;
-    --text-color: #ddd;
-    --link-color: #079427; // 9369A7  C02329 562DDB 079427
-    --link-color-alt: #9369A7; //#bf616a
-    --primary-color-light: dimgrey;
+    --font-size: 1 rem;
+    --link-color: #82c8f1;
+    --link--over-color: #9bd3f4;
+    --border-color: dimgrey;
     --secondary-color: #2b303b;
-    --background-color: #222222;
-    --over-color: #2b303b;
+
+    --background-color-dark: #212121;
+    --text-color-dark: #ddd;
+
+    --over-color-dark: #2b303b;
+
     --menu-width: 17rem;
     --header-height: 3rem;
+    --header-font-size: 1.25 rem;
+    --header-font-color: #eee;
+    --header-over-color: #fff;
+    --header-font-weight: 300;
+    --header-background-image: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
+    --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 
 
 body {
-    background: var(--background-color);
-    color: var(--text-color);
+    background: var(--background-color-dark);
+    color: var(--text-color-dark);
     margin: 0;
     padding: 0;
-    font: var(--desktop-font-size) -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size);
 }
 
 a,
 a:visited {
     color: var(--link-color);
+    text-decoration: none;
 }
 
 pre {
-    border: 1px solid var(--primary-color-light);
+    border: 1px solid var(--border-color);
     overflow: auto;
     padding: 0.5rem;
     border-radius: 5px;
 }
 
 .header {
-
+    background-image: var(--header-background-image);
     position: fixed;
     top: 0;
     z-index: 2;
     display: block;
-    background: var(--background-color);
     width: 100%;
     height: var(--header-height);
-    border-bottom: 1px solid var(--primary-color-light);
     margin: 0;
     padding: 0;
+    color: var(--header-font-color);
 }
 
 .header {
@@ -62,13 +70,11 @@ pre {
     }
 
     .discret {
-        color: var(--link-color-alt);
+        color: var(--header-over-color);
         font-size: larger;
-        font-weight: bolder;
     }
 
     a {
-        color: var(--primary-color-light);
         padding: 0 1rem;
         height: var(--header-height);
         color: var(--text-color);
@@ -80,12 +86,7 @@ pre {
 
     /* Change the link color to #111 (black) on hover */
     li a:hover {
-        background-color: var(--over-color);
-    }
-
-    .active {
-        background: var(--over-color);
-        font-weight: bolder;
+        color: var(--header-over-color);
     }
 
     .header_right {
@@ -93,19 +94,26 @@ pre {
     }
 
     .learn_menu {
+        background: var(--background-color-dark);
         margin-top: var(--header-height);
         display: none;
         position: absolute;
-        box-shadow: 0px 5px 5px 0px var(--secondary-color);
+
         z-index: 2;
-        background-color: var(--background-color);
         overflow: auto;
         overflow-x: hidden;
-        width: var(--menu-width);
+        width: fit-content;
+
+
+        border: 1px solid var(--border-color);
+        border-top: 0;
+        border-radius: 0 0 5px 5px;
+        //  width: var(--menu-width);
     }
 
     .learn_menu {
         a {
+            color: var(--link-color);
             font-size: 1rem;
             text-decoration: none;
             width: 100%;
@@ -135,18 +143,20 @@ pre {
         }
 
         li:hover {
-            background: var(--over-color);
+            color: var(--link-over-color);
         }
-
-        li:first-child a {
-            color: var(--text-color);
-            font-size: 1rem;
-            font-weight: normal;
-        }
-
     }
 }
 
+.learn {
+    float: left;
+    overflow: hidden;
+}
+
+/* Show the dropdown menu on hover */
+.learn:hover .learn_menu {
+    display: block;
+}
 
 
 html {
@@ -156,27 +166,45 @@ html {
 .content {
     margin-left: var(--menu-width);
     margin-top: var(--header-height);
-    padding-left: 2rem;
+    padding-left: 1rem;
     max-width: 50rem;
 }
 
 
-.content h1 {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-bottom: 1px solid var(--primary-color-light);
+.content h1:first-of-type {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 300;
 }
 
+
+
 .data {
+
+    h1:first-of-type {
+        text-align: left;
+        font-size: 2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-top: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 300;
+        padding-bottom: 0.25rem;
+        padding-top: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
 
     strong,
     time,
     b {
-        border: 1px solid var(--primary-color-light);
         background-color: var(--secondary-color);
+        border: 1px solid var(--border-color);
         border-radius: 5px;
         padding: 0px 5px;
-        font-weight: normal;
+        font-weight: bolder;
     }
 
     ul li,
@@ -199,18 +227,22 @@ html {
 .menu {
     position: fixed;
     top: var(--header-height);
-    padding-top: 1rem;
-    padding-left: 0.25rem;
+    margin-top: 0.5rem;
+    margin-left: 0.25rem;
+    padding-top: 0.25rem;
+    // padding-left: 0.25rem;
     left: 0;
     width: var(--menu-width);
-    height: 100%;
     z-index: 1;
     overflow-x: hidden;
+
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
 }
 
 .menu {
     a {
-        color: var(--text-color);
         text-decoration: none;
         width: 100%;
         height: 2rem;
@@ -240,49 +272,31 @@ html {
         background: var(--over-color);
     }
 
-    .active {
-        background: var(--over-color);
-        font-weight: bolder;
-    }
-
     .active a {
-        color: var(--link-color-alt);
+        font-weight: bolder;
+        color: var(--link--over-color);
+        border-left: 2px solid var(--link--over-color);
+        border-right: 2px solid var(--link--over-color);
     }
 }
-
-
-
-
-
-.learn {
-    float: left;
-    overflow: hidden;
-}
-
-/* Show the dropdown menu on hover */
-.learn:hover .learn_menu {
-    display: block;
-}
-
 
 
 
 .toc {
     position: fixed;
     top: var(--header-height);
-    left: 70rem;
-    padding-top: 1rem;
-    padding-right: 0.25rem;
+    left: 69rem;
+    margin-top: 0.25rem;
     z-index: 1;
 }
 
 .toc {
     a {
-        color: var(--link-color-alt);
+        color: var(--link-color);
         text-decoration: none;
         display: block;
         border-radius: 5px;
-        padding: 0.10rem 0.25rem;
+        padding: 0.1rem 0.5rem;
         margin-bottom: 0.15rem;
     }
 
@@ -290,17 +304,12 @@ html {
         padding: 0;
         margin: 0;
         list-style: none;
+        border-left: 2px solid var(--border-color);
     }
 
-    .selected {
-        background: var(--over-color);
-        font-weight: bolder;
-        border-radius: 5px;
-    }
+    li:hover a {
+        color: var(--link--over-color);
 
-    li:hover {
-        background: var(--over-color);
-        border-radius: 5px;
     }
 }
 
