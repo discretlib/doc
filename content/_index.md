@@ -1,8 +1,9 @@
 +++
-title = "Introduction"
+title = "Discret"
+description = "Create local first, peer to peer application (P2P) using a GraphQL inspired API"
 weight = 0
-template = "index.html"
-page_template = "doc-page.html"
+template = "index-section.html"
+page_template = "index-page.html"
 +++
 
-hello documentaiton
+

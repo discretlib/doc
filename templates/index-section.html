@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>
+    {{ section.title | safe}}
+</h1>
+<h2>
+    {{ section.description | safe }}
+</h2>
+
+<section class="data">
+    <section class="features">
+        <h1>Features</h1>
+        <section class="flexbox">
+            {% set index = get_section(path="features/_index.md") %}
+            {% for page in index.pages %}
+            <div>
+                <h2>{{ page.title | safe}}</h2>
+                {{ page.content | safe}}
+            </div>
+            {% endfor %}
+        </section>
+
+    </section>
+
+    {{ section.content | safe}}
+
+    <section class="features">
+        <h1>Limitations</h1>
+        <section class="flexbox">
+            {% set index = get_section(path="limitations/_index.md") %}
+            {% for page in index.pages %}
+            <div>
+                {{ page.content | safe}}
+            </div>
+            {% endfor %}
+        </section>
+    </section>
+
+</section>
+
+{% endblock content %}
