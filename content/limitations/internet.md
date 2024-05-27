@@ -1,7 +1,0 @@
-+++
-weight = 4
-+++
-
-For peer to peer connection over the Internet, a discovery server is needed to allow peers to discover each others. The discret lib provides an implementation of the discovery server named Beacon.
-
-Connection over the internet is not 100% guaranted to work, because certain types of enterprise firewalls will block the connection attempts.
