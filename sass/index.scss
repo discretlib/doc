@@ -1,3 +1,6 @@
+@import url("syntax-theme-dark.css") (prefers-color-scheme: dark);
+@import url("syntax-theme-light.css") (prefers-color-scheme: light);
+
 :root {
     --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-size: 1.2rem;
@@ -150,6 +153,10 @@ a:visited {
 
     .header_right {
         float: right;
+
+        img {
+            height: var(--header-font-size);
+        }
     }
 
     .learn_menu {
@@ -561,37 +568,41 @@ article {
 
 
 
-// @media screen and (prefers-color-scheme: light) {
-//     body {
-//         background-color: var(--background-color-light);
-//         color: var(--text-color-light);
-//     }
+@media screen and (prefers-color-scheme: light) {
+    body {
+        background-color: var(--background-color-light);
+        color: var(--text-color-light);
+    }
 
 
-//     .menu {
-//         background: var(--secondary-background-light);
-//     }
+    .menu {
+        background: var(--secondary-background-light);
+    }
 
-//     .header .learn_menu {
-//         background: var(--secondary-background-light);
-//     }
+    .header .learn_menu {
+        background: var(--secondary-background-light);
+    }
 
-//     article strong,
-//     time,
-//     b {
-//         color: #fcfcfc;
-//         background-color: #999;
-//         border: 0px;
-//     }
+    article strong,
+    time,
+    b {
+        color: #fcfcfc;
+        background-color: #999;
+        border: 0px;
+    }
 
-//     .landing {
-//         .features {
-//             background-color: var(--secondary-background-light);
+    .landing {
+        .features {
+            background-color: var(--secondary-background-light);
 
-//             div {
-//                 background-color: var(--background-color-light);
-//             }
+            div {
+                background-color: var(--background-color-light);
+            }
 
-//         }
-//     }
-// }
+        }
+
+        .tuto div {
+            background-color: #eff1f5;
+        }
+    }
+}

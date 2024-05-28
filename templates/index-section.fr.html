@@ -1,0 +1,59 @@
+{% extends "index.fr.html" %}
+
+{% block content %}
+<section class="landing">
+    <h1>
+        {{ section.title | safe}}
+    </h1>
+    <h2>
+        {{ section.description | safe }}
+    </h2>
+
+    <section class="tuto">
+        {% set index = get_section(path="landing_page/tuto/_index.fr.md") %}
+        <section class="flexbox">
+            {% for page in index.pages %}
+            <div>
+                <h1>{{ page.title | safe}}</h1>
+                {{ page.content | safe}}
+            </div>
+            {% endfor %}
+        </section>
+
+    </section>
+    <h3>{{ index.content | safe}}</h3>
+
+    <section class="direct">
+        {{ section.content | safe }}
+    </section>
+    <section class="data">
+        <section class="features">
+            {% set index = get_section(path="landing_page/features/_index.fr.md") %}
+            <h1>{{ index.title | safe}}</h1>
+            <section class="flexbox">
+
+                {% for page in index.pages %}
+                <div>
+                    <h2>{{ page.title | safe}}</h2>
+                    {{ page.content | safe}}
+                </div>
+                {% endfor %}
+            </section>
+        </section>
+
+        <section class="features">
+            {% set index = get_section(path="landing_page/limitations/_index.fr.md") %}
+            <h1>{{ index.title | safe}}</h1>
+            <section class="flexbox">
+
+                {% for page in index.pages %}
+                <div>
+                    {{ page.content | safe}}
+                </div>
+                {% endfor %}
+            </section>
+        </section>
+
+    </section>
+</section>
+{% endblock content %}

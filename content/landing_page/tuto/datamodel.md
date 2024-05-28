@@ -2,7 +2,7 @@
 title ="Create your datamodel" 
 weight = 1
 +++
-```js
+```ts
 {
     Person {
         name: String,

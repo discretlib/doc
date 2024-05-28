@@ -9,3 +9,5 @@ page_template = "index-page.html"
 
 Learn more by [Getting Started](@/learn/_index.md) in the [Tutorials](@/learn/_index.md) . Dive deeper in the [Learn](@/learn/_index.md) section. And contribution are always welcome in the [Github](@/learn/_index.md) projects!
 
+This website is also available in [french](/fr/)
+

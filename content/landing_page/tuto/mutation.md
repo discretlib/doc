@@ -2,7 +2,7 @@
 title ="Insert and mutate data" 
 weight = 3
 +++
-```js
+```ts
 mutation {
     p1: Person { 
         room_id: $room_id

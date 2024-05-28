@@ -2,7 +2,7 @@
 title ="Query" 
 weight = 4
 +++
-```js
+```ts
 query {
     q1: Person(room_id=$room_id) { 
         id

@@ -1,5 +1,5 @@
 +++
-title ="Define Access Rights" 
+title ="Gérez les droits d'accès" 
 weight = 2
 +++
 ```ts
@@ -10,13 +10,13 @@ mutation {
         }]
 
         authorisations: [{
-            name: "house"
+            name: "maison"
             rights:[{
-                entity: "Person"
+                entity: "Personne"
                 mutate_self: true
                 mutate_all: true
             },{
-                entity: "Pet"
+                entity: "Bestiole"
                 mutate_self: true
                 mutate_all: false
             }]
