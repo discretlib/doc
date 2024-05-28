@@ -139,7 +139,7 @@ Every entity have a set of system fields. Those fields can be queried like regul
 
 
 # Index
-The base system allready possesses indexes that should be enought for a lot of use cases. 
+The base system already possesses indexes that should be enought for a lot of use cases. 
 If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
  
 Indexes can only be put on scalar and system fields. 

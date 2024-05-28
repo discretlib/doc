@@ -3,8 +3,8 @@ title="Strong Security"
 weight = 2
 +++
 
-The library provides strong security features out of the box: 
-- data is encrypted at rest by using the SQLCipher database 
-- encrypted communication using the QUIC protocol 
-- data integrity: each rows is signed with the peer signing key, making it very hard to synchronise bad data 
+Discret provides strong security features out of the box: 
+- data is encrypted at rest by using the [SQLCipher](https://www.zetetic.net/sqlcipher/)  database 
+- encrypted communication using the [QUIC](https://quicwg.org/) protocol 
+- data integrity: data is signed with the peer signing key, making it very hard to synchronize bad data 
 - access control via Rooms

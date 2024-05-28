@@ -9,6 +9,23 @@
         {{ section.description | safe }}
     </h2>
 
+    <section class="tuto">
+        {% set index = get_section(path="landing_page/tuto/_index.md") %}
+        <section class="flexbox">
+            {% for page in index.pages %}
+            <div>
+                <h1>{{ page.title | safe}}</h1>
+                {{ page.content | safe}}
+            </div>
+            {% endfor %}
+        </section>
+
+    </section>
+    <h3>{{ index.content | safe}}</h3>
+
+    <section class="direct">
+        {{ section.content | safe }}
+    </section>
     <section class="data">
         <section class="features">
             <h1>Features</h1>
@@ -21,10 +38,7 @@
                 </div>
                 {% endfor %}
             </section>
-
         </section>
-
-        {{ section.content | safe}}
 
         <section class="features">
             <h1>Limitations</h1>
