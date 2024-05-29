@@ -1,13 +1,18 @@
 +++
 title = "Discret"
-description = "Une librarie Rust pour créer des applications pair à pair (P2P), utilisant une API GraphQL"
+description = "Une librarie Rust pour créer des applications pair à pair (P2P) en utilisant une API GraphQL"
 weight = 0
 template = "index-section.fr.html"
 page_template = "index-page.fr.html"
 +++
-[Tutoriels](@/learn/_index.md) [Apprendre](@/learn/_index.md) [Github](@/learn/_index.md)
+[Commencer](@/learn/_index.md) [Commencer avec Flutter](@/learn/_index.md) [Apprendre](@/learn/_index.md) [Github](@/learn/_index.md)
 
- [Commencez](@/learn/_index.md) en suivant les [Tutoriels](@/learn/_index.md). Approfondissez vos connaissances dans la section [Apprendre](@/learn/_index.md). Toute contribution est bienvenue [Github](@/learn/_index.md)!
+- [Commencer](@/learn/_index.md) en suivant les [Tutoriels](@/learn/_index.md).
 
- Ce site est aussi disponible en [anglais](/)
+- Un binding Flutter est disponible pour créer des applications sans avoir à écrire une seule ligne de Rust. [Commencer avec Flutter](@/learn/_index.md) fournit toutes les étapes pour déveloper avec Flutter. 
 
+- Approfondissez vos connaissances dans la section [Apprendre](@/learn/_index.md).
+
+- Et toute contribution est bienvenue sur [Github](@/learn/_index.md)!
+
+ Ce site est aussi disponible en [anglais](/).

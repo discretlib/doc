@@ -5,4 +5,3 @@ page_template = "index-page.html"
 
 
 
-

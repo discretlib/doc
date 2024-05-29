@@ -1,7 +1,6 @@
-{% extends "index.html" %}
+{% extends "index.fr.html" %}
 
 {% block content %}
-
 <section class="sticky">
     <nav class="menu">
         {% block menu %}
@@ -36,24 +35,26 @@
 
 <article>
     <h1>
-        {{ page.title }}
+        {{ section.title }}
     </h1>
-    {{ page.content | safe }}
+    <ul>
+        <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->
+        {% for page in section.pages %}
+        <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
 </article>
 
 {% if page.toc %}
-<nav class="sticky">
-    <section class="toc">
-        <h1>On this page</h1>
-        <ul>
-            {% for h1 in page.toc %}
-            <li>
-                <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-</nav>
+<div class="toc">
+    <strong>Sur cette page</strong>
+    <ul>
+        {% for h1 in page.toc %}
+        <li>
+            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endif %}
-
 {% endblock content %}

@@ -41,7 +41,7 @@ Scalar types are *case incensitive*. for example, **integer** or **iNteGer** is 
 
 By default scalar types are *not* nullable. but it is possible to :
 - provide a default value
-- make the field not nullable
+- make the field *nullable*
   
 You cannot combine **nullable** and **default** for the same field.
 
@@ -72,19 +72,19 @@ You cannot combine **nullable** and **default** for the same field.
 
 
 # Relation Field
-Relation fields link object together, allowing for complex data modelisation and query.
+Relation fields link entities together, allowing for complex data modelisation and query.
 There is two kinds of relation field:
-- *single* relationship where the field can reference one object at most 
+- *unique* relationship where the field can reference one object at most 
 - *multiple* relationship where the field can reference many objects
 
-It is not possible to define default values for relation fields. 
+Relation fields  are nullable and it is not possible gives them a default value. 
 
 The syntax is the following.
 ```js
 {
     Person {
         name: String,
-        pet: Pet,           //single relationship
+        pet: Pet,           //unique relationship
         parents:[Person]    //mutiple relationship
     }
 
@@ -126,23 +126,25 @@ In this example two namespace are defined: **mod_one** and the default namespace
 
 
 # System fields 
-Every entity have a set of system fields. Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
-
+Every entity have a set of system fields, most of which being used internaly by Discret.
 - **id**: the unique identifier of the object.
 - **room_id**: id of the room that contains the access right for the object
 - **cdate**: creation date
 - **mdate**: last modification date
 - **verifying_key** : identity of the user that created or last modified the object
 - **_json**: stores the entity data
-- **_binary**: a binary field to store anything
+- **_binary**: a binary field. This field is not used internaly and can be freely used to store any data
 - **_signature**: upon insertion, the verifying_key is used to verify this signature to ensure data integrity
 
+Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
 
 # Index
 The base system already possesses indexes that should be enought for a lot of use cases. 
 If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
  
 Indexes can only be put on scalar and system fields. 
+
+This example creates an index on the **(name, id)** tuple:
 ```js
 {
     Person {
@@ -153,17 +155,18 @@ Indexes can only be put on scalar and system fields.
     }
 }
 ```
-The example creates an index on the **(name, id)** tuple
 
 
 # Disabling full text indexing
-By default, every String fields are indexed to allow full text search. It can be disabled using the **no_full_text_index** flag.
-The index defined inside the entity will still be functional.
+By default, every **String** fields are indexed to allow full text search. It can be disabled using the **no_full_text_index** flag.
+
+The index defined inside the entity will not be disabled.
 
 ```js
 my_data {
     Person( no_full_text_index) {
         name : String,
+        index(name) //not disabled
     }
 }
 ```
@@ -236,7 +239,7 @@ my_data {
     }
 
     Person {
-        //Error: name field is removed
+        //Error: 'name' field is removed
 
         //Error: new field before an existing one
         parents : [Person],

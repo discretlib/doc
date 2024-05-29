@@ -1,5 +1,5 @@
 +++
-weight = 1
+weight = 4
 +++
 P2P connections leaks your IP address and should only be used with trusted peers. It may exposes you to the following threats:
 - Leak of your "Real World" location via geolocation services.

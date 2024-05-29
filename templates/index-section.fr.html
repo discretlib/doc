@@ -26,6 +26,10 @@
     <section class="direct">
         {{ section.content | safe }}
     </section>
+
+    {% set index = get_section(path="landing_page/_index.md") %}
+    {{ index.content | safe}}
+
     <section class="data">
         <section class="features">
             {% set index = get_section(path="landing_page/features/_index.fr.md") %}

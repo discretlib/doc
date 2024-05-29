@@ -261,6 +261,7 @@ article {
         padding-top: 1rem;
         margin-bottom: 1rem;
         border-bottom: 1px solid var(--border-color);
+
     }
 
     strong,
@@ -272,6 +273,7 @@ article {
         padding: 0px 0.25rem;
         padding-bottom: 2px;
         font-weight: bolder;
+        margin: 1px;
     }
 
     ul li,
@@ -473,14 +475,14 @@ article {
         //     border-top: 1px solid var(--border-color);
 
         p {
-            text-align: center;
+            text-align: left;
         }
 
         a {
             text-decoration: underline;
         }
 
-        p:nth-child(1) {
+        >p:nth-child(1) {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;

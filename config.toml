@@ -9,10 +9,10 @@ build_search_index = false
 
 output_dir = "docs"
 
-generate_feed = true
+
 
 [languages.fr]
-generate_feed = true
+
 
 [markdown]
 # Whether to do syntax highlighting

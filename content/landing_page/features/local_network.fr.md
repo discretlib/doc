@@ -1,6 +1,6 @@
 +++
-title="Connection Facilitées"
+title="Connexion Facilitées"
 weight = 4
 +++
 
-En réseau local, aucun equiment n'est requis pour établir des connections. Cela simplifie grandement le deploiement et l'utilisation de logiciels basés sur *Discret*
+En réseau local, aucun equiment n'est requit pour établir des connexions. Cela simplifie grandement le déploiement et l'utilisation de logiciels basés sur *Discret*

@@ -1,5 +1,5 @@
 +++
-weight = 4
+weight = 2
 +++
 
 Pour les connexions à travers internet, un serveur est requis pour permettre aux pairs de se trouver. Discret fournit une implementation ce serveur nommée Beacon.
