@@ -16,3 +16,5 @@ page_template = "index-page.fr.html"
 - Et toute contribution est bienvenue sur [Github](@/learn/_index.md)!
 
  Ce site est aussi disponible en [anglais](/).
+
+

@@ -228,7 +228,7 @@ article {
 
     min-width: 20rem;
     max-width: var(--article-width);
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     margin: 0;
 
     ul {
@@ -294,8 +294,6 @@ article {
 }
 
 
-
-
 .menu {
     margin: 0;
     margin-top: 1rem;
@@ -306,9 +304,6 @@ article {
     border: 1px solid var(--border-color);
     border-radius: 5px;
 
-}
-
-.menu {
     a {
         text-decoration: none;
         width: 100%;
@@ -351,7 +346,7 @@ article {
 
 .toc {
     margin: 0;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     width: var(--toc-width);
 }
 
@@ -384,11 +379,55 @@ article {
     }
 }
 
+.wordcount {
+    font-size: 80%;
+    color: #aaa;
+}
+
+.section {
+    a {
+        font-size: larger;
+    }
+
+    ul {
+        padding: 0;
+        list-style: none;
+        margin: 0;
+    }
+
+    li:last-of-type {
+        border-bottom: 0px;
+    }
+
+    li {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
+
+.lower_nav {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    div {
+        width: 50%;
+    }
+
+    div:last-of-type {
+        text-align: right;
+    }
+}
+
+
 .footer {
     display: block;
     text-align: center;
     border-top: 1px solid var(--border-color);
-    margin-top: 3rem;
+    margin-top: 2rem;
     padding-top: 1rem;
     padding-bottom: 2rem;
     color: #aaa;

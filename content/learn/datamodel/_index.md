@@ -6,3 +6,4 @@ page_template = "learn-page.html"
 weight = 1
 +++
 
+In this section, you will learn how to create a data model and how to use it

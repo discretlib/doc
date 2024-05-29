@@ -39,6 +39,16 @@
         {{ page.title }}
     </h1>
     {{ page.content | safe }}
+
+    <nav class="lower_nav">
+        <div>{% if page.lower %} <a href="{{ page.lower.permalink | safe }}"><i class="fa fa-arrow-left"></i> Précédent:
+                {{
+                page.lower.title }}</a>{% endif %}
+        </div>
+        <div>{% if page.higher %}<a href="{{ page.higher.permalink | safe }}">Suivant: {{ page.higher.title }} <i
+                    class="fa fa-arrow-right"></i></a> {% endif %}
+        </div>
+    </nav>
 </article>
 
 {% if page.toc %}
@@ -52,6 +62,7 @@
             </li>
             {% endfor %}
         </ul>
+        <div class="wordcount">{{page.word_count}} mots, {{page.reading_time}} min de lecture</div>
     </section>
 </nav>
 {% endif %}

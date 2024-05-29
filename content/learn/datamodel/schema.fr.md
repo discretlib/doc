@@ -1,5 +1,6 @@
 +++
 title = "Schémas et Entités"
+description = "Apprenez à créer et modifier un modèle de données"
 weight = 1
 +++
 

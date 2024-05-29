@@ -6,7 +6,7 @@
     <nav class="menu">
         {% block menu %}
         <ul>
-            {% set index = get_section(path="learn/_index.fr.md") %}
+            {% set index = get_section(path="learn/_index.md") %}
             <li {% if current_path==index.path %}class="active" {% endif %}>
                 <a href="{{ index.permalink | safe }}">
                     {{ index.title }}
@@ -39,6 +39,15 @@
         {{ page.title }}
     </h1>
     {{ page.content | safe }}
+    <nav class="lower_nav">
+        <div>{% if page.lower %} <a href="{{ page.lower.permalink | safe }}"><i class="fa fa-arrow-left"></i> Previous:
+                {{
+                page.lower.title }}</a>{% endif %}
+        </div>
+        <div>{% if page.higher %} <a href="{{ page.higher.permalink | safe }}">Next: {{ page.higher.title }}<i
+                    class="fa fa-arrow-right"></i></a> {% endif %}
+        </div>
+    </nav>
 </article>
 
 {% if page.toc %}
@@ -52,6 +61,7 @@
             </li>
             {% endfor %}
         </ul>
+        <div class="wordcount">{{page.word_count}} words, {{page.reading_time}} min read</div>
     </section>
 </nav>
 {% endif %}

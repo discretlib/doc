@@ -1,5 +1,6 @@
 +++
 title = "Queries"
+description = "learn how to use the query engine and all its options"
 weight = 3
 +++
 

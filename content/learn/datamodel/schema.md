@@ -1,5 +1,6 @@
 +++
 title = "Schema and Entities"
+description = "learn how to create and update the data model"
 weight = 1
 +++
 

@@ -33,14 +33,18 @@
     </nav>
 </section>
 
-<article>
+<article class="section">
     <h1>
         {{ section.title }}
     </h1>
+    {{ section.content | safe}}
     <ul>
-        <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->
         {% for page in section.pages %}
-        <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+        <li>
+            <div><a href="{{ page.permalink | safe }}">{{ page.title }}</a></div>
+            <div class="wordcount">{{page.word_count}} words, {{page.reading_time}} min read</div>
+            {{page.description}}
+        </li>
         {% endfor %}
     </ul>
 </article>
