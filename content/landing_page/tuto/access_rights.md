@@ -3,7 +3,7 @@ title ="Define Access Rights"
 weight = 2
 +++
 ```ts
-mutation {
+mutate {
     sys.Room {
         admin: [{
             verif_key: $peer_key

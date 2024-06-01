@@ -3,7 +3,7 @@ title ="Insert and mutate data"
 weight = 3
 +++
 ```ts
-mutation {
+mutate {
     p1: Person { 
         room_id: $room_id
         name: "Alice" 

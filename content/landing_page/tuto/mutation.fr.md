@@ -3,7 +3,7 @@ title ="Insérez vos données"
 weight = 3
 +++
 ```ts
-mutation {
+mutate {
     p1: Personne { 
         room_id: $room_id
         nom: "Alice" 

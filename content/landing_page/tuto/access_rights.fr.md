@@ -3,7 +3,7 @@ title ="Gérez les droits d'accès"
 weight = 2
 +++
 ```ts
-mutation {
+mutate {
     sys.Room {
         admin: [{
             verif_key: $peer_key
