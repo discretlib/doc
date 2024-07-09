@@ -1,5 +1,5 @@
 +++
-title = "Hire me"
+title = "Gestion des Données"
 sort_by = "weight"
 template = "learn-section.fr.html"
 page_template = "learn-page.fr.html"
