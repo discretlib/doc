@@ -129,7 +129,7 @@ In this example two namespace are defined: **mod_one** and the default namespace
 # System fields 
 Every entity have a set of system fields, most of which being used internaly by Discret.
 - **id**: the unique identifier of the object.
-- **room_id**: id of the room that contains the access right for the object
+- **room_id**: id of the [Room](@/learn/access_rights/room.md) that contains the access rights for the object
 - **cdate**: creation date
 - **mdate**: last modification date
 - **verifying_key** : identity of the user that created or last modified the object

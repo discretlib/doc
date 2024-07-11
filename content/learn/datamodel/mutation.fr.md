@@ -18,9 +18,9 @@ Les exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
 ```
 
 # Insérer
-Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champs **id**. Cet identifiant est retourné par la requête de *mutation*.
+Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ **id**. Cet identifiant est retourné par la requête de *mutation*.
 
-La syntaxe pour inserer un nouveau tuple est la suivante:
+La syntaxe pour insérer un nouveau tuple est la suivante:
 ```js
 mutate {
     Person {
@@ -44,7 +44,7 @@ Le résultat d'une requête de mutation retourne un object JSON comprenant les c
 
 
 # Mutation multiples
-Il est possible de faire plusieurs mutations en une seule requête
+Il est possible de faire plusieurs mutations en une seule requête:
 ```js
 mutate {
     p1: Person {
@@ -85,7 +85,7 @@ Vous noterez que pour des raisons techniques, l'ordre des champs JSON retournés
 
 
 # Imbrication 
-Il est possible d'insérer en une seule requête une entité et ses relations. Pour l'exemple de **Person**, la requête suivante va insérér 'John Doe' ainsi que ses parents.
+Il est possible d'insérer en une seule requête une entité et ses relations. Pour l'exemple de **Person**, la requête suivante va insérer 'John Doe' ainsi que ses parents.
 ```js
 mutate {
     Person {
@@ -103,8 +103,8 @@ mutate {
 ```
 
 Vous pourrez noter que:
-- la définition des deux parents est séparée par une virgule
-- il n'est pas necessaire d'indiquer que Alice et Bob sont de type **Person** car cela et sous entendu par la définition du schéma.
+- la définition des deux parents est séparée par une virgule;
+- il n'est pas nécessaire d'indiquer que Alice et Bob sont de type **Person** car cela et sous entendu par la définition du schéma.
 
 Si les relations ont déja été insérées et que vous connaissez leur **id** il est possible de les utiliser lors de l'insertion d'un nouveau tuple
 ```js
@@ -124,7 +124,7 @@ mutate {
     }
 }
 ```
-Si les **id** fournis n'existent pas, une erreur est retournée.
+Si les **id** fournits n'existent pas, une erreur est retournée.
 
 # Mettre à jour 
 Une requête de mise à jour est de type *mutation* qui contient l'identifiant du tuple à modifier.
@@ -166,7 +166,7 @@ mutate {
     }
 }
 ```
-cette requête supprime tous les parents du tuple référencé par **$id**
+Cette requête supprime tous les parents du tuple référencé par **$id**
 
 
 # Suppression de données

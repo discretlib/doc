@@ -58,6 +58,12 @@
         <loc>https://discretlib.github.io/doc/fr/learn/</loc>
     </url>
     <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/access_rights/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/access_rights/room/</loc>
+    </url>
+    <url>
         <loc>https://discretlib.github.io/doc/fr/learn/datamodel/</loc>
     </url>
     <url>
@@ -121,7 +127,10 @@
         <loc>https://discretlib.github.io/doc/learn/</loc>
     </url>
     <url>
-        <loc>https://discretlib.github.io/doc/learn/authorisations/</loc>
+        <loc>https://discretlib.github.io/doc/learn/access_rights/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/learn/access_rights/room/</loc>
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/learn/datamodel/</loc>
@@ -134,8 +143,5 @@
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/learn/datamodel/schema/</loc>
-    </url>
-    <url>
-        <loc>https://discretlib.github.io/doc/learn/invitations/</loc>
     </url>
 </urlset>

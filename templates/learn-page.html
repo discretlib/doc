@@ -29,6 +29,13 @@
                 {% endfor %}
             </ul>
             {% endfor %}
+            {% for page in index.pages %}
+            <li {% if current_path==page.path %}class="active" {% endif %}>
+                <a href="{{ page.permalink | safe }}">
+                    {{ page.title }}
+                </a>
+            </li>
+            {% endfor %}
         </ul>
         {% endblock menu %}
     </nav>

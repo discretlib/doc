@@ -28,6 +28,14 @@
                 {% endfor %}
             </ul>
             {% endfor %}
+
+            {% for page in index.pages %}
+            <li {% if current_path==page.path %}class="active" {% endif %}>
+                <a href="{{ page.permalink | safe }}">
+                    {{ page.title }}
+                </a>
+            </li>
+            {% endfor %}
         </ul>
         {% endblock menu %}
     </nav>
@@ -37,7 +45,19 @@
     <h1>
         {{ section.title }}
     </h1>
+    {{ section.description }}
     {{ section.content | safe}}
+
+    <ul>
+        {% for s in section.subsections %}
+        {% set subsection = get_section(path=s) %}
+        <li>
+            <div><a href="{{ subsection.permalink | safe }}">{{ subsection.title }}</a></div>
+            {{subsection.description}}
+        </li>
+        {% endfor %}
+    </ul>
+
     <ul>
         {% for page in section.pages %}
         <li>

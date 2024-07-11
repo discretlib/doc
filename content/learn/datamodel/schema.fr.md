@@ -131,7 +131,7 @@ Chaque entité possède un ensemble de champs système dédié au bon fonctionne
 Every entity have a set of system fields. Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
 
 - **id**: stocke l'itendifiant unique de l'objet
-- **room_id**: identitifiant du groupe de sécurité qui definit les drois d'access à l'objet.
+- **room_id**: identitifiant de la [Room](@/learn/access_rights/room.fr.md) qui definit les drois d'access à l'objet. Vous trouverez plus d'information sur les 
 - **cdate**: date de creation
 - **mdate**: date de la dernière modification
 - **verifying_key** : identité de l'utilisation qui a modifié l'objet en dernier
