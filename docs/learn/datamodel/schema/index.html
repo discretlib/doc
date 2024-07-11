@@ -234,8 +234,8 @@
 <p>Relation fields link entities together, allowing for complex data modelisation and query.
 There is two kinds of relation field:</p>
 <ul>
-<li><em>unique</em> relationship where the field can reference one object at most </li>
-<li><em>multiple</em> relationship where the field can reference many objects</li>
+<li><em>unique</em> relationship where the field can reference one tuple at most </li>
+<li><em>multiple</em> relationship where the field can reference many tuples</li>
 </ul>
 <p>Relation fields  are nullable and it is not possible gives them a default value. </p>
 <p>The syntax is the following.</p>
@@ -283,11 +283,11 @@ There is two kinds of relation field:</p>
 <h1 id="system-fields">System fields</h1>
 <p>Every entity have a set of system fields, most of which being used internaly by Discret.</p>
 <ul>
-<li><strong>id</strong>: the unique identifier of the object.</li>
-<li><strong>room_id</strong>: id of the <a href="https://discretlib.github.io/doc/learn/access_rights/room/">Room</a> that contains the access rights for the object</li>
+<li><strong>id</strong>: the unique identifier of the tuple.</li>
+<li><strong>room_id</strong>: id of the <a href="https://discretlib.github.io/doc/learn/access_rights/room/">Room</a> that contains the access rights for the tuple</li>
 <li><strong>cdate</strong>: creation date</li>
 <li><strong>mdate</strong>: last modification date</li>
-<li><strong>verifying_key</strong> : identity of the user that created or last modified the object</li>
+<li><strong>verifying_key</strong> : identity of the user that created or last modified the tuple</li>
 <li><strong>_json</strong>: stores the entity data</li>
 <li><strong>_binary</strong>: a binary field. This field is not used internaly and can be freely used to store any data</li>
 <li><strong>_signature</strong>: upon insertion, the verifying_key is used to verify this signature to ensure data integrity</li>
@@ -295,7 +295,7 @@ There is two kinds of relation field:</p>
 <p>Those fields can be queried like regular fields, but only <strong>room_id</strong> and <strong>_binary</strong> can be modified directly.</p>
 <h1 id="index">Index</h1>
 <p>The base system already possesses indexes that should be enought for a lot of use cases. 
-If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature <em>wisely</em>, two many indexes can result in degraded insertion performances, . </p>
+If an entity contains a very large number of tuples, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature <em>wisely</em>, two many indexes can result in degraded insertion performances, . </p>
 <p>Indexes can only be put on scalar and system fields. </p>
 <p>This example creates an index on the <strong>(name, id)</strong> tuple:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>

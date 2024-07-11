@@ -4,7 +4,7 @@ description = "Apprenez à créer et modifier un modèle de données"
 weight = 1
 +++
 
-Discret utilise un language de Schémas pour décrire les données que vous pouvez insérer.
+Discret utilise un language de schémas pour décrire les données que vous pouvez insérer.
 
 
 # Syntaxe 
@@ -20,7 +20,7 @@ Commençons par un exemple simple:
 }
 ```
 Nous avons défini une entité nommée **Person** qui contient trois champs:
-- **name** qui doit contenir un type **String**. Par défaut les champs ne peuvent pas être vides. 
+- **name** qui doit contenir un type **String**. Par défaut les champs ne peuvent pas être vides (null). 
 - **nickname** qui peut être vide (**nullable**) et de type **String**.
 - **parents** contient une liste de **Person**. Nous l'appelerons *champ relationel* dans la documentation. 
 
@@ -36,7 +36,7 @@ Discret definit les types scalaires suivant pour stocker vos données:
 - **String**: Une séquence de caractères UTF‐8,
 - **Boolean**: "true" ou "false" (vrai ou faux) ,
 - **Json**: Une séquence de caractères UTF‐8 contenant un objet Json,
-- **Base64**: a object binaire codé en base64.
+- **Base64**: Un object binaire codé en base64.
 
 Les types scalaires sont *insensibles à la casse*. Par exemple, **integer** ou **iNteGer** sont valides.
 
@@ -75,8 +75,8 @@ il n'est pas possible de combiner **nullable** and **default** pour le même cha
 # Champs Relationels
 Les champs relationels lient des entités entre elles, permettant de définir des modèles de données complexes.
 Il y a deux types de champs relationels:
-- relation *unique*: le champ ne peut référencer qu'un seul objet au plus. 
-- relation *multiples*: le champ peut référencer de nombreux objets.
+- relation *unique*: le champ ne peut référencer qu'un seul tuple au plus. 
+- relation *multiples*: le champ peut référencer de nombreux tuples.
 
 Les champs relationels peuvent être vides, et on ne peut pas leur définir une valeur par défaut.  
 
@@ -94,7 +94,7 @@ La syntaxe est la suivante:
     }
 }
 ```
-Un objet définit par **Person** ne peut avoir qu'un seul **Pet**, mais autant **parents** que vous le souhaitez.
+Un tuple définit par **Person** ne peut avoir qu'un seul **Pet**, mais autant **parents** que vous le souhaitez.
 
 # Espace de nom
 Les applications complexes peuvent avoir besoin d'un grand nombre d'entités. Il est possible de séparer ces entités dans des espaces de nom afin d'améliorer la modularité de l'application. Vous devriez envisager d'utiliser cette fonctionnalité pour les gros projets.
@@ -130,11 +130,11 @@ Cet exemple possède deux espaces de noms: **mod_one**, et l'espace de nom par d
 Chaque entité possède un ensemble de champs système dédié au bon fonctionnement de la librarie. 
 Every entity have a set of system fields. Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
 
-- **id**: stocke l'itendifiant unique de l'objet
-- **room_id**: identitifiant de la [Room](@/learn/access_rights/room.fr.md) qui definit les drois d'access à l'objet. Vous trouverez plus d'information sur les 
+- **id**: stocke l'itendifiant unique du tuple
+- **room_id**: identitifiant de la [Room](@/learn/access_rights/room.fr.md) qui definit les drois d'access au tuple. Vous trouverez plus d'information sur les 
 - **cdate**: date de creation
 - **mdate**: date de la dernière modification
-- **verifying_key** : identité de l'utilisation qui a modifié l'objet en dernier
+- **verifying_key** : identité de l'utilisation qui a modifié le tuple en dernier
 - **_json**: contient les données propre à l'entité que vous avez défini.
 - **_binary**: un champs binaire que vous pouvez utiliser pour stocker des données
 - **_signature**: lors d'une insertion ou modification, le champs *verifying_key* est utilisé pour verifier la signature. Cela garantie l'intégrité des données echangées par les pairs.
@@ -144,7 +144,7 @@ Ces champs peuvent être intérrogés comme les champs que vous avez defini. Mai
 # Indexes
 Le système définit un ensemble d'index qui devraient être suffisant pour garantir de bonnes performances dans la majeure partie des cas d'utilisation.
 
-Si une entité possède un très grand nombre d'objet et que des problèmes de performance se font sentir, il est possible de créer des index personalisés.
+Si une entité possède un très grand nombre de tuples et que des problèmes de performance se font sentir, il est possible de créer des index personalisés.
 Cette fonctionalité doit être utilisée avec *prudence*, car les indexes augmentente la taille des données et ralentissent les insertions.
  
 Les Indexes ne peuvent être utilisés que sur des champs scalaires et systèmes. 

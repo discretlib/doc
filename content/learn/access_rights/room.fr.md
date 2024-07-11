@@ -126,18 +126,82 @@ Dans la *Room* définissant les droits d'accès au blog, nous allons donc créer
 - authors: qui contiendra les droits des auteurs
 - readers: qui contiendra les droits des lecteurs
 
-la définition de la Room est la suivante:
-```js
+La *Room* est créée avec la requête suivante la suivante:
+```js, linenos
 mutate {
-    sys.Room {
-
+    sys.Room{
+        admin: [{
+            verif_key:$admin_user
+        }]
+        authorisations:[{
+            name:"authors"
+            rights:[
+                {
+                    entity:"blog.Article"
+                    mutate_self:true
+                    mutate_all:true
+                },
+                {
+                    entity:"blog.Comment"
+                    mutate_self:true
+                    mutate_all:true
+                }
+            ]
+            users:[{
+                verif_key:$author
+            }]
+        },{
+            name:"readers"
+            rights:[ {
+                    entity:"blog.Comment"
+                    mutate_self:true
+                    mutate_all:false
+            }]
+            users:[{
+                verif_key:$reader_1
+            },{
+                verif_key:$reader_1
+            }]
+        }]
     }
 }
 ```
-et retournera l'object JSON suivant:
+
+la ligne 
 
 
 
 Vous noterez que nous n'avons pas défini de droits sur l'entité **Articles** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
+
+# Exemple: un calendrier partagé 
+Cet exemple est plus complexe que le précedent et montre une interaction entre plusieur **Rooms**.
+
+Pour un calendrier partagé nous devons pouvoir séparer la visibilité entre la date d'un rendez-vous et son contenu. Par exemple:
+- nous voudrions partager notre emploi du temps à tous les collaborateurs de notre entreprise mais sans partager les détails. Cela permet aux collaborateurs de connaître nos disponibilités.
+- nous partageons les détails pour les quelques personnes de notre équipe , afin qu'ils sachent en plus ce que nous faisons.
+
+Comme les utilisateurs d'une **Room** ont accès à toutes les donnée, nous avons besoin de deux *Rooms* différentes:
+- une pour stocker les date de rendez-vous
+- une pour stocker les détails des rendez-vous
+
+Nous utiliserons ce modèle simplifié:
+```js
+cal {
+    Calendar {
+        name: String,
+        appointments: [cal.Appointment],
+    }
+
+    Appointment {
+        start: Integer,
+        end: Integer,
+        detail: cal.AppointmentDetail
+    }
+
+    AppointmentDetail {
+        title: String,
+    }
+}
+```
 
 

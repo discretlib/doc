@@ -56,7 +56,7 @@ query {
     }
 }
 ```
-Cette requête retournera l'object JSON suivant:
+Cette requête retournera l'objet JSON suivant:
 ```json
 {
     "result":[

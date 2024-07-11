@@ -75,8 +75,8 @@ You cannot combine **nullable** and **default** for the same field.
 # Relation Field
 Relation fields link entities together, allowing for complex data modelisation and query.
 There is two kinds of relation field:
-- *unique* relationship where the field can reference one object at most 
-- *multiple* relationship where the field can reference many objects
+- *unique* relationship where the field can reference one tuple at most 
+- *multiple* relationship where the field can reference many tuples
 
 Relation fields  are nullable and it is not possible gives them a default value. 
 
@@ -128,11 +128,11 @@ In this example two namespace are defined: **mod_one** and the default namespace
 
 # System fields 
 Every entity have a set of system fields, most of which being used internaly by Discret.
-- **id**: the unique identifier of the object.
-- **room_id**: id of the [Room](@/learn/access_rights/room.md) that contains the access rights for the object
+- **id**: the unique identifier of the tuple.
+- **room_id**: id of the [Room](@/learn/access_rights/room.md) that contains the access rights for the tuple
 - **cdate**: creation date
 - **mdate**: last modification date
-- **verifying_key** : identity of the user that created or last modified the object
+- **verifying_key** : identity of the user that created or last modified the tuple
 - **_json**: stores the entity data
 - **_binary**: a binary field. This field is not used internaly and can be freely used to store any data
 - **_signature**: upon insertion, the verifying_key is used to verify this signature to ensure data integrity
@@ -141,7 +141,7 @@ Those fields can be queried like regular fields, but only **room_id** and **_bin
 
 # Index
 The base system already possesses indexes that should be enought for a lot of use cases. 
-If an entity contains a very large number of objects, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
+If an entity contains a very large number of tuples, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
  
 Indexes can only be put on scalar and system fields. 
 

@@ -191,8 +191,8 @@ delete {
 ```
 
 
-# Propagation des "Rooms"
-La plupart des données que vous allez insérer se feront avec une **room_id** afin de permettre la synchronisation. Dans le cas d'une requête imbriquée, la **room_id** du tuple *parent* sera propagé aux tuples d'une relation si ceux ci n'ont pas de **room_id**. Cela permet de simplifier la syntaxe en cas de requête complexe.
+# Propagation de la *Room*
+La plupart des données que vous allez insérer seront attaché à une [Room](@/learn/access_rights/room.fr.md) à l'aide du champ système **room_id**. Dans le cas d'une requête imbriquée, la **room_id** du tuple *parent* sera propagé aux tuples d'une relation si ceux ci n'ont pas de **room_id**. Cela permet de simplifier la syntaxe en cas de requête complexe.
 
 Dans l'exemple suivant, "Alice" sera insérée dans la "room" ayant pour id **$room_id**.
 ```js

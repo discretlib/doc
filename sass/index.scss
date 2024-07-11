@@ -244,6 +244,11 @@ article {
         line-height: 1.2;
     }
 
+    // The line number cells
+    pre table td:nth-of-type(1) {
+        text-align: center;
+        user-select: none;
+    }
 
     h1:first-of-type {
         margin-top: 0;

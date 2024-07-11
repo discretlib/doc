@@ -174,7 +174,7 @@
     <h1>
         Schémas et Entités
     </h1>
-    <p>Discret utilise un language de Schémas pour décrire les données que vous pouvez insérer.</p>
+    <p>Discret utilise un language de schémas pour décrire les données que vous pouvez insérer.</p>
 <h1 id="syntaxe">Syntaxe</h1>
 <p>Commençons par un exemple simple:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -187,7 +187,7 @@
 </span></code></pre>
 <p>Nous avons défini une entité nommée <strong>Person</strong> qui contient trois champs:</p>
 <ul>
-<li><strong>name</strong> qui doit contenir un type <strong>String</strong>. Par défaut les champs ne peuvent pas être vides. </li>
+<li><strong>name</strong> qui doit contenir un type <strong>String</strong>. Par défaut les champs ne peuvent pas être vides (null). </li>
 <li><strong>nickname</strong> qui peut être vide (<strong>nullable</strong>) et de type <strong>String</strong>.</li>
 <li><strong>parents</strong> contient une liste de <strong>Person</strong>. Nous l'appelerons <em>champ relationel</em> dans la documentation. </li>
 </ul>
@@ -201,7 +201,7 @@
 <li><strong>String</strong>: Une séquence de caractères UTF‐8,</li>
 <li><strong>Boolean</strong>: &quot;true&quot; ou &quot;false&quot; (vrai ou faux) ,</li>
 <li><strong>Json</strong>: Une séquence de caractères UTF‐8 contenant un objet Json,</li>
-<li><strong>Base64</strong>: a object binaire codé en base64.</li>
+<li><strong>Base64</strong>: Un object binaire codé en base64.</li>
 </ul>
 <p>Les types scalaires sont <em>insensibles à la casse</em>. Par exemple, <strong>integer</strong> ou <strong>iNteGer</strong> sont valides.</p>
 <p>Par défaut les champs de type scalaires <em>ne peuvent pas</em> être vide (nullable). Mais il est possible de:</p>
@@ -237,8 +237,8 @@
 <p>Les champs relationels lient des entités entre elles, permettant de définir des modèles de données complexes.
 Il y a deux types de champs relationels:</p>
 <ul>
-<li>relation <em>unique</em>: le champ ne peut référencer qu'un seul objet au plus. </li>
-<li>relation <em>multiples</em>: le champ peut référencer de nombreux objets.</li>
+<li>relation <em>unique</em>: le champ ne peut référencer qu'un seul tuple au plus. </li>
+<li>relation <em>multiples</em>: le champ peut référencer de nombreux tuples.</li>
 </ul>
 <p>Les champs relationels peuvent être vides, et on ne peut pas leur définir une valeur par défaut.</p>
 <p>La syntaxe est la suivante:</p>
@@ -254,7 +254,7 @@ Il y a deux types de champs relationels:</p>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Un objet définit par <strong>Person</strong> ne peut avoir qu'un seul <strong>Pet</strong>, mais autant <strong>parents</strong> que vous le souhaitez.</p>
+<p>Un tuple définit par <strong>Person</strong> ne peut avoir qu'un seul <strong>Pet</strong>, mais autant <strong>parents</strong> que vous le souhaitez.</p>
 <h1 id="espace-de-nom">Espace de nom</h1>
 <p>Les applications complexes peuvent avoir besoin d'un grand nombre d'entités. Il est possible de séparer ces entités dans des espaces de nom afin d'améliorer la modularité de l'application. Vous devriez envisager d'utiliser cette fonctionnalité pour les gros projets.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mod_one</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -287,11 +287,11 @@ Il y a deux types de champs relationels:</p>
 <p>Chaque entité possède un ensemble de champs système dédié au bon fonctionnement de la librarie. 
 Every entity have a set of system fields. Those fields can be queried like regular fields, but only <strong>room_id</strong> and <strong>_binary</strong> can be modified directly.</p>
 <ul>
-<li><strong>id</strong>: stocke l'itendifiant unique de l'objet</li>
-<li><strong>room_id</strong>: identitifiant de la  <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> qui definit les drois d'access à l'objet. Vous trouverez plus d'information sur les </li>
+<li><strong>id</strong>: stocke l'itendifiant unique du tuple</li>
+<li><strong>room_id</strong>: identitifiant de la <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> qui definit les drois d'access au tuple. Vous trouverez plus d'information sur les </li>
 <li><strong>cdate</strong>: date de creation</li>
 <li><strong>mdate</strong>: date de la dernière modification</li>
-<li><strong>verifying_key</strong> : identité de l'utilisation qui a modifié l'objet en dernier</li>
+<li><strong>verifying_key</strong> : identité de l'utilisation qui a modifié le tuple en dernier</li>
 <li><strong>_json</strong>: contient les données propre à l'entité que vous avez défini.</li>
 <li><strong>_binary</strong>: un champs binaire que vous pouvez utiliser pour stocker des données</li>
 <li><strong>_signature</strong>: lors d'une insertion ou modification, le champs <em>verifying_key</em> est utilisé pour verifier la signature. Cela garantie l'intégrité des données echangées par les pairs.</li>
@@ -299,7 +299,7 @@ Every entity have a set of system fields. Those fields can be queried like regul
 <p>Ces champs peuvent être intérrogés comme les champs que vous avez defini. Mais seul <strong>room_id</strong> et <strong>_binary</strong> peuvent être modifiés directement.</p>
 <h1 id="indexes">Indexes</h1>
 <p>Le système définit un ensemble d'index qui devraient être suffisant pour garantir de bonnes performances dans la majeure partie des cas d'utilisation.</p>
-<p>Si une entité possède un très grand nombre d'objet et que des problèmes de performance se font sentir, il est possible de créer des index personalisés.
+<p>Si une entité possède un très grand nombre de tuples et que des problèmes de performance se font sentir, il est possible de créer des index personalisés.
 Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexes augmentente la taille des données et ralentissent les insertions.</p>
 <p>Les Indexes ne peuvent être utilisés que sur des champs scalaires et systèmes. </p>
 <p>Cet exemple crée un index sur le tuple <strong>(name, id)</strong>:</p>
@@ -467,7 +467,7 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
             </li>
             
         </ul>
-        <div class="wordcount">1307 mots, 7 min de lecture</div>
+        <div class="wordcount">1310 mots, 7 min de lecture</div>
     </section>
 </nav>
 

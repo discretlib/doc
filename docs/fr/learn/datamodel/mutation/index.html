@@ -332,8 +332,8 @@ il est possible de supprimer un tuple, ou bien une relation dans un champs du tu
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<h1 id="propagation-des-rooms">Propagation des &quot;Rooms&quot;</h1>
-<p>La plupart des données que vous allez insérer se feront avec une <strong>room_id</strong> afin de permettre la synchronisation. Dans le cas d'une requête imbriquée, la <strong>room_id</strong> du tuple <em>parent</em> sera propagé aux tuples d'une relation si ceux ci n'ont pas de <strong>room_id</strong>. Cela permet de simplifier la syntaxe en cas de requête complexe.</p>
+<h1 id="propagation-de-la-room">Propagation de la <em>Room</em></h1>
+<p>La plupart des données que vous allez insérer seront attaché à une <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> à l'aide du champ système <strong>room_id</strong>. Dans le cas d'une requête imbriquée, la <strong>room_id</strong> du tuple <em>parent</em> sera propagé aux tuples d'une relation si ceux ci n'ont pas de <strong>room_id</strong>. Cela permet de simplifier la syntaxe en cas de requête complexe.</p>
 <p>Dans l'exemple suivant, &quot;Alice&quot; sera insérée dans la &quot;room&quot; ayant pour id <strong>$room_id</strong>.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -390,11 +390,11 @@ il est possible de supprimer un tuple, ou bien une relation dans un champs du tu
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/fr/learn/datamodel/mutation/#propagation-des-rooms">Propagation des &quot;Rooms&quot;</a>
+                <a href="https://discretlib.github.io/doc/fr/learn/datamodel/mutation/#propagation-de-la-room">Propagation de la Room</a>
             </li>
             
         </ul>
-        <div class="wordcount">648 mots, 4 min de lecture</div>
+        <div class="wordcount">653 mots, 4 min de lecture</div>
     </section>
 </nav>
 
