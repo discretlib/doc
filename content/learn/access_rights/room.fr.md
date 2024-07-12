@@ -167,11 +167,11 @@ mutate {
 }
 ```
 
-la ligne 
+les lignes *7* à *23* décrivent les authorisations pour les auteurs, et les lignes 24 *à* 34  décrivent les authorisations pour les lecteurs.
 
-
-
-Vous noterez que nous n'avons pas défini de droits sur l'entité **Articles** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
+Vous noterez que:
+- nous n'avons pas défini de droits sur l'entité **Articles** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
+- aucune des deux authorisations n'a défini de champ **user_admin**, cela signifie que seul les **admin** (ici *$admin_user*) de la *Room* peuvent ajouter ou désactiver des utilisateurs
 
 # Exemple: un calendrier partagé 
 Cet exemple est plus complexe que le précedent et montre une interaction entre plusieur **Rooms**.
@@ -180,9 +180,9 @@ Pour un calendrier partagé nous devons pouvoir séparer la visibilité entre la
 - nous voudrions partager notre emploi du temps à tous les collaborateurs de notre entreprise mais sans partager les détails. Cela permet aux collaborateurs de connaître nos disponibilités.
 - nous partageons les détails pour les quelques personnes de notre équipe , afin qu'ils sachent en plus ce que nous faisons.
 
-Comme les utilisateurs d'une **Room** ont accès à toutes les donnée, nous avons besoin de deux *Rooms* différentes:
-- une pour stocker les date de rendez-vous
-- une pour stocker les détails des rendez-vous
+Comme les utilisateurs d'une **Room** ont accès à toutes les données, nous avons besoin de deux *Rooms* différentes:
+- une pour stocker les date de rendez-vous, que nous appelleront **$room_calendar**
+- une pour stocker les détails des rendez-vous, que nous appelleront **$room_cal_detail**
 
 Nous utiliserons ce modèle simplifié:
 ```js
@@ -204,4 +204,154 @@ cal {
 }
 ```
 
+En considérant les utilisateurs suivant:
+- **$author**: le propriétaire du calendrier
+- **$team_user**: un utilisateur qui aura le droit de voir les détails
+- **$collaborator**:  un utilisateur qui pourra voir uniquement les dates de rendez-vous
 
+La *Room* **$room_calendar** sera défini de la façon suivante:
+```js
+mutate {
+    sys.Room{
+        admin: [{
+            verif_key:$author
+        }]
+        authorisations:[{
+            name:"authors"
+            rights:[
+                {
+                    entity:"cal.Calendar"
+                    mutate_self:true
+                    mutate_all:true
+                },
+                {
+                    entity:"cal.Appointment"
+                    mutate_self:true
+                    mutate_all:true
+                }
+            ]
+            users:[{
+                verif_key:$author
+            }]
+        },{
+            name:"readers"
+            users:[{
+                verif_key:$team_user
+            },{
+                verif_key:$collaborator
+            }]
+        }]
+    }
+}
+```
+Comme les utilisateurs n'ont qu'un accès qu'en lecture seule, aucun **rights** n'est défini pour l'authorisation **readers**.
+
+
+La *Room* **$room_cal_detail** sera défini de la façon suivante:
+
+```js
+mutate {
+    sys.Room{
+        admin: [{
+            verif_key:$author
+        }]
+        authorisations:[{
+            name:"authors"
+            rights:[
+                {
+                    entity:"cal.AppointmentDetail"
+                    mutate_self:true
+                    mutate_all:true
+                }
+            ]
+            users:[{
+                verif_key:$author
+            }]
+        },{
+            name:"readers"
+            users:[{
+                verif_key:$team_user
+            }]
+        }]
+    }
+}
+```
+Vous noterez que seul **$team_user** est dans le groupe **reader**.
+
+
+On peut créer un nouveau calendrier avec la requête suivante:
+```js
+mutate {
+    res: cal.Calendar{
+        room_id: $room_calendar
+        name: "my calendar"
+    }
+}
+```
+
+
+En considérant que le calendrier a pour **id** *$calendar_id*, l'insertion d'un nouveau rendez-vous se fera avec la requête suivante:
+```js
+mutate {
+    cal.Calendar {
+        id: $calendar_id
+        appointments:[{
+            room_id: $room_calendar_id
+            start:  1720770000000
+            end:    1720780000000
+            detail:{
+                room_id: $room_cal_detail_id
+                title: "An important meeting"
+            }
+        }]
+    }
+}
+```
+
+Et chaque utilisateur pourra utiliser la requête suivante pour récupérer les rendez-vous:
+```js
+query {
+    res: cal.Calendar {
+        name
+        appointments(
+            nullable(detail)
+            ){
+            start
+            end
+            detail {
+                title
+            }
+        }
+    }
+}
+```
+
+L'utilisateur **$team_user** obtiendra le résultat suivant
+```json
+{
+    "res":[{
+        "name":"my calendar",
+        "appointments":[{
+            "start":1720770000000,
+            "end":1720780000000,
+            "detail":{
+                "title":"An important meeting"
+            }
+        }]
+    }]
+}
+```
+
+Tandis que l'utilisateur **$collaborator** (qui n'a pas accès au détails) obtiendra le résultat suivant:
+```json
+{
+    "res":[{
+        "name":"my calendar",
+        "appointments":[{
+            "start":1720770000000,
+            "end":1720780000000,
+            "detail":null
+        }]
+    }]
+}
+```
