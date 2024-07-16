@@ -1,6 +1,6 @@
 +++
 title = "Discret"
-description = "Une librarie Rust pour créer des applications pair à pair (P2P) en utilisant une syntaxe GraphQL"
+description = "Une librairie Rust pour créer des applications pair à pair (P2P) en utilisant une syntaxe GraphQL"
 weight = 0
 template = "index-section.fr.html"
 page_template = "index-page.fr.html"

@@ -116,8 +116,36 @@
                   </li>
                   
                   <li>
+                    <a href="https://discretlib.github.io/doc/fr/learn/configuration/hardware/">
+                      Identifiants d&#x27;appareil
+                    </a>
+                  </li>
+                  
+                  <li>
                     <a href="https://discretlib.github.io/doc/fr/learn/configuration/beacon/">
                       Le serveur Beacon
+                    </a>
+                  </li>
+                  
+                </ul>
+                
+                
+                <li>
+                  <a href="https://discretlib.github.io/doc/fr/learn/Api/">
+                    API
+                  </a>
+                </li>
+                <ul class="sub_menu">
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/fr/learn/Api/rust/">
+                      L&#x27;API Rust
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/fr/learn/Api/flutter/">
+                      L&#x27;API Flutter
                     </a>
                   </li>
                   
@@ -225,8 +253,36 @@
                 </li>
                 
                 <li >
+                    <a href="https://discretlib.github.io/doc/fr/learn/configuration/hardware/">
+                        Identifiants d&#x27;appareil
+                    </a>
+                </li>
+                
+                <li >
                     <a href="https://discretlib.github.io/doc/fr/learn/configuration/beacon/">
                         Le serveur Beacon
+                    </a>
+                </li>
+                
+            </ul>
+            
+            
+            <li >
+                <a href="https://discretlib.github.io/doc/fr/learn/Api/">
+                    API
+                </a>
+            </li>
+            <ul class="sub_menu">
+                
+                <li >
+                    <a href="https://discretlib.github.io/doc/fr/learn/Api/rust/">
+                        L&#x27;API Rust
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="https://discretlib.github.io/doc/fr/learn/Api/flutter/">
+                        L&#x27;API Flutter
                     </a>
                 </li>
                 
@@ -242,7 +298,27 @@
     <h1>
         Invitations
     </h1>
-    
+    <p>Les invitations sont gérées dans deux tables systèmes:</p>
+<pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">sys</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">OwnedInvite</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">room</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Base64</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">authorisation</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Base64</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Invite</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">invite_id</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Base64</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">application</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">invite_sign</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Base64</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></span></code></pre>
+<p><strong>OwnedInvite</strong> contient les invitations que vous avez crées:</p>
+<ul>
+<li><strong>room</strong>: indique la <em>Room</em> par défaut dans laquelle le pair sera ajouté quand il aura accepté l'invitation</li>
+<li><strong>authorisation</strong>: indique l'auhorisation de la <em>Room</em> qui sera utilisée</li>
+</ul>
+<p><strong>Invite</strong> contient les invitations que vous avez accepté et contient les informations nécessaires à la vérification du Pair lors de la première connection.</p>
+<p>Vous pouvez supprimer de tuples de ces deux entités si vous voulez annuler ces invitations.</p>
+
 
     <nav class="lower_nav">
         <div> <a href="https://discretlib.github.io/doc/fr/learn/access_rights/peer/"><i class="fa fa-arrow-left"></i> Précédent:

@@ -58,6 +58,15 @@
         <loc>https://discretlib.github.io/doc/fr/learn/</loc>
     </url>
     <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/Api/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/Api/flutter/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/Api/rust/</loc>
+    </url>
+    <url>
         <loc>https://discretlib.github.io/doc/fr/learn/access_rights/</loc>
     </url>
     <url>
@@ -77,6 +86,9 @@
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/fr/learn/configuration/configuration/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/configuration/hardware/</loc>
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/fr/learn/datamodel/</loc>
@@ -142,6 +154,15 @@
         <loc>https://discretlib.github.io/doc/learn/</loc>
     </url>
     <url>
+        <loc>https://discretlib.github.io/doc/learn/Api/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/learn/Api/flutter/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/learn/Api/rust/</loc>
+    </url>
+    <url>
         <loc>https://discretlib.github.io/doc/learn/access_rights/</loc>
     </url>
     <url>
@@ -161,6 +182,9 @@
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/learn/configuration/configuration/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/learn/configuration/hardware/</loc>
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/learn/datamodel/</loc>
