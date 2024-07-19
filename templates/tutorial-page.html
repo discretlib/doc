@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+
+
+<article class="tutorial">
+    <h1>
+        {{ page.title }}
+    </h1>
+    {{ page.content | safe }}
+    <nav class="lower_nav">
+        <div>{% if page.lower %} <a href="{{ page.lower.permalink | safe }}"><i class="fa fa-arrow-left"></i> Previous:
+                {{
+                page.lower.title }}</a>{% endif %}
+        </div>
+        <div>{% if page.higher %} <a href="{{ page.higher.permalink | safe }}">Next: {{ page.higher.title }}<i
+                    class="fa fa-arrow-right"></i></a> {% endif %}
+        </div>
+    </nav>
+</article>
+
+{% if page.toc %}
+<nav class="sticky">
+    <section class="toc">
+        <h1>On this page</h1>
+        <ul>
+            {% for h1 in page.toc %}
+            <li>
+                <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="wordcount">{{page.word_count}} words, {{page.reading_time}} min read</div>
+    </section>
+</nav>
+{% endif %}
+
+{% endblock content %}

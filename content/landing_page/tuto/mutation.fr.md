@@ -7,10 +7,10 @@ mutate {
     p1: Personne { 
         room_id: $room_id
         nom: "Alice" 
-        bestioles: [{nom: "Le Chat"}] 
+        bestioles: [{nom: "Truffe"}] 
     }
     
-    p2: Person { 
+    p2: Personne { 
         room_id: $room_id
         nom: "Bob" 
         enfants: [

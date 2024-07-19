@@ -24,7 +24,8 @@
         </li>
         <li>
           <section class="tutorial">
-            <a href="">
+            {% set index = get_section(path="tutorial/_index.fr.md") %}
+            <a href="{{ index.permalink | safe }}">
               Tutoriels
             </a>
           </section>
@@ -74,7 +75,6 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Github</a></li>
           <li><a href="">Me Recruter</a></li>
           <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
           </li>

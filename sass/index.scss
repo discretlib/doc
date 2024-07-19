@@ -400,15 +400,15 @@ article {
         margin: 0;
     }
 
-    li:last-of-type {
-        border-bottom: 0px;
-    }
-
     li {
         padding-top: 1rem;
         padding-bottom: 1rem;
         border-bottom: 1px solid var(--border-color);
     }
+}
+
+.tutorial {
+    padding-left: 0rem;
 }
 
 .lower_nav {

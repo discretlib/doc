@@ -45,15 +45,14 @@ auto_allow_new_peers=true:
 auto_allow_new_peers=false:
 - Trust is given on a case by case basis, this is the recommended configuration.
 
-Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the sys.Peer list.
+Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the **sys.Peer** list.
 
 If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP adress with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase ressources usage.
 
-If auto_allow_new_peers is set to 'true',
-- a sys.AllowedPeer object is created in the private room, with the status set to 'pending'
-- a PendingPeer event is triggered
-It is up to the developer to intercept the event and decides what to do by updating the status to 'enabled' or 'disabled'
-    
+If auto_allow_new_peers is set to 'false',
+- a **sys.AllowedPeer** tuple is created with the status set to **pending**
+- a **PendingPeer** event is triggered
+ 
 
 ```js
 max_object_size_in_kb: integer
@@ -130,4 +129,4 @@ Disabled by default because of a huge performance impact (about 50%). It should 
 When this feature is disabled, locking/unlocking of the memory address only occur for the internal SQLCipher
 data structures used to store key material, and cryptographic structures.
 
-source: https://discuss.zetetic.net/t/what-is-the-purpose-of-pragma-cipher-memory-security/3953
+source: [cipher_memory_security](https://discuss.zetetic.net/t/what-is-the-purpose-of-pragma-cipher-memory-security/3953)

@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<article class="section tutorial">
+    <h1>
+        {{ section.title }}
+    </h1>
+    {{ section.description }}
+    {{ section.content | safe}}
+    <ul>
+        {% for s in section.subsections %}
+        {% set subsection = get_section(path=s) %}
+        <li>
+            <div><a href="{{ subsection.permalink | safe }}">{{ subsection.title }}</a></div>
+            {{subsection.description}}
+        </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for page in section.pages %}
+        <li>
+            <div><a href="{{ page.permalink | safe }}">{{ page.title }}</a></div>
+            <div class="wordcount">{{page.word_count}} words, {{page.reading_time}} min read</div>
+            {{page.description}}
+        </li>
+        {% endfor %}
+    </ul>
+</article>
+
+{% if page.toc %}
+<div class="toc">
+    <strong>On this page</strong>
+    <ul>
+        {% for h1 in page.toc %}
+        <li>
+            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock content %}

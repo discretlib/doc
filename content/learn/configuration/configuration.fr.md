@@ -10,124 +10,124 @@ weight = 1
 ```js
 parallelism: integer
 ```
-Defines the global parellism capabilities. This number impact:
-- the maximum number of room that can be synchronized in parallel,
-- the number of database readings threads
-- the number of signature verification threads
-- the number of shared buffers used for reading and writing data on the network
-- the depth of the channels that are used to transmit message accross services
+Définit le niveau parallélisme de l'application. Ce nombre impacte:
+- le nombre de **Room** qui peuvent être synchronisées en parallèle
+- le nombre de *threads* de lecture de la base de données
+- le nombre de *threads* de verification de signatures
+- le nombre de *buffers* utilisés pour lire et écrire les données sur le réseau
+- la taille des *channels* utilisés pour transmettre des messages entre les services internes
 
-Larger numbers will provides better performances at the cost of more memory usage. Having a number larger that the number of CPU might not provides increased performances
+Un plus grand nombre ca fournir de meilleures performances au prix d'une plus grande utilisation mémoire. Un nombre plus grand que le nombre de CPU ne devrait pas apporter de gains importants.
 
 ```js
 auto_accept_local_device: boolean
 ```
-When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
-This add an extra layer of security in the unlucky case where your secret material is shared by another person on the internet (which could be relatively frequent as users tends use weak passwords).
-    
-When connecting over the internet, new hardware is allways silently rejected.
-    
-However, on local network we trust new hardware by default. This behaviors can be disabled by setting 'auto_accept_local_device' to false.
-In this case, when a new device is detected on the local network:
-- a sys.AllowedHardware will be created with the status:'pending'
-- a PendingHardware Event will be triggered
-- the current coonection attempt will be rejected
+Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont authorisés à se connecter. 
+
+Cela ajoute un niveau additionel de sécurité dans le cas où votre secret serait aussi utilisé par une autre personne sur Internet. Cela peut arriver dans le cas où vos utlisateur utilisent des mots de passe faibles. 
+
+Si la connection se fait sur internet, un nouvel appareil sera toujours rejeté.
+  
+Par contre, sur un réseau local un nouvel appareil sera authorisé par défaut. Ce comportement peut être désactivé en modifiant 'auto_accept_local_device' à false.
+Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:
+- un tuple **sys.AllowedHardware** sera créé avec le status:'pending'
+- un évènement **PendingHardware** sera déclenché
+- la tentative de connection sera rejetée
+
 
 
 ```js
 auto_allow_new_peers: boolean
 ```
-Defines the behavior of the system when it discover a new peer while synchronizing a room.
+Définit le comportement de *Discret* quand il découvre un nouveau pair lors de la synchronisation des **Rooms**
 
 auto_allow_new_peers=true:
-- I implicitely trust friends of my friends. It is easy to setup, but could cause problems.
+- Je fais confiance aux amis de mes amis et ceux-ci seront authorisés à se connecter directement à mes appareils. 
 
 auto_allow_new_peers=false:
-- Trust is given on a case by case basis, this is the recommended configuration.
+- par défaut, les amis de mes amis ne sont pas authorisés à se connecter à mes apparareils. C'est la configuration par défaut.
 
-Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the sys.Peer list.
+Par exemple, imaginons que vous avez invités Bob à discuter avec vous. Bob crée un groupe de discussion avec vous et Alice. Lors de la première synchronisation, *Discret*  va détecter un nouveau pair nommé Alice et va l'ajouter dans **sys.Peer**.
 
-If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP adress with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase ressources usage.
+Si  auto_allow_new_peers est 'true', *Discret* va l'ajouter dans **sys.AllowedPeer** avec le status **enabled**, et l'authoriser à se connecter directement. Cela rend le réseau plus efficace car Alice pourra voir vos nouveaux messages même quand Bob ne sera pas connecté. Par contre cela se fait au prix d'une perte de vie privée car Alice connaitra votre adresse IP. 
 
-If auto_allow_new_peers is set to 'true',
-- a sys.AllowedPeer object is created in the private room, with the status set to 'pending'
-- a PendingPeer event is triggered
-It is up to the developer to intercept the event and decides what to do by updating the status to 'enabled' or 'disabled'
+Si auto_allow_new_peers est 'false',
+- un tuple **sys.AllowedPeer** est créé avec le status **pending**, is created in the private room, with the status set to 'pending'
+- un événement **PendingPeer** est déclenché.
     
 
 ```js
 max_object_size_in_kb: integer
 ```   
+Definit la taille maximum d'un tuple. Les tuples doivent avoir une taille raisonable pour garantir une synchronisation efficace.
+Cet paramètre impacte la taille des *buffers* utilisés pour lire et écrire des données sur le réseau.
 
-Defines the maximum size of an entity tupple. Object size should be kept relatively small to ensure efficient synchronisation.
+**/!Attention!\\** une fois votre programme en production, diminuer cette valeur cassera *Discret*. Aucune donnée ne sera perdue mais le système ne pourra plus synchroniser les tuples plus grand que cette valeur.
 
-This parameter has a direct impact on the size of the buffers used to read and write data on the network
-Increasing this value will increase the RAM usage of the application
-
-**!!WARNING!!** once your program is in production, decreasing this value will break the system. No data will be lost but the system will not be able to synchronized objects that are larger than the reduced value.
-
-    
 ```js    
 read_cache_size_in_kb: integer
 ```
-Set the maximum cache size for the database reading threads. Increasing it can improve performances. Every read threads consumes up to that amount, meaning that increasing the "parallelism" configuration will increase the memory usage.
-       
+Définit la taille maximum des caches de lecture de la base de données. Augmenter cette valeur peut améliorer les performance. Chaque *thread* de lecture va utiliser cette
+quantité mémoire.
+
 ```js  
 write_cache_size_in_kb: integer
 ```
-Set the maximum of cache size for the database writing thread. increasing it may improvee performances
+Définit la taille maximum du caches d'écriture de la base de données. Augmenter cette valeur peut améliorer les performance.
+
     
 ```js 
 write_buffer_length: integer
 ```
-Write queries are buffered while the database thread is working. When the database thread is ready, the buffer is sent and is processed in one single transaction.
-It greatly increase insertion and update rate, compared to autocommit. To get an idea of the perforance difference, a very simple benchmak on a laptop with 100 000 insertions gives:
-- Buffer size: 1      Insert/seconds: 55  <- this is equivalent to autocommit
-- Buffer size: 10     Insert/seconds: 500
-- Buffer size: 100    Insert/seconds: 3000
-- Buffer size: 1000   Insert/seconds: 32000
+Les requêtes d'écriture en base de données sont écrite par bloc. Quand le process d'écriture est prêt, il récupère toutes les requêtes en attente jusqu'a atteindre la limite définie par ce paramêtre. Ce bloc de requête sera ensuite effectué dans une unique transaction. Cela augmente énormément les performances, comparé à l'écriture des requêtes une par une (autocommit).
 
-If one a buffered query fails, the transaction will be rolled back and every other queries in the buffer will fail too. This should not be an issue as INSERT query are not expected to fail. The only reasons to fail an insertion are a bugs or a system failure (like no more space available on disk), and in both case, it is ok to fail the last insertions batch.
+Pour donner une idée de l'amélioration des performance, un test d'insertion de 100 000 tuples donne le résultat suivant:
+- write_buffer_length = 1       Insertions/secondes: 55  <- cela insère les données une par une
+- write_buffer_length = 10      Insertions/secondes: 500
+- write_buffer_length = 100     Insertions/secondes: 3000
+- write_buffer_length = 1000    Insertions/secondes: 32000
+
+Si une requête échoue au sein d'un bloc, la transaction sera annulée et toutes les autre requêtes échoueront. Cela ne devrait pas être un problèmes car les requêtes d'écriture n'échouent qu'en cas de problème matériel (plus de place sur le disque dur, par exemple) ou de *Bug*. Dans les deux cas, cela ne pose pas de problème d'annuler tout un bloc de données.
+
     
 
 ```js 
 announce_frequency_in_ms: integer
 ```
-how often (in milliseconds) an annouces are sent over the network to meet peers to connect to.
+La fréquence (en millisecondes) à laquelle des annonces sont envoyés sur le réseau pour trouver vos pairs.
     
     
 ```js 
 enable_multicast: boolean
 ```   
-Enable/disable multicast discovery, i.e. local network peer discovery
+Active/désactive la decouverte de vos pairs sur le réseau local
 
 ```js 
 multicast_ipv4_interface: String
 ```   
-*Discret* uses the IP multicast feature to discover peers on local networks. On systems with multiple network interfaces, it might be necessary to provide the right ip adress for multicast to work properly. the default (let the OS choose for you) should work on most cases.
+*Discret* utilise la fonction *IP multicast* pour découvrir vos pairs sur le réseau local.Sur certain système avec plusieurs cartes réseau, il pourrait être necessaire d'indiquer votre adresse IP locale pour que le *multicast* fonctionne. La valeur par défaut (laisser le système d'exploitation se débrouiller) devrait néanmoins fonctionner dans la plupart des cas. 
     
 ```js 
  multicast_ipv4_group: String
 ``` 
-The multicast group that is used to perform peer discovery
+Le groupe *IP multicast* utilisé. 
     
 ```js 
 pub enable_beacons: boolean
 ```
-Enable/Disable beacon peer discovery. I.e. meet peers over the Internet.
+Active/désactive la decouverte de vos pairs  sur internet.
+
      
 ```js  
 pub beacons: List<BeaconConfig>,
 ```
-List of Beacon servers that are used for peer discovery.
+Liste des serveur *Beacon* utilisés pour découvrir vos Pairs sur internet.
     
 ```js      
 pub enable_database_memory_security: boolean
 ```
-Enable_memory_security: Prevents memory to be written into swap and zeroise memory after free.
+Empêche la mémoire d'être écrite en *swap* et vide la mémoire(*zeroise*) quand elle est libérée.
 
-Disabled by default because of a huge performance impact (about 50%). It should only be used if you're system requires a "paranoid" level of security.
-When this feature is disabled, locking/unlocking of the memory address only occur for the internal SQLCipher
-data structures used to store key material, and cryptographic structures.
+Désactivé par défaut car cela impacte fortement les performances(d'environ 50%). Cela ne devrait être utilisé que si votre système demande un niveau de sécurité extrêmement élévé.
 
-source: https://discuss.zetetic.net/t/what-is-the-purpose-of-pragma-cipher-memory-security/3953
+source: [cipher_memory_security](https://discuss.zetetic.net/t/what-is-the-purpose-of-pragma-cipher-memory-security/3953)

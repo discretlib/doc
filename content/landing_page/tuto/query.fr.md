@@ -7,7 +7,7 @@ query {
     q1: Personne(room_id=$room_id) { 
         id
         nom 
-        bestioles(nom="Le Chat") {
+        bestioles(nom="Truffe") {
             nom
         } 
     }

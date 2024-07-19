@@ -5,4 +5,4 @@ template = "learn-section.html"
 page_template = "learn-page.html"
 +++
  
-This documents describes the concepts you will need to understand to properly use *Discret*. It does not provides directly usable code.
+This documents provides step by step implementation of an application that introduces the différent concept used by *Discret*

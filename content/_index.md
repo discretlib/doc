@@ -1,19 +1,19 @@
 +++
 title = "Discret"
-description = "A Rust library to create peer to peer (P2P) applications, using a GraphQL syntax"
+description = "A Rust backend to create peer to peer (P2P) applications, using a GraphQL inspired syntax"
 weight = 0
 template = "index-section.html"
 page_template = "index-page.html"
 +++
-[Getting Started](@/learn/_index.md) [Starting with Flutter](@/learn/_index.md) [Learn](@/learn/_index.md) [Github](@/learn/_index.md)
+[Getting Started with Rust](@/tutorial/rust_chat.md) [Getting Started with Flutter](@/tutorial/flutter_chat.md) [Learn](@/learn/_index.md) [Github](https://github.com/discretlib/)
 
-- Learn more by [Getting Started](@/learn/_index.md) in the [Tutorials](@/learn/_index.md).
+- Learn more by getting started in the [Tutorials](@/tutorial/_index.md).
 
-- A Flutter binding is provided to easily develop P2P applications without having to write a single line of Rust. [Starting with Flutter](@/learn/_index.md) provides all the necessary steps to bootrap a Flutter app. 
+- A Flutter binding is provided to easily develop P2P applications without having to write a single line of Rust. [Getting Started with Flutter](@/tutorial/flutter_chat.md) provides all the necessary steps to bootrap a Flutter app. 
 
 - Dive deeper in the [Learn](@/learn/_index.md) section. 
 
-- And contribution are always welcome in the [Github](@/learn/_index.md) projects!
+- And contribution are always welcome in the [Github](https://github.com/discretlib/) projects!
 
 This website is also available in [french](/fr/).
 
