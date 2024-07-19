@@ -58,15 +58,6 @@
         <loc>https://discretlib.github.io/doc/fr/learn/</loc>
     </url>
     <url>
-        <loc>https://discretlib.github.io/doc/fr/learn/Api/</loc>
-    </url>
-    <url>
-        <loc>https://discretlib.github.io/doc/fr/learn/Api/flutter/</loc>
-    </url>
-    <url>
-        <loc>https://discretlib.github.io/doc/fr/learn/Api/rust/</loc>
-    </url>
-    <url>
         <loc>https://discretlib.github.io/doc/fr/learn/access_rights/</loc>
     </url>
     <url>
@@ -101,6 +92,18 @@
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/fr/learn/datamodel/schema/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/learn/events/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/tutorial/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/tutorial/flutter-chat/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/fr/tutorial/rust-chat/</loc>
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/hire_me/</loc>
@@ -154,15 +157,6 @@
         <loc>https://discretlib.github.io/doc/learn/</loc>
     </url>
     <url>
-        <loc>https://discretlib.github.io/doc/learn/Api/</loc>
-    </url>
-    <url>
-        <loc>https://discretlib.github.io/doc/learn/Api/flutter/</loc>
-    </url>
-    <url>
-        <loc>https://discretlib.github.io/doc/learn/Api/rust/</loc>
-    </url>
-    <url>
         <loc>https://discretlib.github.io/doc/learn/access_rights/</loc>
     </url>
     <url>
@@ -197,5 +191,17 @@
     </url>
     <url>
         <loc>https://discretlib.github.io/doc/learn/datamodel/schema/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/learn/events/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/tutorial/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/tutorial/flutter-chat/</loc>
+    </url>
+    <url>
+        <loc>https://discretlib.github.io/doc/tutorial/rust-chat/</loc>
     </url>
 </urlset>

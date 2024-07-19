@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Discret Library</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://discretlib.github.io/doc/index.css">
+  
+</head>
+
+<body>
+  <section class="header-background"></section>
+  <section class="content">
+    <section class="header">
+      <ul>
+        <li>
+          
+          <a href="https://discretlib.github.io/doc/" class="discret">
+            Discret
+          </a>
+        </li>
+        <li>
+          <section class="tutorial">
+           
+            <a href="https://discretlib.github.io/doc/tutorial/"tutorial>
+              Tutorials
+            </a>
+          </section>
+        </li>
+        <li>
+          <section class="learn">
+            <a href="">
+              Learn
+              <i class="fa fa-caret-down"></i>
+            </a>
+
+            <section class="learn_menu">
+              <ul>
+                
+                <li>
+                  <a href="https://discretlib.github.io/doc/learn/">
+                    Table Of Content
+                  </a>
+                </li>
+                
+                
+                <li>
+                  <a href="https://discretlib.github.io/doc/learn/datamodel/">
+                    Managing data
+                  </a>
+                </li>
+                <ul class="sub_menu">
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/datamodel/schema/">
+                      Schema and Entities
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/datamodel/mutation/">
+                      Mutations and Deletions
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/datamodel/query/">
+                      Queries
+                    </a>
+                  </li>
+                  
+                </ul>
+                
+                
+                <li>
+                  <a href="https://discretlib.github.io/doc/learn/access_rights/">
+                    Access Rights
+                  </a>
+                </li>
+                <ul class="sub_menu">
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/access_rights/room/">
+                      Rooms
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/access_rights/peer/">
+                      Peer Management
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/access_rights/invites/">
+                      Invitations
+                    </a>
+                  </li>
+                  
+                </ul>
+                
+                
+                <li>
+                  <a href="https://discretlib.github.io/doc/learn/configuration/">
+                    Configuration
+                  </a>
+                </li>
+                <ul class="sub_menu">
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/configuration/configuration/">
+                      Configuration
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/configuration/hardware/">
+                      Hardware Key
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="https://discretlib.github.io/doc/learn/configuration/beacon/">
+                      The Beacon Server
+                    </a>
+                  </li>
+                  
+                </ul>
+                
+                
+                <li >
+                  <a href="https://discretlib.github.io/doc/learn/events/">
+                    System Events
+                  </a>
+                </li>
+                
+              </ul>
+            </section>
+          </section>
+        </li>
+
+        <section class="header_right">
+          <li><a href="">Hire Me</a></li>
+          <li><a href="/fr/" class="flag"><img src="/fr.svg" alt="french translation" /></a>
+        </section>
+      </ul>
+    </section>
+
+
+    
+
+
+
+<article class="tutorial">
+    <h1>
+        Flutter Chat
+    </h1>
+    <p>Discret réagit à certaines actions en envoyants des évènements systèmes. Ces évènements peuvent êre récupéré par le developper en utilisant la fonction <strong>subscribe_for_events</strong> de l'API</p>
+<h1 id="datachanged-data-modification">DataChanged(data_modification)</h1>
+<p>Cet évenement est déclenché quand des données sont modifiée. Les données dont écrite par bloc et cet évènement décrit le bloc de données modifié</p>
+<p><strong>data_modification</strong> contient une <em>HashMap</em> ayant pour clé l'identifiant des <em>Room</em> modifiées et comme données les entités modifiées ainsi que les dates de modification. </p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust">DataModification <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    rooms<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-generic z-rust">HashMap<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>room_id, <span class="z-meta z-generic z-rust">HashMap<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>entity_name, <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>date<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></code></pre>
+<h1 id="roommodified-room">RoomModified(room)</h1>
+<p>Cet évenement est déclenché quand une Room est modifiéé.
+<strong>room</strong> contient l'object room.</p>
+<h1 id="peerconnected-verifying-key-date-connection-id">PeerConnected(verifying_key, date, connection_id)</h1>
+<p>Cet évenement est déclenché quand un pair se connecte.</p>
+<ul>
+<li><strong>verifying_key</strong>: la clé de signature du pair</li>
+<li><strong>date</strong> la date de connection</li>
+<li><strong>connection_id</strong> l'identifiant de la connection</li>
+</ul>
+<h1 id="peerdisconnected-verifying-key-date-connection-id">PeerDisconnected(verifying_key, date, connection_id)</h1>
+<p>Cet évenement est déclenché quand un pair est déconnecté</p>
+<ul>
+<li><strong>verifying_key</strong>: la clé de signature du pair</li>
+<li><strong>date</strong> la date de connection</li>
+<li><strong>connection_id</strong> l'identifiant de la connection</li>
+</ul>
+<h1 id="roomsynchronized-room-id">RoomSynchronized(room_id)</h1>
+<p>Cet évenement est déclenché quand une <em>Room</em> a fini sa synchronisation.
+<strong>room_id</strong> contient l'id de la <em>Room</em> synchronisée</p>
+<h1 id="pendingpeer">PendingPeer</h1>
+<p>Cet évenement est déclenché quand un nouveau pair est detécté lors de la synchronisation d'un <strong>Room</strong>
+la liste des pairs en attente peut être récupéré avec la requête suivante</p>
+<pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">sys</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">AllowedPeer</span></span><span class="z-meta z-brace z-round z-ts">(</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">status</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>pending<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">order_by</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">mdate</span> <span class="z-variable z-other z-readwrite z-ts">desc</span><span class="z-meta z-brace z-round z-ts">)</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-brace z-round z-ts">)</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">         <span class="z-variable z-other z-readwrite z-ts">peer</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">pub_key</span>
+</span></span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">name</span>
+</span></span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">         <span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+<h1 id="pendinghardware">PendingHardware</h1>
+<p>Cet évenement est déclenché quand un nouvel appareil est détecté. La liste des matériels en attente d'authorisation peut être récupéré avec la requête suivante:</p>
+<pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">     <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">AllowedHardware</span></span><span class="z-meta z-brace z-round z-ts">(</span> 
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">status</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>pending<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">order_by</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">mdate</span> <span class="z-variable z-other z-readwrite z-ts">desc</span><span class="z-meta z-brace z-round z-ts">)</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-brace z-round z-ts">)</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+
+    <nav class="lower_nav">
+        <div>
+        </div>
+        <div>
+        </div>
+    </nav>
+</article>
+
+
+<nav class="sticky">
+    <section class="toc">
+        <h1>On this page</h1>
+        <ul>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#datachanged-data-modification">DataChanged(data_modification)</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#roommodified-room">RoomModified(room)</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#peerconnected-verifying-key-date-connection-id">PeerConnected(verifying_key, date, connection_id)</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#peerdisconnected-verifying-key-date-connection-id">PeerDisconnected(verifying_key, date, connection_id)</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#roomsynchronized-room-id">RoomSynchronized(room_id)</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#pendingpeer">PendingPeer</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/tutorial/flutter-chat/#pendinghardware">PendingHardware</a>
+            </li>
+            
+        </ul>
+        <div class="wordcount">254 words, 2 min read</div>
+    </section>
+</nav>
+
+
+
+
+  </section>
+  <section class="footer">
+    <div>The site design is a bad copy of the <a href="https://www.mkdocs.org/">MkDocs</a> website. The documentation
+      takes a lot of inspiration from <a href="https://graphql.org/">GraphQL</a>.</div>
+
+    <div> Copyright © 2024 Adrien SALAIS. This site content is under the <a
+        href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA</a> licence. The Discret library is
+      under
+      the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL V3</a> licence
+      <div />
+  </section>
+</body>
+
+</html>

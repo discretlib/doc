@@ -24,7 +24,8 @@
         </li>
         <li>
           <section class="tutorial">
-            <a href="">
+            
+            <a href="https://discretlib.github.io/doc/fr/tutorial/">
               Tutoriels
             </a>
           </section>
@@ -130,27 +131,11 @@
                 </ul>
                 
                 
-                <li>
-                  <a href="https://discretlib.github.io/doc/fr/learn/Api/">
-                    API
+                <li >
+                  <a href="https://discretlib.github.io/doc/fr/learn/events/">
+                    Evènements systèmes
                   </a>
                 </li>
-                <ul class="sub_menu">
-                  
-                  <li>
-                    <a href="https://discretlib.github.io/doc/fr/learn/Api/rust/">
-                      L&#x27;API Rust
-                    </a>
-                  </li>
-                  
-                  <li>
-                    <a href="https://discretlib.github.io/doc/fr/learn/Api/flutter/">
-                      L&#x27;API Flutter
-                    </a>
-                  </li>
-                  
-                </ul>
-                
                 
               </ul>
             </section>
@@ -158,7 +143,6 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Github</a></li>
           <li><a href="">Me Recruter</a></li>
           <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
           </li>
@@ -268,26 +252,10 @@
             
             
             <li >
-                <a href="https://discretlib.github.io/doc/fr/learn/Api/">
-                    API
+                <a href="https://discretlib.github.io/doc/fr/learn/events/">
+                    Evènements systèmes
                 </a>
             </li>
-            <ul class="sub_menu">
-                
-                <li >
-                    <a href="https://discretlib.github.io/doc/fr/learn/Api/rust/">
-                        L&#x27;API Rust
-                    </a>
-                </li>
-                
-                <li >
-                    <a href="https://discretlib.github.io/doc/fr/learn/Api/flutter/">
-                        L&#x27;API Flutter
-                    </a>
-                </li>
-                
-            </ul>
-            
             
         </ul>
         
@@ -298,9 +266,9 @@
     <h1>
         Identifiants d&#x27;appareil
     </h1>
-    <p>Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont authorisés à se connecter. </p>
-<p>Cela ajoute un niveau additionel de sécurité dans le cas où votre secret serait aussi utilisé par une autre personne sur Internet. Cela peut arriver dans le cas où vos utlisateur utilisent des mots de passe faibles. </p>
-<p>Ces clés matérielles sont stockées dans l'entité système: </p>
+    <p>When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
+This add an extra layer of security in the unlucky case where your secret material is shared by another person on the internet (which could be relatively frequent as users tends use weak passwords).</p>
+<p>Those hardware keys are managed by the system entity: </p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">sys</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">AllowedHardware</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -308,12 +276,12 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p><strong>name</strong> décrit l'appareil authorisé.</p>
-<p><strong>status</strong> peut contenir trois valeurs:</p>
+<p><strong>name</strong> provides the name of the device.</p>
+<p><strong>status</strong> can have three values:</p>
 <ul>
-<li><strong>enabled</strong> : la connection à ce matériel est authorisée, </li>
-<li><strong>disabled</strong>: la connection à ce matériel est interdite, </li>
-<li><strong>pending</strong>: la connection est en attente d'authorisation: l'utilisateur doit manuellement authoriser ou rejeter cette clé matérielle, </li>
+<li><strong>enabled</strong> : your device can connect to this other device, </li>
+<li><strong>disabled</strong>: your device cannot connect to this device,</li>
+<li><strong>pending</strong>: this device is waiting for an authorisiation: user have to review this device to allow or reject it.</li>
 </ul>
 
 
