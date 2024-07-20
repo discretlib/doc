@@ -263,37 +263,43 @@
     <h1>
         System Events
     </h1>
-    <p>Discret réagit à certaines actions en envoyants des évènements systèmes. Ces évènements peuvent êre récupéré par le developper en utilisant la fonction <strong>subscribe_for_events</strong> de l'API</p>
+    <p><em>Discret</em> react to some actions by triggering system wide events. Those events can be listened by using the API function <strong>subscribe_for_events</strong>.</p>
 <h1 id="datachanged-data-modification">DataChanged(data_modification)</h1>
-<p>Cet évenement est déclenché quand des données sont modifiée. Les données dont écrite par bloc et cet évènement décrit le bloc de données modifié</p>
-<p><strong>data_modification</strong> contient une <em>HashMap</em> ayant pour clé l'identifiant des <em>Room</em> modifiées et comme données les entités modifiées ainsi que les dates de modification. </p>
+<p>This event is triggered whenever data is modified or inserted. Data is inserted/deleted in batches and this events describes each batch.</p>
+<p><strong>data_modification</strong> constains a <em>HashMap</em>:</p>
+<ul>
+<li>the key is the identifier of the <em>Rooms</em> that have been modfied</li>
+<li>the data contains the modified Entity name and the mutation dates.</li>
+</ul>
 <pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust">DataModification <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
 </span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    rooms<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-generic z-rust">HashMap<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>room_id, <span class="z-meta z-generic z-rust">HashMap<span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>entity_name, <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>date<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span><span class="z-punctuation z-separator z-rust">,</span>
 </span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
 </span></code></pre>
 <h1 id="roommodified-room">RoomModified(room)</h1>
-<p>Cet évenement est déclenché quand une Room est modifiéé.
-<strong>room</strong> contient l'object room.</p>
+<p>This event is triggered when a <em>Room</em> is modified.</p>
+<p><strong>room</strong> contains the modified <em>Room</em>.</p>
 <h1 id="peerconnected-verifying-key-date-connection-id">PeerConnected(verifying_key, date, connection_id)</h1>
-<p>Cet évenement est déclenché quand un pair se connecte.</p>
+<p>This event is triggered when a peer has connected successfully to your device.</p>
 <ul>
-<li><strong>verifying_key</strong>: la clé de signature du pair</li>
-<li><strong>date</strong> la date de connection</li>
-<li><strong>connection_id</strong> l'identifiant de la connection</li>
+<li><strong>verifying_key</strong>: the peer verifying key,</li>
+<li><strong>date</strong>: the connection date,</li>
+<li><strong>connection_id</strong>: the unique identifier of the connection</li>
 </ul>
 <h1 id="peerdisconnected-verifying-key-date-connection-id">PeerDisconnected(verifying_key, date, connection_id)</h1>
-<p>Cet évenement est déclenché quand un pair est déconnecté</p>
+<p>This event is triggered when a peer have been disconnected </p>
 <ul>
-<li><strong>verifying_key</strong>: la clé de signature du pair</li>
-<li><strong>date</strong> la date de connection</li>
-<li><strong>connection_id</strong> l'identifiant de la connection</li>
+<li><strong>verifying_key</strong>: the peer verifying key,</li>
+<li><strong>date</strong>: the connection date,</li>
+<li><strong>connection_id</strong>: the unique identifier of the connection</li>
 </ul>
 <h1 id="roomsynchronized-room-id">RoomSynchronized(room_id)</h1>
-<p>Cet évenement est déclenché quand une <em>Room</em> a fini sa synchronisation.
-<strong>room_id</strong> contient l'id de la <em>Room</em> synchronisée</p>
+<p>This event is triggered when a <em>Room</em> has been synchronized.</p>
+<ul>
+<li><strong>room_id</strong>: the <em>Room</em> identifier</li>
+</ul>
 <h1 id="pendingpeer">PendingPeer</h1>
-<p>Cet évenement est déclenché quand un nouveau pair est detécté lors de la synchronisation d'un <strong>Room</strong>
-la liste des pairs en attente peut être récupéré avec la requête suivante</p>
+<p>This event is triggered when a new peer is found when synchronising a <strong>Room</strong>.
+A list of pending peers can be retrieved using the following query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">sys</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">AllowedPeer</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">status</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>pending<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -307,7 +313,8 @@ la liste des pairs en attente peut être récupéré avec la requête suivante</
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="pendinghardware">PendingHardware</h1>
-<p>Cet évenement est déclenché quand un nouvel appareil est détecté. La liste des matériels en attente d'authorisation peut être récupéré avec la requête suivante:</p>
+<p>This event is triggered when a new device is detected. 
+A list of devices waiting for manual authorisation can be retrieved using the following query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">     <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">AllowedHardware</span></span><span class="z-meta z-brace z-round z-ts">(</span> 
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">status</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>pending<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -361,7 +368,7 @@ la liste des pairs en attente peut être récupéré avec la requête suivante</
             </li>
             
         </ul>
-        <div class="wordcount">254 words, 2 min read</div>
+        <div class="wordcount">250 words, 2 min read</div>
     </section>
 </nav>
 
@@ -370,13 +377,15 @@ la liste des pairs en attente peut être récupéré avec la requête suivante</
 
   </section>
   <section class="footer">
-    <div>The site design is a bad copy of the <a href="https://www.mkdocs.org/">MkDocs</a> website. The documentation
-      takes a lot of inspiration from <a href="https://graphql.org/">GraphQL</a>.</div>
+    <div>
+      The site design is a bad copy of the <a href="https://www.mkdocs.org/">MkDocs</a> website. 
+      The query language is heavily inspired by <a href="https://graphql.org/">GraphQL</a>.
+    </div>
 
-    <div> Copyright © 2024 Adrien SALAIS. This site content is under the <a
-        href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA</a> licence. The Discret library is
-      under
-      the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL V3</a> licence
+    <div> 
+      Copyright © 2024 Adrien SALAIS. This site content is under the <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA</a> licence.     
+      The Discret library is under the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL V3</a> licence. 
+      The examples and the Flutter binding are under the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a> licence
       <div />
   </section>
 </body>

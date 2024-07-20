@@ -310,6 +310,11 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
+<p>Il faut noter que:</p>
+<ul>
+<li><strong>result</strong> est un alias, il peut être nommé différement,</li>
+<li>les champs demandés <em>ne sont pas</em> délimités par une virgule.</li>
+</ul>
 <p>Cette requête retournera l'objet JSON suivant:</p>
 <pre data-lang="json" class="language-json z-code"><code class="language-json" data-lang="json"><span class="z-source z-json"><span class="z-meta z-mapping z-json"><span class="z-punctuation z-section z-mapping z-begin z-json">{</span>
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-json">    </span><span class="z-meta z-mapping z-key z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>result<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span></span><span class="z-meta z-mapping z-json"><span class="z-punctuation z-separator z-mapping z-key-value z-json">:</span></span><span class="z-meta z-mapping z-value z-json"><span class="z-meta z-sequence z-json"><span class="z-punctuation z-section z-sequence z-begin z-json">[</span>
@@ -329,10 +334,8 @@
 </span></code></pre>
 <p>Il faut noter que:</p>
 <ul>
-<li><strong>result</strong> est un alias, il peut être nommé différement</li>
-<li>les champs demandés <em>ne sont pas</em> délimités par une virgule,</li>
 <li>le résultat de la requête est contenu dans un tableau JSON, cela est vrai même si la requête ne renvoie qu'un seul tuple,</li>
-<li>si la base de donnée ne contient aucune donnée, la requête retourne un tableau vide.</li>
+<li>si la base de donnée ne contient pas les données demandées, la requête retourne un tableau vide.</li>
 </ul>
 <h1 id="requete-multiples">Requête Multiples</h1>
 <p>Il est possible de faire plusieurs requêtes en une seule fois.</p>
@@ -407,7 +410,7 @@
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-json">    </span><span class="z-meta z-mapping z-key z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>Person<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span></span><span class="z-meta z-mapping z-json"><span class="z-punctuation z-separator z-mapping z-key-value z-json">:</span></span><span class="z-meta z-mapping z-value z-json"><span class="z-meta z-sequence z-json"><span class="z-punctuation z-section z-sequence z-begin z-json">[</span><span class="z-meta z-mapping z-json"><span class="z-punctuation z-section z-mapping z-begin z-json">{</span></span><span class="z-meta z-mapping z-key z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>name<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span></span><span class="z-meta z-mapping z-json"><span class="z-punctuation z-separator z-mapping z-key-value z-json">:</span></span><span class="z-meta z-mapping z-value z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>Doe<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span><span class="z-punctuation z-separator z-mapping z-pair z-json">,</span></span><span class="z-meta z-mapping z-key z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>surname<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span></span><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-separator z-mapping z-key-value z-json">:</span></span><span class="z-meta z-mapping z-value z-json"><span class="z-string z-quoted z-double z-json"><span class="z-punctuation z-definition z-string z-begin z-json">&quot;</span>John<span class="z-punctuation z-definition z-string z-end z-json">&quot;</span></span><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span><span class="z-punctuation z-section z-sequence z-end z-json">]</span></span>
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
-<p>Il est aussi possible de filtrer avec la valueur <strong>null</strong></p>
+<p>Il est aussi possible de filtrer avec la valeur <strong>null</strong></p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span> <span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">surname</span> <span class="z-keyword z-operator z-comparison z-ts">!=</span> <span class="z-constant z-language z-null z-ts">null</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -425,6 +428,7 @@
 <h1 id="recherche-plein-texte">Recherche plein texte</h1>
 <p>Par défaut, toute les données texte sont indéxées pour pouvoir effectuer des recherches plein texte en utilisant la clause <strong>search</strong></p>
 <p>L'index utilisé est un index <em>trigram</em>, donc seule les chaines de plus de 3 charactères peuvent être recherchées.</p>
+<p>L'indexation peut être <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/#desactiver-l-indexation-plein-texte">desactivée pour une entité</a>.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">search</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>lic<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-meta z-brace z-round z-ts">)</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">Alice contient lic</span>
@@ -567,6 +571,11 @@
 </span></code></pre>
 <h1 id="trier-les-resultats">Trier les résultats</h1>
 <p>Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de resultats se fait avec la clause <strong>order_by</strong>.</p>
+<p>Le tri peut se faire sur plusieurs champs. Chaque champ doit avoir une indication de direction de tri:</p>
+<ul>
+<li><strong>asc</strong> du plus petit au plus grand (ascendant)</li>
+<li><strong>desc</strong> du plus grand au plus petit (descendant)</li>
+</ul>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">order_by</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">name</span> <span class="z-variable z-other z-readwrite z-ts">desc</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">surname</span> <span class="z-variable z-other z-readwrite z-ts">asc</span><span class="z-meta z-brace z-round z-ts">)</span>
@@ -584,12 +593,6 @@
 </span></span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-meta z-sequence z-json">    <span class="z-punctuation z-section z-sequence z-end z-json">]</span></span>
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
-<p>Le tri peut se faire sur plusieurs champs.
-Chaque champ doit avoir une indication de direction de tri:</p>
-<ul>
-<li><strong>asc</strong> du plus petit au plus grand (ascendant)</li>
-<li><strong>desc</strong> du plus grand au plus petit (descendant)</li>
-</ul>
 <p>Comme pour les filtres, <strong>order_by</strong> peut être définit pour les sous-entités.</p>
 <h1 id="limiter-le-nombre-de-resultats">Limiter le nombre de résultats</h1>
 <p>Si le nombre de tuples est très large, il peut être utile de limiter le nombre de tuples retournés en utilisant la clause <strong>first</strong></p>
@@ -808,7 +811,7 @@ Chaque champ doit avoir une indication de direction de tri:</p>
             </li>
             
         </ul>
-        <div class="wordcount">1301 mots, 7 min de lecture</div>
+        <div class="wordcount">1322 mots, 7 min de lecture</div>
     </section>
 </nav>
 
@@ -817,14 +820,16 @@ Chaque champ doit avoir une indication de direction de tri:</p>
 
   </section>
   <section class="footer">
-    <div>Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. La
-      documentation
-      est fortement inspirée de <a href="https://graphql.org/">GraphQL</a>.</div>
+    <div>
+      Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. 
+      Le language de requête est très fortement inspiré de <a href="https://graphql.org/">GraphQL</a>.
+    </div>
 
-    <div> Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a
-        href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>. La librairie Discret est sous
-      licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>.
-      <div />
+    <div> 
+      Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>.
+      La librairie Discret est sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>. 
+      Les exemples et le *binding* Flutter est sous licence <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a> 
+    <div />
   </section>
 </body>
 

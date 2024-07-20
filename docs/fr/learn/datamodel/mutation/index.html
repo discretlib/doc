@@ -266,7 +266,7 @@
     <h1>
         Mutations et Suppression
     </h1>
-    <p>Les requêtes de type 'mutation' permettent d'insérer ou de modifier des données. </p>
+    <p>Les requêtes de type <em>mutation</em> permettent d'insérer ou de modifier des données. </p>
 <p>Les exemples utiliseront le <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/">schéma</a> suivant:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -277,7 +277,6 @@
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="inserer">Insérer</h1>
-<p>Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ <strong>id</strong>. Cet identifiant est retourné par la requête de <em>mutation</em>.</p>
 <p>La syntaxe pour insérer un nouveau tuple est la suivante:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -287,7 +286,7 @@
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <p>Cette mutation insère une nouvelle personne nommée 'John Doe'.</p>
-<p>Le résultat d'une requête de mutation retourne un object JSON comprenant les champs que vous avez insérés, ainsi que l'<strong>id</strong> nouvellement créé:</p>
+<p>Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ <strong>id</strong>. Cet identifiant est retourné par la requête de <em>mutation</em>. Le résultat d'une requête de mutation retourne un object JSON comprenant les champs que vous avez insérés:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>Person<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>:<span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-objectliteral z-ts">        <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>id<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span></span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>aVBDUWlHpWz9bv_vU-Feow<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -426,7 +425,7 @@ il est possible de supprimer un tuple, ou bien une relation dans un champs du tu
 </span></code></pre>
 <h1 id="propagation-de-la-room">Propagation de la <em>Room</em></h1>
 <p>La plupart des données que vous allez insérer seront attaché à une <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> à l'aide du champ système <strong>room_id</strong>. Dans le cas d'une requête imbriquée, la <strong>room_id</strong> du tuple <em>parent</em> sera propagé aux tuples d'une relation si ceux ci n'ont pas de <strong>room_id</strong>. Cela permet de simplifier la syntaxe en cas de requête complexe.</p>
-<p>Dans l'exemple suivant, &quot;Alice&quot; sera insérée dans la &quot;room&quot; ayant pour id <strong>$room_id</strong>.</p>
+<p>Dans l'exemple suivant, &quot;Alice&quot; sera insérée dans la <em>Room</em> ayant pour id <strong>$room_id</strong>.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">room_id</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">$room_id</span>
@@ -486,7 +485,7 @@ il est possible de supprimer un tuple, ou bien une relation dans un champs du tu
             </li>
             
         </ul>
-        <div class="wordcount">653 mots, 4 min de lecture</div>
+        <div class="wordcount">647 mots, 4 min de lecture</div>
     </section>
 </nav>
 
@@ -495,14 +494,16 @@ il est possible de supprimer un tuple, ou bien une relation dans un champs du tu
 
   </section>
   <section class="footer">
-    <div>Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. La
-      documentation
-      est fortement inspirée de <a href="https://graphql.org/">GraphQL</a>.</div>
+    <div>
+      Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. 
+      Le language de requête est très fortement inspiré de <a href="https://graphql.org/">GraphQL</a>.
+    </div>
 
-    <div> Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a
-        href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>. La librairie Discret est sous
-      licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>.
-      <div />
+    <div> 
+      Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>.
+      La librairie Discret est sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>. 
+      Les exemples et le *binding* Flutter est sous licence <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a> 
+    <div />
   </section>
 </body>
 

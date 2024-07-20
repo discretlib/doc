@@ -405,10 +405,10 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="desactiver-l-indexation-plein-texte">Désactiver l'indexation plein texte</h1>
-<p>Par défaut, tout les champs de type <strong>String</strong> sont indexés ensemble pour fournir une fonctionalité de &quot;recherche de texte libre&quot;. Cette fonctionalité peut être désactivée en utlisant le mot clé <strong>no_full_text_index</strong>.</p>
+<p>Par défaut, tout les champs de type <strong>String</strong> sont indexés ensemble pour fournir une fonctionalité de <em>recherche de texte libre</em>. Cette fonctionalité peut être désactivée en utlisant le mot clé <strong>no_full_text_index</strong>.</p>
 <p>Les indexes définit dans l'entité ne sont pas désactivés.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">my_data</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
-</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span> <span class="z-variable z-other z-readwrite z-ts">no_full_text_index</span><span class="z-meta z-brace z-round z-ts">)</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+</span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">no_full_text_index</span><span class="z-meta z-brace z-round z-ts">)</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">index</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">name</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">non désactivé</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
@@ -568,14 +568,16 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
 
   </section>
   <section class="footer">
-    <div>Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. La
-      documentation
-      est fortement inspirée de <a href="https://graphql.org/">GraphQL</a>.</div>
+    <div>
+      Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. 
+      Le language de requête est très fortement inspiré de <a href="https://graphql.org/">GraphQL</a>.
+    </div>
 
-    <div> Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a
-        href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>. La librairie Discret est sous
-      licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>.
-      <div />
+    <div> 
+      Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>.
+      La librairie Discret est sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>. 
+      Les exemples et le *binding* Flutter est sous licence <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a> 
+    <div />
   </section>
 </body>
 
