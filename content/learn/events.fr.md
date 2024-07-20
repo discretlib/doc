@@ -18,21 +18,21 @@ DataModification {
 ```
 
 # RoomModified(room)
-Cet évenement est déclenché quand une Room est modifiéé.
-**room** contient l'object room.
+Cet évenement est déclenché quand une *Room* est modifiéé.
+**room** contient la *Room* modifiée.
 
 
 # PeerConnected(verifying_key, date, connection_id)
 Cet évenement est déclenché quand un pair se connecte.
 - **verifying_key**: la clé de signature du pair
-- **date** la date de connection
-- **connection_id** l'identifiant de la connection
+- **date**: la date de connection
+- **connection_id**: l'identifiant unique de la connection
 
 # PeerDisconnected(verifying_key, date, connection_id)
 Cet évenement est déclenché quand un pair est déconnecté
 - **verifying_key**: la clé de signature du pair
-- **date** la date de connection
-- **connection_id** l'identifiant de la connection
+- **date**: la date de connection
+- **connection_id**: l'identifiant unique de la connection
 
 # RoomSynchronized(room_id)
 Cet évenement est déclenché quand une *Room* a fini sa synchronisation.

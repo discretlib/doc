@@ -56,6 +56,10 @@ query {
     }
 }
 ```
+Il faut noter que:
+- **result** est un alias, il peut être nommé différement,
+- les champs demandés *ne sont pas* délimités par une virgule.
+
 Cette requête retournera l'objet JSON suivant:
 ```json
 {
@@ -74,12 +78,9 @@ Cette requête retournera l'objet JSON suivant:
     ]
 }
 ```
-
 Il faut noter que:
-- **result** est un alias, il peut être nommé différement
-- les champs demandés *ne sont pas* délimités par une virgule,
 - le résultat de la requête est contenu dans un tableau JSON, cela est vrai même si la requête ne renvoie qu'un seul tuple,
-- si la base de donnée ne contient aucune donnée, la requête retourne un tableau vide.
+- si la base de donnée ne contient pas les données demandées, la requête retourne un tableau vide.
 
 # Requête Multiples
 Il est possible de faire plusieurs requêtes en une seule fois.
@@ -167,7 +168,7 @@ query {
 }
 ```
 
-Il est aussi possible de filtrer avec la valueur **null**
+Il est aussi possible de filtrer avec la valeur **null**
 ```js
 query {
     Person (
@@ -190,6 +191,8 @@ query {
 Par défaut, toute les données texte sont indéxées pour pouvoir effectuer des recherches plein texte en utilisant la clause **search**
 
 L'index utilisé est un index *trigram*, donc seule les chaines de plus de 3 charactères peuvent être recherchées.
+
+L'indexation peut être [desactivée pour une entité](@/learn/datamodel/schema.fr.md#desactiver-l-indexation-plein-texte).
 
 ```js
 query {
@@ -355,6 +358,10 @@ query {
 # Trier les résultats
 Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de resultats se fait avec la clause **order_by**.
 
+Le tri peut se faire sur plusieurs champs. Chaque champ doit avoir une indication de direction de tri:
+- **asc** du plus petit au plus grand (ascendant)
+- **desc** du plus grand au plus petit (descendant)
+
 ```js
 query {
     Person(
@@ -375,10 +382,7 @@ query {
 }
 ```
 
-Le tri peut se faire sur plusieurs champs.
-Chaque champ doit avoir une indication de direction de tri:
-- **asc** du plus petit au plus grand (ascendant)
-- **desc** du plus grand au plus petit (descendant)
+
 
 Comme pour les filtres, **order_by** peut être définit pour les sous-entités.
 

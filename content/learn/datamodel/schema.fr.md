@@ -163,13 +163,13 @@ Cet exemple crée un index sur le tuple **(name, id)**:
 
 
 # Désactiver l'indexation plein texte
-Par défaut, tout les champs de type **String** sont indexés ensemble pour fournir une fonctionalité de "recherche de texte libre". Cette fonctionalité peut être désactivée en utlisant le mot clé **no_full_text_index**.
+Par défaut, tout les champs de type **String** sont indexés ensemble pour fournir une fonctionalité de *recherche de texte libre*. Cette fonctionalité peut être désactivée en utlisant le mot clé **no_full_text_index**.
 
 Les indexes définit dans l'entité ne sont pas désactivés.
 
 ```js
 my_data {
-    Person( no_full_text_index) {
+    Person(no_full_text_index) {
         name : String,
         index(name), //non désactivé
     }

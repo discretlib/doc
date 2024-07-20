@@ -4,7 +4,7 @@ description = "Apprenez à inserer des données, les modifier et les supprimer"
 weight = 2
 +++
 
-Les requêtes de type 'mutation' permettent d'insérer ou de modifier des données. 
+Les requêtes de type *mutation* permettent d'insérer ou de modifier des données. 
 
 Les exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
 ```js
@@ -18,7 +18,6 @@ Les exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
 ```
 
 # Insérer
-Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ **id**. Cet identifiant est retourné par la requête de *mutation*.
 
 La syntaxe pour insérer un nouveau tuple est la suivante:
 ```js
@@ -31,7 +30,8 @@ mutate {
 ```
 Cette mutation insère une nouvelle personne nommée 'John Doe'.
 
-Le résultat d'une requête de mutation retourne un object JSON comprenant les champs que vous avez insérés, ainsi que l'**id** nouvellement créé:
+Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ **id**. Cet identifiant est retourné par la requête de *mutation*. Le résultat d'une requête de mutation retourne un object JSON comprenant les champs que vous avez insérés:
+
 ```js
 {
     "Person":{
@@ -194,7 +194,7 @@ delete {
 # Propagation de la *Room*
 La plupart des données que vous allez insérer seront attaché à une [Room](@/learn/access_rights/room.fr.md) à l'aide du champ système **room_id**. Dans le cas d'une requête imbriquée, la **room_id** du tuple *parent* sera propagé aux tuples d'une relation si ceux ci n'ont pas de **room_id**. Cela permet de simplifier la syntaxe en cas de requête complexe.
 
-Dans l'exemple suivant, "Alice" sera insérée dans la "room" ayant pour id **$room_id**.
+Dans l'exemple suivant, "Alice" sera insérée dans la *Room* ayant pour id **$room_id**.
 ```js
 mutate {
     Person {

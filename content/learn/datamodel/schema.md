@@ -4,7 +4,7 @@ description = "learn how to create and update the data model"
 weight = 1
 +++
 
-Discret uses a schema language to describe what kind of data can be inserted and queried.
+Discret uses a data model language to describe what kind of data can be inserted and queried.
 
 
 # Basic Syntax 

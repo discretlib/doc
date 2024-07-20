@@ -4,10 +4,9 @@ description = "Learn how to insert, update and delete data"
 weight = 2
 +++
 
+*Mutation* queries allows for inserting and modifying data.
 
-Les requêtes de type 'mutation' permettent d'insérer ou de modifier des données. 
-
-Les exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
+Examples of this document will use the following [data model](@/learn/datamodel/schema.md):
 ```js
 {
     Person {
@@ -18,10 +17,8 @@ Les exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
 }
 ```
 
-# Insérer
-Lors de la creation d'un tuple, un identifiant est généré et stocké dans le champ **id**. Cet identifiant est retourné par la requête de *mutation*.
-
-La syntaxe pour insérer un nouveau tuple est la suivante:
+# Inserting data
+Inserting a new tuple is done using the followinf query::
 ```js
 mutate {
     Person {
@@ -30,9 +27,10 @@ mutate {
     }
 }
 ```
-Cette mutation insère une nouvelle personne nommée 'John Doe'.
 
-Le résultat d'une requête de mutation retourne un object JSON comprenant les champs que vous avez insérés, ainsi que l'**id** nouvellement créé:
+This query insert a new **Person** named 'John Doe'
+
+During the insertion, an unique identifier is stored in the **id** system field. The mutation query returns a JSON object that contains the field you have inserted and the new **id**:
 ```js
 {
     "Person":{
@@ -44,8 +42,9 @@ Le résultat d'une requête de mutation retourne un object JSON comprenant les c
 ```
 
 
-# Mutation multiples
-Il est possible de faire plusieurs mutations en une seule requête:
+# Multiples Mutation
+
+A single query can performs multiple mutation:
 ```js
 mutate {
     p1: Person {
@@ -62,7 +61,7 @@ mutate {
     }
 }
 ```
-Les alias *p1, p2, last* peuvent être n'importe quelle chaine de caractères mais doivent être uniques pour la mutation, car chaque requête va retourner un champs JSON différent. Le résultat de la mutation sera l'object JSON suivant:
+ Aliases *p1, p2, last* can be any string as long as they are unique within the query as each alias will generate a JSON field in the result. The query result will be:
 
 ```js
 {
@@ -80,13 +79,13 @@ Les alias *p1, p2, last* peuvent être n'importe quelle chaine de caractères ma
         "name":"Alice"
         }
 }
-
 ```
-Vous noterez que pour des raisons techniques, l'ordre des champs JSON retournés n'est pas garanti d'être le même que pour la requête.
+You will notice that for technical reasons, the JSON field order is not guaranted ot be the same as the aliases order in query.
 
+# Nesting mutation
 
-# Imbrication 
-Il est possible d'insérer en une seule requête une entité et ses relations. Pour l'exemple de **Person**, la requête suivante va insérer 'John Doe' ainsi que ses parents.
+In one single query, you can create an entity tuple with all its relations. 
+The following query insert 'John Doe' and its parents.
 ```js
 mutate {
     Person {
@@ -103,11 +102,11 @@ mutate {
 }
 ```
 
-Vous pourrez noter que:
-- la définition des deux parents est séparée par une virgule;
-- il n'est pas nécessaire d'indiquer que Alice et Bob sont de type **Person** car cela et sous entendu par la définition du schéma.
+You can notice that 
+- Alice and Bob are not defined as **Person** because it is implied by the data model definition
+- the two parents definition is separated by a comma
 
-Si les relations ont déja été insérées et que vous connaissez leur **id** il est possible de les utiliser lors de l'insertion d'un nouveau tuple
+If some tuples have allready been created, you can use them during the creation of a new tuple.
 ```js
 mutate {
     Person {
@@ -115,21 +114,20 @@ mutate {
         surname: "John"
         parents: [
             {
-                id : $mother_id //n'insère pas de nouveau tuple et 
-                                //utilise le tuple référencé.
+                id : $mother_id //does not create a new tuple 
+                                //and use the tuple references by this id
             },{
-                id : "JoAWR7-zcUR5ri_yfZaqXQ" //n'insère pas de nouveau 
-                                //tuple et utilise le tuple référencé.
+                id : "JoAWR7-zcUR5ri_yfZaqXQ" //does not create a new tuple 
+                                //and use the tuple references by this id
             }
         ]
     }
 }
 ```
-Si les **id** fournits n'existent pas, une erreur est retournée.
 
-# Mettre à jour 
-Une requête de mise à jour est de type *mutation* qui contient l'identifiant du tuple à modifier.
+# Updating Data
 
+Updating data requires a **mutation** query that contains the *id* of the tuple to be modified. For example:
 ```js
 mutate {
     Person {
@@ -138,9 +136,9 @@ mutate {
     }
 }
 ```
-Cette mutation va mettre à jour le champ surname du tuple ayant l'**id** indiqué. Si cet id n'existe pas, une erreur est retournée.
+This query will update the **surname** field of the tuple with the provided **id**. if it does not exists, an error is returned.
 
-Il est possible d'ajouter des relations à un tuple existant:
+You can add a relation to an existing tuple:
 ```js
 mutate {
     Person {
@@ -154,11 +152,11 @@ mutate {
     }
 }
 ```
-Cette requête va ajouter au tuple reférencé par **$id**:
-- une reférence au tuple défini par **$mother_id**
-- un nouveau tuple **Person** ayant pour nom "Bob"
+This query will add to the tuple with the provided **$id**:
+- a refeérence to the tuple defined **$mother_id**
+- create a new tuple **Person** for "Bob" and add its reference to the parent tuple.
 
-Il est aussi possible de supprimer toutes les relation d'un champ donné en lui passant la valeur **null**:
+You can also delete all references of a field by setting its value to **null**:
 ```js
 mutate {
     Person {
@@ -167,21 +165,20 @@ mutate {
     }
 }
 ```
-Cette requête supprime tous les parents du tuple référencé par **$id**
 
 
-# Suppression de données
-La suppression de données s'effectue en utilisant une requête de type **delete**.
-il est possible de supprimer un tuple, ou bien une relation dans un champs du tuple.
+# Deleting data
 
-La requête suivante supprimer un tuple ayant pour identitifiant **$id**:
+Deleting data is done by using a **delete** query. You can delete a tuple or a reference in a relation field.
+
+The following query deletes the tuple with the provided **$id**:
 ```js 
 delete {
     Person { $id }
 }
 ```
 
-La requête suivante supprime le parent ayant pour identifiant:$parent _id
+The following query only deletes the **parent** with the provided id **$parent _id**
 ```js 
 delete {
     Person { 
@@ -192,10 +189,12 @@ delete {
 ```
 
 
-# Propagation de la *Room*
-La plupart des données que vous allez insérer seront attaché à une [Room](@/learn/access_rights/room.fr.md) à l'aide du champ système **room_id**. Dans le cas d'une requête imbriquée, la **room_id** du tuple *parent* sera propagé aux tuples d'une relation si ceux ci n'ont pas de **room_id**. Cela permet de simplifier la syntaxe en cas de requête complexe.
+# *Room* propagation
 
-Dans l'exemple suivant, "Alice" sera insérée dans la "room" ayant pour id **$room_id**.
+Most of the data will be inserted in a [Room](@/learn/access_rights/room.md) using the **room_id** system field. In the case of a nested insertion, the **room_id** of the parent tuple will be propagated to its *child* tuples if no **room_id** are provided for them.
+
+
+In the following example, "Alice" will be inserted in the *Room* whose id is **$room_id**.
 ```js
 mutate {
     Person {

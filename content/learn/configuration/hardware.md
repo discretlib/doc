@@ -4,12 +4,10 @@ description = "Learn more about the hardware keys"
 weight = 1
 +++
 
+When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
+This add an extra layer of security in the unlucky case where your secret material is shared by another person on the internet (which could be relatively frequent as users tends use weak passwords).
 
-Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont authorisés à se connecter. 
-
-Cela ajoute un niveau additionel de sécurité dans le cas où votre secret serait aussi utilisé par une autre personne sur Internet. Cela peut arriver dans le cas où vos utlisateur utilisent des mots de passe faibles. 
-
-Ces clés matérielles sont stockées dans l'entité système: 
+Those hardware keys are managed by the system entity: 
 ```js
 sys{
     AllowedHardware{
@@ -19,10 +17,9 @@ sys{
 }
 ```
 
-**name** décrit l'appareil authorisé.
+**name** provides the name of the device.
 
-**status** peut contenir trois valeurs:
-- **enabled** : la connection à ce matériel est authorisée, 
-- **disabled**: la connection à ce matériel est interdite, 
-- **pending**: ce matériel est en attente d'authorisation: l'utilisateur doit manuellement authoriser ou rejeter cette clé matérielle, 
-
+**status** can have three values:
+- **enabled** : your device can connect to this other device, 
+- **disabled**: your device cannot connect to this device,
+- **pending**: this device is waiting for an authorisiation: user have to review this device to allow or reject it.

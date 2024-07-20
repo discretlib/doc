@@ -5,4 +5,4 @@ template = "tutorial-section.html"
 page_template = "tutorial-page.html"
 +++
 
-This document introduces the concepts used by *Discret* by implementing simple programs.
+This documents provides step by step implementation of applications that introduces the different concept used by *Discret*

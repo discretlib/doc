@@ -14,7 +14,7 @@ Chaque tuple de données ne peut être que dans une seule *Room*, mais vous pouv
 
 Lors de l'insertion ou modification d'un tuple dans cette *Room*, les droits d'accès seront utilisés pour vérifier que l'utilisateur a le droit de faire cette opération.
 
-Lors de la connection avec d'autres *Pairs*, ces *Rooms* seront utilisées pour savoir quelle données doivent être synchronisées avec ces pairs. 
+Lors de la connection avec d'autres *Pairs*, ces *Rooms* seront utilisées pour savoir quelle données doivent être synchronisées avec ces pairs.  Ces pairs recevront uniquement les données des *Rooms* auquelles ils appartiennent.
 
 Enfin, lors de la synchronisation des données, chaque tuple sera vérifié pour garantir que les données reçues ont le droit d'exister dans cette *Room*. 
 
@@ -64,13 +64,11 @@ L'entité **UserAuth** définit un utilisateur:
 - **enabled**: permet d'activer ou de désactiver cet utilisateur
 - **mdate**: le champ système **mdate** définit la date de début de validité de cette authorisation.
 
-L'entité **EntityRight** définit les droits d'accèss pour une entité donnée:
+Tous les utilisateurs ayant accès à une *Room* ont des droit de lecture sur toutes les entités. L'entité **EntityRight** définit les droits de modification pour une entité donnée:
 - **entity**: le nom de l'entité incluant son espace de nom. Par exemple: **house.Person**. 
 - **mutate_self**: indique si vous pouvez inserer de tuples de cette entité, et modifier les tuples que vous avez inséré ,
 - **mutate_all**: indique si vous avez le droit de modifier des tuples créés par d'autre personne,
 - **mdate**: le champ système **mdate** définit la date de début de validité de ce droit d'accès.
-
-Tous les utilisateurs ayant accès à une *Room* ont des droit de lecture sur toutes les entités. Les **EntityRight** ne sont utilisés que pour définir les droits de modification.
 
 
 Bien que cela ne soit pas recommandé, il est possible de définir un droit pour toutes les entité en insérant le *joker* **\*** dans le champ **entity**. Les droit d'accès définit avec le *joker* **\*** n'est pas prioritaire et ne sera utilisé que si l'entité n'a pas d'**EntityRight** propre. 
@@ -167,14 +165,14 @@ mutate {
 }
 ```
 
-les lignes *7* à *23* décrivent les authorisations pour les auteurs, et les lignes 24 *à* 34  décrivent les authorisations pour les lecteurs.
+les lignes *7* à *23* décrivent les authorisations pour les auteurs, et les lignes *24* à *34*  décrivent les authorisations pour les lecteurs.
 
 Vous noterez que:
-- nous n'avons pas défini de droits sur l'entité **Articles** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
+- nous n'avons pas défini de droits sur l'entité **Article** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
 - aucune des deux authorisations n'a défini de champ **user_admin**, cela signifie que seul les **admin** (ici *$admin_user*) de la *Room* peuvent ajouter ou désactiver des utilisateurs
 
 # Exemple: un calendrier partagé 
-Cet exemple est plus complexe que le précedent et montre une interaction entre plusieur **Rooms**.
+Cet exemple est plus complexe que le précedent et montre une interaction entre plusieur *Rooms*.
 
 Pour un calendrier partagé nous devons pouvoir séparer la visibilité entre la date d'un rendez-vous et son contenu. Par exemple:
 - nous voudrions partager notre emploi du temps à tous les collaborateurs de notre entreprise mais sans partager les détails. Cela permet aux collaborateurs de connaître nos disponibilités.
@@ -311,7 +309,9 @@ mutate {
 Et chaque utilisateur pourra utiliser la requête suivante pour récupérer les rendez-vous:
 ```js
 query {
-    res: cal.Calendar {
+    res: cal.Calendar (
+        id=$calendar_id
+    ){
         name
         appointments(
             nullable(detail)

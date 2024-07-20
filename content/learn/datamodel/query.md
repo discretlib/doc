@@ -3,9 +3,10 @@ title = "Queries"
 description = "learn how to use the query engine and all its options"
 weight = 3
 +++
-*Discret* fournit un moteur de requêtes assez complet et inspiré de GraphQL. 
 
-La plupart des exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md) suivant:
+*Discret* provides a query engine inspired by GraphQL
+
+Most of the examples of this document will use the following [data model](@/learn/datamodel/schema.md) suivant:
 ```js
 {
     Person {
@@ -21,7 +22,7 @@ La plupart des exemples utiliseront le [schéma](@/learn/datamodel/schema.fr.md)
 }
 ```
 
-Avec les données suivantes:
+with the following data:
 ```js
  mutate {
     Person {
@@ -44,9 +45,9 @@ Avec les données suivantes:
 ```
 
 
-# Syntaxe
+# Base Syntax
 
-Commençons par faire une requête simple qui va recupérer le nom et prénom de toutes les personnes présentes dans la base de données:
+Let's start with a simple query that will retrieve the name and surname of the **Person**:
 ```js
 query {
     result: Person {
@@ -55,7 +56,12 @@ query {
     }
 }
 ```
-Cette requête retournera l'objet JSON suivant:
+
+You will notice that:
+- **result** is an alias, it can have a different name,
+- the requested fields *are not* delimited by a comma.
+
+This will return the following JSON object:
 ```json
 {
     "result":[
@@ -73,17 +79,12 @@ Cette requête retournera l'objet JSON suivant:
     ]
 }
 ```
+You will notice that:
+- the query result is a JSON table, this is true even if there is only one result,
+- If the database does not contains requested data, the query will return an empty table.
 
-Il faut noter que:
-- **result** est un alias, il peut être nommé différement
-- les champs demandés *ne sont pas* délimités par une virgule,
-- le résultat de la requête est contenu dans un tableau JSON, cela est vrai même si la requête ne renvoie qu'un seul tuple,
-- si la base de donnée ne contient aucune donnée, la requête retourne un tableau vide.
-
-# Requête Multiples
-Il est possible de faire plusieurs requêtes en une seule fois.
-
-La requête suivante va recupérér la liste des personnes et la liste des familiers:
+# Multiple Queries
+You can perform several queries at the same time. The following query will return the **Pet** list and the **Person** list.
 ```js
 query {
     persons: Person {
@@ -97,7 +98,9 @@ query {
 }
 ```
 
-et retourne l'objet JSON suivant:
+**persons** et **pets**  aliases must be unique withing the query because each one will generate a JSON object field.
+
+It will return the following JSON object:
 ```json
 {
     "persons":[
@@ -113,21 +116,21 @@ et retourne l'objet JSON suivant:
 }
 ```
 
-Les alias **persons** et **pets** doivent être uniques au sein de la requête. 
-
-# Filtrer
-Les exemples précedents récupèrent la totalité des tuples correspondant à une entitée. Dans la réalité, les données doivent être filtrées.
-
-Les filtres supportent les opérateurs suivants:
-- **=**     égal
-- **!=**    différent de
-- **\>**     supérieur à
-- **\>=**    supérieur ou égal à
-- **<**     inférieur à
-- **<=**    inférieur ou égal à
 
 
-La syntaxe est la suivante:
+# Filters
+Previous examples recovers all the tuples of a specified entity, in real life most query will need to filter data.
+
+Filters supports the following operators:
+- **=**     equals
+- **!=**    not equals
+- **\>**    greater than
+- **\>=**   greater than or equals
+- **<**     lower than
+- **<=**    lower than or equals
+
+
+The syntax is the following:
 ```js
 query {
     Person (
@@ -138,7 +141,7 @@ query {
     }
 }
 ```
-Ici, l'entité **Person** est filtrée en indiquant que l'on ne veut récupérer que les tuples dont le champ "nom" correspond à "Doe". Cela produit le résultat suivant: 
+This **Person** query is filtered by name and indicates that we only want to retrieve tuples whose name equals to "Doe". It provides the following result: 
 ```json
 {
     "Person":[
@@ -148,7 +151,7 @@ Ici, l'entité **Person** est filtrée en indiquant que l'on ne veut récupérer
 }
 ```
 
-Il est possible de définir plusieurs filtre en les séparant par des virgules. 
+You can define multiple filters by separating them with a comma. 
 ```js
 query {
     Person (
@@ -166,7 +169,7 @@ query {
 }
 ```
 
-Il est aussi possible de filtrer avec la valueur **null**
+You can also filter using the **null** value:
 ```js
 query {
     Person (
@@ -185,10 +188,12 @@ query {
 ```
 
 
-# Recherche plein texte
-Par défaut, toute les données texte sont indéxées pour pouvoir effectuer des recherches plein texte en utilisant la clause **search**
+# full text search
+By default, every text field is indexed to allow full text search using the **search** keyword.
+The search engine uses a *trigram* index, only string greater or equal than 3 characters can be searched.
 
-L'index utilisé est un index *trigram*, donc seule les chaines de plus de 3 charactères peuvent être recherchées.
+The indexing can be [disabled for an entity](@/learn/datamodel/schema.md#disabling-full-text-indexing).
+
 
 ```js
 query {
@@ -200,17 +205,17 @@ query {
     }
 }
 ```
-Cette recherche retourne uniquement le tuple contenant "Alice".
+This will only returns the "Alice" tuple:
 ```json
 {
 "Person":[{"name":"Coop","surname":"Alice"}]
 }
 ```
 
-# Requêtes imbriquées
-Les requêtes ne sont pas limitées à la récupération d'un seul type d'entité. Au sein d'une même requête il est possible de récupérer une entité et ses relations.
+# Nested queries
+You can query an entity and its relations at the same time.
 
-la requête suivante récupère les persones et leur familier:
+The following query get the **Person** and their **Pets**:
 ```js
 query {
     result: Person {
@@ -222,7 +227,7 @@ query {
     }
 }
 ```
-Elle produit le résultat suivant: 
+It produces the following result:
 ```json
 {
     "result":[
@@ -244,9 +249,10 @@ Elle produit le résultat suivant:
 }
 ```
 
-La requête renvoie uniquement les **Person** qui possèdent un **Pet**. Cela permet de garantir que votre requête renverra toujours des données non nulles, ce qui facilite le traitement.
+The query only provides **Person** that have at least a **Pet**. **Person** without pets are filtered. 
+This makes the result very easy to use as it is guaranted that you will never encouter a **null** value
 
-Des filtres peuvent êtres appliqués aux sous entitées, comme pour l'entitée principale: 
+Filters can be applied to sub-entities:
 ```js
 query {
     Person {
@@ -264,8 +270,7 @@ query {
     }
 }
 ```
-
-Cette requête produit le résultat suivant:
+It produces:
 ```json
 {
     "Person":[
@@ -289,8 +294,9 @@ Cette requête produit le résultat suivant:
 
 ```
 
-# Relations "Nullables" 
-Pour certaines requêtes vous pouvez vouloir récupérer les entités ayant des relations vides. Pour ce faire if faut définir le champs de relation comme **nullable**:
+# "Nullables" Relations
+
+For some query, you may wan't to recover entities with empty relations.It can be done by using the **nullable** keyword that defines the relation fields that can be null for the query. For example:
 
 
 ```js
@@ -306,7 +312,7 @@ query {
     }
 }
 ```
-Ici le champ **pet** est définit comme **nullable** et la requête retournera aussi les **Person** qui n'ont pas de **Pet**.
+For this query, the **pet** field is allowed to be null and the query will return all the **Person**:
 
 ```json
 {
@@ -324,7 +330,8 @@ Ici le champ **pet** est définit comme **nullable** et la requête retournera a
 }
 ```
 
-Une fois un champ définit comme **nullable**, il est possible d'ajouter un filtre pour récupérer uniquement les tuples ayant une relation nulle: 
+Once a field has been defined  **nullable**, you can add a filter to only get tuples that have an empty relation:
+
 ```js
 query {
     Person(
@@ -351,8 +358,12 @@ query {
 }
 ```
 
-# Trier les résultats
-Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de resultats se fait avec la clause **order_by**.
+# Sorting result
+When a query returns several tuples, the tuple order is not guaranted. Sorting results can be done by using the **order_by** keyword.
+
+You can sort on multiple fields. Each field must have a sort order:
+- **asc** lower to greater (ascending)
+- **desc** greater to lower (descending)
 
 ```js
 query {
@@ -364,6 +375,8 @@ query {
     }
 }
 ```
+
+The query returns:
 ```json
 {
     "Person":[
@@ -374,16 +387,15 @@ query {
 }
 ```
 
-Le tri peut se faire sur plusieurs champs.
-Chaque champ doit avoir une indication de direction de tri:
-- **asc** du plus petit au plus grand (ascendant)
-- **desc** du plus grand au plus petit (descendant)
 
-Comme pour les filtres, **order_by** peut être définit pour les sous-entités.
 
-# Limiter le nombre de résultats 
-Si le nombre de tuples est très large, il peut être utile de limiter le nombre de tuples retournés en utilisant la clause **first**
+The **order_by** clause can be used in sub-entities.
 
+# Limit number of results
+
+If a query is expected to return a large number of results, you can limit the number of fied by using the  **first** keyword.
+
+The following query returns the fisrt two tuples:
 ```js
 query {
     Person(
@@ -395,8 +407,6 @@ query {
     }
 }
 ```
-
-Ici, seule les deux premiers tuples sont retournés
 ```json
 {
     "Person":[
@@ -406,8 +416,9 @@ Ici, seule les deux premiers tuples sont retournés
 }
 ```
 
-Il est aussi possible de *passer* un certain nombre de tuple en utilisant la clause **skip**
+You can also skip a number of tuples by using the **skip** keyword.
 
+The following query skip the first result and returns the next two tuples.
 ```js
 query {
     Person(
@@ -421,7 +432,6 @@ query {
 }
 ```
 
-Ici, le premier tuple est ignoré, et les deux suivants sont retournés:
 ```json
 {
     "Person":[
@@ -433,12 +443,11 @@ Ici, le premier tuple est ignoré, et les deux suivants sont retournés:
 
 
 # Pagination
-Il peut être tentant d'utiliser les clauses **skip** et **first** pour paginer de grands tableaux de résultats, mais cette méthode peut se reveler très lente car la clause **skip** peut avoir à itérer sur un très grand nombre de tuples. 
+It is tempting to use the **skip** and **first** keyword to implement pagination for large set of data, but this method can have performance issue because skipping tuple can be expensive for large dataset.
 
-*Discret* fournit une alternative plus efficace avec les clauses **before** et **after**. Ces clauses fonctionent en association avec la clause **order_by** et permettent de demander de filtrer les tuples retrounés. 
+*Discret* provides an alternative with the **before** et **after** keywords. Those keyword work in association with the **order_by** an allow to filter the sorted fields.
 
-La syntaxe est la suivante:
-
+The query syntax is the following:
 ```js
 query {
     Person(
@@ -450,15 +459,18 @@ query {
     }
 }
 ```
-Dans cette requête, les valeurs retournée seront celles dont la **mdate** est supérieure au paramêtre **\$date** et dont l'**id** est supérieur à **\$id** si les dates sont égales.
+The returned tuples will match those rules 
+-  **mdate** system field greater than the **\$date** parameter
+-  if the **mdate** is equal to **\$date**, it will ensure that the **id** system field is greater than the **\$id** parameter.
 
-Cette méthode de pagination est plus souple et bien plus rapide que l'utilisation de **skip** et **first**.
-
-# Sélecteurs Json 
-Les champs de types JSON peuvent êtres accedés à l'aide du selecteur json **->$.**.
+This method is much faster than the **skip** and **first** one.
 
 
-Considerons l'entité suivante contenant un champ JSON :
+# Json Selector
+
+JSON fields can be explored using the JSON selector **->$.**.
+
+Let's consider the following data model:
 ```js
 {
     Article {
@@ -467,7 +479,7 @@ Considerons l'entité suivante contenant un champ JSON :
 }
 ```
 
-et inseront le tuple suivant 
+with the following tuple 
 ```js
 mutate {
     Article {
@@ -479,7 +491,7 @@ mutate {
 }
 ```
 
-La requête suivante retournera le titre de l'article
+The following query will recover the title of the article
 ```js
 query sample{
     Article{
@@ -495,21 +507,19 @@ query sample{
 }
 ```
 
+# Aggregates
 
-
-
-# Aggrégation
-
-*Discret* fournit les fonctions d'aggrégation de données suivantes.**(field)** réprésente le nom du champ à aggréger.
+*Discret* provides the following aggregate function. **(field)** is the name of the field to aggregate.
 - **avg(field)**
 - **count()**
 - **max(field)**
 - **min(field)**
 - **sum(field)**
 
-Un champ d'aggrégation se présente sous la forme **alias: fonction()**. Si une entité definit un champ d'aggrégation, tous les autres champs doivent aussi être des champs aggrégés.
+An aggreation field has the form **alias: function()**. In a query, if an entity defines an aggregated field, all other fields must also be aggregated.
 
-La requête suivante compte le nombre de parents pour une personne: 
+
+The following query counts the number of parents for a **Person**:
 ```js
     query {
         Person (
@@ -526,7 +536,7 @@ La requête suivante compte le nombre de parents pour une personne:
         }
     }
 ```
-et donne le résultat suivant:
+and provides the following result:
 ```json
 {
     "Person":[
@@ -548,12 +558,11 @@ et donne le résultat suivant:
     ]
 }
 ```
+We can see that the **parents** field is used two times:
+- once with the alias **parent_count** to count the number of parents
+- once to recover the parents name
 
-On note que le champ **parents** est utilisé deux fois:
-- une fois avec l'alias **parent_count** pour effectuer la fonction d'aggrégation,
-- une fois pour récupérer le nom des parents. 
-
-Cela est nécessaire car on ne peut pas mélanger champs aggrégés et champs normaux. La requête suivante mélangeant **name** et **count()** n'aurait pas de sens:
+It is mandatory to use it two times because we cannot define aggregates and normal field in the same entity. The following query with **name** et **count()** would make no sense and will return an error:
 ```js
     query {
         Person (
@@ -561,7 +570,7 @@ Cela est nécessaire car on ne peut pas mélanger champs aggrégés et champs no
         )
         {
             name
-            //cette requête n'a pas de sens et génère une erreur
+            //this sub-entity query does not make sense
             parents {
                 total: count()
                 name

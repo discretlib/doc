@@ -4,25 +4,23 @@ description = "Learn how to manage data access rights"
 weight = 1
 +++
 
+*Discret* data synchronisation uses fined grained access rights to decide which data needs to be synchronised with peers. Every tuple can be put in a *Room* that defines a set of rigths:
+- who can modified data
+- who can read data
+- what kind of entity is valid
+- who can admin the *Room* 
 
-Les droits d'accès sont au coeur du mécanisme de synchronisation de *Discret*. Chaque tuple peut être assigné à une *Room* (*Salle* ou *Chambre* en anglais) qui définit un ensemble de droits: 
-- qui peut modifier les données,
-- qui peut y acccéder,
-- quel type de donnée est valable dans cette *Room*,
-- qui est administrateur de la *Room*.
+Each tuple can be in a single *Room*, but can be moved accross *Rooms*.
 
-Chaque tuple de données ne peut être que dans une seule *Room*, mais vous pouvez déplacer vos données d'une *Room* à l'autre. 
+When inserting or mutating a tuple belonging to a *Room*, the access rights will be used to verify that the peer has the necessary rights do perform the action. 
 
-Lors de l'insertion ou modification d'un tuple dans cette *Room*, les droits d'accès seront utilisés pour vérifier que l'utilisateur a le droit de faire cette opération.
+When connecting with other peers, the *Rooms* will be used to known which data needs to be synchronized with those peers. Other peers will not receive data from *Rooms* they don't belong to.
 
-Lors de la connection avec d'autres *Pairs*, ces *Rooms* seront utilisées pour savoir quelle données doivent être synchronisées avec ces pairs. 
-
-Enfin, lors de la synchronisation des données, chaque tuple sera vérifié pour garantir que les données reçues ont le droit d'exister dans cette *Room*. 
-
+When synchronising data, each tuple will be checked to ensure received data have the necessary rights in the *Rooms*
 
 # Schéma
 
-Le schéma d'une **Room** est le suivant:
+The Room data model is the following:
 ```js
 sys{
     Room {
@@ -50,41 +48,39 @@ sys{
 }
 ```
 
-L'entité **Room** est l'entité parente qui contient le reste de la définition:
-- **admin**: définit les administrateurs de la *Room* en question
-- **authorisations**: définit les droit d'accès 
+The **Room** entity is the root and contains:
+- **admin**: the *Room* administors,
+- **authorisations**: the access rights. 
 
-L'entité **Authorisation**  contient un groupe de droits d'accès à cette *Room*. Une *Room* peut contenir plusieurs authorisation:
-- **name**: le nom de l'authorisation, par exemple: autheurs, lecteurs, etc.
-- **rights**: les droits d'accès au niveau des entité: quelle entité est acceptée dans cette Room et quelles sont les authorisations d'écriture pour cette authorisation,
-- **users**:  les utilisateurs authorisés,
-- **user_admin**: qui peut gérer des utilsateurs de cette authorisation.
+The **Authorisation** entity contains access rights for a *Room*. A *Room* can contains several authorisations:
+- **name**: a descriptive name, for example: authors, readers, etc.
+- **rights**: entity level access rights: what kind of entity can be in this room,
+- **users**:  the authorised users,
+- **user_admin**: administrators that can add or disable users.
 
-L'entité **UserAuth** définit un utilisateur:
-- **verif_key**: la clé cryptographique de vérification de signature de l'utilisateur.
-- **enabled**: permet d'activer ou de désactiver cet utilisateur
-- **mdate**: le champ système **mdate** définit la date de début de validité de cette authorisation.
-
-L'entité **EntityRight** définit les droits d'accèss pour une entité donnée:
-- **entity**: le nom de l'entité incluant son espace de nom. Par exemple: **house.Person**. 
-- **mutate_self**: indique si vous pouvez inserer de tuples de cette entité, et modifier les tuples que vous avez inséré ,
-- **mutate_all**: indique si vous avez le droit de modifier des tuples créés par d'autre personne,
-- **mdate**: le champ système **mdate** définit la date de début de validité de ce droit d'accès.
-
-Tous les utilisateurs ayant accès à une *Room* ont des droit de lecture sur toutes les entités. Les **EntityRight** ne sont utilisés que pour définir les droits de modification.
+The **UserAuth** entity defines users:
+- **verif_key**: the cryptographic signature verifying key of the user,
+- **enabled**: enable/disable this user,
+- **mdate**: the **mdate** system field defines the validity starting date of this user authorisation.  
 
 
-Bien que cela ne soit pas recommandé, il est possible de définir un droit pour toutes les entité en insérant le *joker* **\*** dans le champ **entity**. Les droit d'accès définit avec le *joker* **\*** n'est pas prioritaire et ne sera utilisé que si l'entité n'a pas d'**EntityRight** propre. 
+Every users defined in a *Room* have a read only access on all data. The **EntityRight** entity defines the mutation rights for an entity:
+- **entity**: the entity name, including its namespace. For example: **house.Person**. 
+- **mutate_self**: defines the right to insert tuples and modify data you have inserted 
+- **mutate_all**: defines the right to modify data created by other users.
+- **mdate**: the **mdate** system field defines the validity starting date of this access right.
 
-Pour garantir l'intégrité de la synchronisation au fil du temps, certaines contraintes sont appliquées:
-- il n'est pas possible de supprimer, les entitités d'une room: par exemple, une fois qu'une **Authorisation** a été créée, elle ne peut plus être supprimée. 
-- il n'est pas non plus possible de modifier les entités **UserAuth** et **EntityRight**. Par exemple, désactiver un **UserAuth** nécessite d'insérer un nouveau tuple avec la même **verif_key** et le champ **enabled** définit comme *false*. 
+while not recommended, it is possible to global mutation rights on all entities by setting the **\*** wildcard in the **entity** field. Wilcard right will only be used if an inserted entity is not defined in a **EntityRight**.
 
-# Insérer des données dans une *Room*
+To guarantee data integrity, some *Room* modifications constraint are enforced:
+- it is forbidden to delete a Room sub entity. for example **Authorisation** or **EntityRight** cannot be deleted.
+- it is forbidden de modify the **UserAuth** et **EntityRight** tuples. if you need to modify an existing right, you will need to create a new version.
 
-Chaque tuple possède un champ système nommé **room_id** qui référence la *Room*.
+# Inseting data in a *Room*
 
-Par exemple, en considérant que **$room_id** contient l'indentifiant d'une *Room* existante, la requête suivante va insérer un tuple **Person** dans la *Room* 
+Every tuple have a **room_id** system field that references a *Room* identifier.
+
+For example, if **$room_id** is the identifier of an existing *Room*, the following query will insert a  **Person** tuple in the *Room* 
 ```js
 mutate {
     Person{
@@ -93,14 +89,13 @@ mutate {
     }
 }
 ```
-Lors de l'insertion ce tuple sera signé avec votre clé de signature, et votre clé de vérification sera insérée dans le champs système **verifying_key**
+During the creation process, the tupple will be signed with your cryptographic signature key and your verifying key will be inserted in the **verifying_key** system field.
 
-Le système de vérification des droit d'accès va se baser sur cette **verifying_key** pour vérifier que vous avez le droit d'insérer une **Person** dans la *Room* référencée par **$room_id**
+The tuple signature and an verifying key will then be used to ensure that you have the right to insert this data in the *Room*.
 
+# Example: access rights for a *Blog* 
 
-# Exemple: droits pour un *Blog* 
-
-Le modèle de données utilisé est le suivant 
+To create a blog, we will use this simplified data model. 
 ```js
 blog {
     Article {
@@ -114,20 +109,16 @@ blog {
     }
 }
 ```
+The blog author must have the following rights
+- insert and modify **Articles**
+- insert and modify **Comment**
+- modify **Comment** from other user, for moderation purpose.
 
-L'auteur du blog doit pouvoir:
-- Insérer et modifier des **Articles**
-- Insérer et modifier des **Comment**, y compris modifier des commentaires des lecteurs afn de pouvoir faire de la modération.
+A blog reader must have the following rights
+- read **Articles**
+- insert and modify **Comment**
 
-Le lecteur doit pouvoir:
-- Lire les **Articles**
-- Insérer des **Comment**
-
-Dans la *Room* définissant les droits d'accès au blog, nous allons donc créer deux **Authorisations**
-- authors: qui contiendra les droits des auteurs
-- readers: qui contiendra les droits des lecteurs
-
-La *Room* est créée avec la requête suivante la suivante:
+The blog *Room* will be created using the following query:
 ```js, linenos
 mutate {
     sys.Room{
@@ -168,24 +159,25 @@ mutate {
 }
 ```
 
-les lignes *7* à *23* décrivent les authorisations pour les auteurs, et les lignes 24 *à* 34  décrivent les authorisations pour les lecteurs.
+Lines *7* to *23* create authorisations for the authors, and line *24* to *34* create authorisations for readers.
 
-Vous noterez que:
-- nous n'avons pas défini de droits sur l'entité **Articles** pour les lecteurs, car toute personne ayant acces à la *Room* a un accès en lecture seule sur toutes les entités. 
-- aucune des deux authorisations n'a défini de champ **user_admin**, cela signifie que seul les **admin** (ici *$admin_user*) de la *Room* peuvent ajouter ou désactiver des utilisateurs
+You can notice that:
+- not rights have been defined for the **Article** entity for the readers. Every users having an access to the *Room* can read every entities.
+- no **user_admin** have been defined for both authorisations. It means that only **admin** of the *Room* can manage users.
 
-# Exemple: un calendrier partagé 
-Cet exemple est plus complexe que le précedent et montre une interaction entre plusieur **Rooms**.
 
-Pour un calendrier partagé nous devons pouvoir séparer la visibilité entre la date d'un rendez-vous et son contenu. Par exemple:
-- nous voudrions partager notre emploi du temps à tous les collaborateurs de notre entreprise mais sans partager les détails. Cela permet aux collaborateurs de connaître nos disponibilités.
-- nous partageons les détails pour les quelques personnes de notre équipe , afin qu'ils sachent en plus ce que nous faisons.
+# Example: a shared calendar
+This example is more complex than the previous one and show interactions between several *Rooms*. 
 
-Comme les utilisateurs d'une **Room** ont accès à toutes les données, nous avons besoin de deux *Rooms* différentes:
-- une pour stocker les date de rendez-vous, que nous appelleront **$room_calendar**
-- une pour stocker les détails des rendez-vous, que nous appelleront **$room_cal_detail**
+We want to have two differents access rigths between an appointment dates and its details. For example: 
+- we want to share our calendar with every employee of our company but without revealing details about appointments
+- we want to share our calendar with the details to our team.
 
-Nous utiliserons ce modèle simplifié:
+As every **Room** users have access to every data, we need to define two *Rooms*:
+- one to store appointment dates. It will be named **$room_calendar**,
+- one to store appointment details.It will be named **$room_cal_detail**
+
+We will use this simplified data model:
 ```js
 cal {
     Calendar {
@@ -205,12 +197,12 @@ cal {
 }
 ```
 
-En considérant les utilisateurs suivant:
-- **$author**: le propriétaire du calendrier
-- **$team_user**: un utilisateur qui aura le droit de voir les détails
-- **$collaborator**:  un utilisateur qui pourra voir uniquement les dates de rendez-vous
+The following users will be used:
+- **$author**: the calendar owner
+- **$team_user**: user that have access to the detail
+- **$collaborator**:  user that can only see appointment dates
 
-La *Room* **$room_calendar** sera défini de la façon suivante:
+The **$room_calendar** *Room* is created using the query:
 ```js
 mutate {
     sys.Room{
@@ -245,11 +237,9 @@ mutate {
     }
 }
 ```
-Comme les utilisateurs n'ont qu'un accès qu'en lecture seule, aucun **rights** n'est défini pour l'authorisation **readers**.
+Users that are not the author don't have any mutation rights, so no **rights** are defined for the **readers** authorisation.
 
-
-La *Room* **$room_cal_detail** sera défini de la façon suivante:
-
+The **$room_cal_detail** *Room* is created using the query:
 ```js
 mutate {
     sys.Room{
@@ -277,10 +267,9 @@ mutate {
     }
 }
 ```
-Vous noterez que seul **$team_user** est dans le groupe **reader**.
+You will notice that **$team_user** is the only one allowed in the **readers** authorisation.
 
-
-On peut créer un nouveau calendrier avec la requête suivante:
+A new calendar will be created with the following query:
 ```js
 mutate {
     res: cal.Calendar{
@@ -290,8 +279,7 @@ mutate {
 }
 ```
 
-
-En considérant que le calendrier a pour **id** *$calendar_id*, l'insertion d'un nouveau rendez-vous se fera avec la requête suivante:
+For a calendar with an **id** set to **$calendar_id**, a new appointment will be inserted with the following query: 
 ```js
 mutate {
     cal.Calendar {
@@ -309,10 +297,12 @@ mutate {
 }
 ```
 
-Et chaque utilisateur pourra utiliser la requête suivante pour récupérer les rendez-vous:
+The following query will retrieve the appointements:
 ```js
 query {
-    res: cal.Calendar {
+    res: cal.Calendar(
+        id=$calendar_id
+    ) {
         name
         appointments(
             nullable(detail)
@@ -327,7 +317,7 @@ query {
 }
 ```
 
-L'utilisateur **$team_user** obtiendra le résultat suivant
+The **$team_user** user will get the following result:
 ```json
 {
     "res":[{
@@ -343,7 +333,7 @@ L'utilisateur **$team_user** obtiendra le résultat suivant
 }
 ```
 
-Tandis que l'utilisateur **$collaborator** (qui n'a pas accès au détails) obtiendra le résultat suivant:
+The **$collaborator** user who cannot access the details wil get the following result:
 ```json
 {
     "res":[{
