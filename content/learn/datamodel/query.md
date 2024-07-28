@@ -188,7 +188,7 @@ query {
 ```
 
 
-# full text search
+# Full text search
 By default, every text field is indexed to allow full text search using the **search** keyword.
 The search engine uses a *trigram* index, only string greater or equal than 3 characters can be searched.
 
@@ -391,7 +391,7 @@ The query returns:
 
 The **order_by** clause can be used in sub-entities.
 
-# Limit number of results
+# Limiting the number of results
 
 If a query is expected to return a large number of results, you can limit the number of fied by using the  **first** keyword.
 

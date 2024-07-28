@@ -1,5 +1,5 @@
 +++
-title = "Evènements systèmes"
+title = "Evènements système"
 description = "Apprenez à utliser les évènements déclenchés par Discret"
 weight = 2
 +++
@@ -8,9 +8,9 @@ Discret réagit à certaines actions en envoyants des évènements systèmes. Ce
 
 # DataChanged(data_modification)
 
-Cet évenement est déclenché quand des données sont modifiée. Les données dont écrite par bloc et cet évènement décrit le bloc de données modifié
+Cet évenement est déclenché quand des données sont modifiée. Les données sont écrite par bloc et cet évènement décrit le bloc de données modifiées.
 
-**data_modification** contient une *HashMap* ayant pour clé l'identifiant des *Room* modifiées et comme données les entités modifiées ainsi que les dates de modification. 
+**data_modification** contient une *HashMap* ayant pour clé l'identifiant des *Room* modifiées et comme données les entités modifiées ainsi que le jour (sans les heures, minutes, secondes)  de modification. 
 ```rust
 DataModification {
     rooms: HashMap<room_id, HashMap<entity_name, Vec<date>>>,
@@ -19,7 +19,7 @@ DataModification {
 
 # RoomModified(room)
 Cet évenement est déclenché quand une *Room* est modifiéé.
-**room** contient la *Room* modifiée.
+**room** contient la *Room* modifiée dans l'API rust. Dans l'API Flutter, seule l'identifiant de la *Room* est renvoyé.
 
 
 # PeerConnected(verifying_key, date, connection_id)
@@ -35,8 +35,8 @@ Cet évenement est déclenché quand un pair est déconnecté
 - **connection_id**: l'identifiant unique de la connection
 
 # RoomSynchronized(room_id)
-Cet évenement est déclenché quand une *Room* a fini sa synchronisation.
-**room_id** contient l'id de la *Room* synchronisée
+Cet évenement est déclenché quand une *Room* a terminée une synchronisation avec un autre Pair.
+**room_id** contient l'id de la *Room* synchronisée.
 
 # PendingPeer
 Cet évenement est déclenché quand un nouveau pair est detécté lors de la synchronisation d'un **Room**
