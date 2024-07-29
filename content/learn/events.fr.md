@@ -8,7 +8,7 @@ Discret réagit à certaines actions en envoyants des évènements systèmes. Ce
 
 # DataChanged(data_modification)
 
-Cet évenement est déclenché quand des données sont modifiée. Les données sont écrite par bloc et cet évènement décrit le bloc de données modifiées.
+Cet évenement est déclenché quand des données sont modifiée. Les données sont écrites par bloc et cet évènement décrit le bloc de données modifiées.
 
 **data_modification** contient une *HashMap* ayant pour clé l'identifiant des *Room* modifiées et comme données les entités modifiées ainsi que le jour (sans les heures, minutes, secondes)  de modification. 
 ```rust

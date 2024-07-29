@@ -157,7 +157,9 @@ Les lignes 47 à 57 définissent la requête utilisée pour insérer des message
     //...
 ```
 
-Nous utilisons une requête de type **mutation** pour insérer un tuple de l'entité **chat.Message** définie dans le modèle de données. Vous noterez que **room_id** n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  **\$room_id** et **\$message** sont des paramêtres de la requête qui sont passés par l'objet **Some(params)**.
+Nous utilisons une requête de type **mutation** pour insérer un tuple de l'entité **chat.Message** définie dans le modèle de données. 
+
+Vous noterez que **room_id** n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  **\$room_id** et **\$message** sont des paramêtres de la requête qui sont passés par l'objet **Some(params)**.
 
 Vous pourrez en apprendre plus sur l'insertion et la modification de données dans la section [Mutations et Suppression](@/learn/datamodel/mutation.fr.md) de la documentation.
 

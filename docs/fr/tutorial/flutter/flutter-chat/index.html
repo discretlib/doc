@@ -286,7 +286,221 @@
     <h1>
         Chat Flutter Minimaliste
     </h1>
-    
+    <p>Ce document considère que vous avez suivi le document <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/">Installer les composants</a>.</p>
+<p>A la fin du précedent document vous devez avoir copié le fichier example_simple_chat.dart dans le fichier main.dart et lancé l'application.</p>
+<pre class="z-code"><code><span class="z-text z-plain">cp ./lib/example_simple_chat.dart ./lib/main.dart
+</span><span class="z-text z-plain">flutter run
+</span></code></pre>
+<p>Après avoir créé un compte, vous devriez obtenir l'écran suivant:</p>
+
+<img src="https:&#x2F;&#x2F;discretlib.github.io&#x2F;doc&#x2F;simple_chat.png">
+<p>Si vous copiez le programme dans plusieurs répertoires ou machines en réseau local, et que vous créez le même compte à chaque fois, vous devriez être capable de converser entre les différents clients. Cet example est peu utile, mais permettra de vous familiariser avec l'API <em>Discret</em>.</p>
+<p>Ce document ne décrit pas comment créer les écrans <em>Flutter</em> mais va se concentrer sur le code spécifique à l'API <em>Discret</em>. </p>
+<p>Pour des raisons de simplicité, la gestion des erreurs est très basique, une application réelle devra mieux les gérer.</p>
+<h1 id="preparation-de-l-api">Preparation de l'API</h1>
+<p>l'API Discret nécessite trois paramètres pour être initalisée:</p>
+<ul>
+<li><strong>Un identifiant unique pour l'application</strong>: une fois définit, cet identifiant ne devra jamais changer une fois l'application mise en production. Cet identifiant est utilisé pour dériver des secrets utilisés par <em>Discret</em>. Si cet identifiant change, les utisateurs ne pourront plus se connecter.</li>
+<li><strong>Un modèle de données</strong>: définit les types de données qui peuvent être utilisés dans <em>Discret</em>.</li>
+<li><strong>Un repertoire</strong>: où stocker des données.</li>
+</ul>
+<p>Le debut du fichier initialise <em>Discret</em></p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>8</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr><tr><td>9</td><td><span class="z-source z-dart"><span class="z-meta z-declaration z-dart"><span class="z-keyword z-other z-import z-dart">import</span> <span class="z-string z-interpolated z-single z-dart">&#39;./messages/discret.pb.dart&#39;</span><span class="z-punctuation z-terminator z-dart">;</span></span>
+</span></td></tr><tr><td>10</td><td><span class="z-source z-dart"><span class="z-meta z-declaration z-dart"><span class="z-keyword z-other z-import z-dart">import</span> <span class="z-string z-interpolated z-single z-dart">&#39;discret.dart&#39;</span><span class="z-punctuation z-terminator z-dart">;</span></span>
+</span></td></tr><tr><td>11</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">// L&#39;identifiant unique de l&#39;application</span>
+</span></td></tr><tr><td>12</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">// ignore: constant_identifier_names</span>
+</span></td></tr><tr><td>13</td><td><span class="z-source z-dart"><span class="z-storage z-modifier z-dart">const</span> <span class="z-support z-class z-dart">String</span> <span class="z-support z-class z-dart">APPLICATION_KEY</span> <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-double z-dart">&quot;github.com/discretlib/flutter_example_simple_chat&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>14</td><td><span class="z-source z-dart"><span class="z-storage z-type z-primitive z-dart">void</span> <span class="z-entity z-name z-function z-dart">main</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>15</td><td><span class="z-source z-dart">  <span class="z-comment z-line z-double-slash z-dart">//ne fonctionne pas sur smartphone, </span>
+</span></td></tr><tr><td>16</td><td><span class="z-source z-dart">  <span class="z-comment z-line z-double-slash z-dart">// example_advanced_chat.dart fournit un version compatible avec les smartphone</span>
+</span></td></tr><tr><td>17</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> dataPath <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-single z-dart">&#39;.discret_data&#39;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>18</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> datamodel <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;chat {
+</span></span></td></tr><tr><td>19</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    Message {
+</span></span></td></tr><tr><td>20</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      content: String
+</span></span></td></tr><tr><td>21</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    }
+</span></span></td></tr><tr><td>22</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>23</td><td><span class="z-source z-dart">  <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">initialize</span>(<span class="z-support z-class z-dart">APPLICATION_KEY</span><span class="z-punctuation z-comma z-dart">,</span> dataPath<span class="z-punctuation z-comma z-dart">,</span> datamodel)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>24</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>25</td><td><span class="z-source z-dart">  <span class="z-entity z-name z-function z-dart">runApp</span>(
+</span></td></tr><tr><td>26</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">const</span> <span class="z-support z-class z-dart">ChatApp</span>()<span class="z-punctuation z-comma z-dart">,</span>
+</span></td></tr><tr><td>27</td><td><span class="z-source z-dart">  )<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>28</td><td><span class="z-source z-dart">}
+</span></td></tr><tr><td>29</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>30</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//</span>
+</span></td></tr><tr><td>31</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">// Cette classe contient tous les appels à l&#39;API.</span>
+</span></td></tr><tr><td>32</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//</span>
+</span></td></tr><tr><td>33</td><td><span class="z-source z-dart"><span class="z-keyword z-declaration z-dart">class</span> <span class="z-support z-class z-dart">ChatState</span> <span class="z-keyword z-declaration z-dart">extends</span> <span class="z-support z-class z-dart">ChangeNotifier</span> {
+</span></td></tr><tr><td>34</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr></tbody></table></code></pre>
+<p>les lignes 9 et 10 importent les deux packages requis par l'API.</p>
+<p>La ligne 13 définit l'identifiant unique de l'application:</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>12</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr><tr><td>13</td><td><span class="z-source z-dart"><span class="z-storage z-modifier z-dart">const</span> <span class="z-support z-class z-dart">String</span> <span class="z-support z-class z-dart">APPLICATION_KEY</span> <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-double z-dart">&quot;github.com/discretlib/flutter_example_simple_chat&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>14</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr></tbody></table></code></pre>
+<hr />
+<p>Les lignes 18 à 22 définissent le modèle de données qui pourra être utilisé dans l'application. </p>
+<p>Ce modèle définit un espace de nom nommé <strong>chat</strong> qui contient l'entité <strong>Message</strong>, qui elle même contient un unique champ nommé <strong>content</strong> qui peut contenir une chaine de caractères. </p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>17</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr><tr><td>18</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> datamodel <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;chat {
+</span></span></td></tr><tr><td>19</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    Message{
+</span></span></td></tr><tr><td>20</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      content:String
+</span></span></td></tr><tr><td>21</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    }
+</span></span></td></tr><tr><td>22</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>23</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr></tbody></table></code></pre>
+<p>Vous pourrez en apprendre plus dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/">Schémas et Entités</a> de la documentation.</p>
+<p>Une fois l'API initialisée, l'application va démarrer et instancier la classe <strong>ChatState</strong> qui contient toutes les fonctions qui vont appeller l'API. </p>
+<h1 id="l-objet-resultmsg">L'objet ResultMsg</h1>
+<p>Vous verrez dans la suite du document que la plupart des fonctions de l'API retournent l'object <strong>ResultMsg</strong> qui contient les champs suivants.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-keyword z-declaration z-dart">class</span> <span class="z-support z-class z-dart">ResultMsg</span>{
+</span><span class="z-source z-dart">    <span class="z-support z-class z-dart">int</span> id<span class="z-punctuation z-comma z-dart">,</span>
+</span><span class="z-source z-dart">    <span class="z-support z-class z-dart">bool</span> successful<span class="z-punctuation z-comma z-dart">,</span>
+</span><span class="z-source z-dart">    <span class="z-support z-class z-dart">String</span> error<span class="z-punctuation z-comma z-dart">,</span>
+</span><span class="z-source z-dart">    <span class="z-support z-class z-dart">String</span> data<span class="z-punctuation z-comma z-dart">,</span>
+</span><span class="z-source z-dart">}
+</span></code></pre>
+<ul>
+<li><strong>id</strong> est un champ technique sans utilité particulière pour l'utilisateur,</li>
+<li><strong>successful</strong> indique si la fonction s'est effectuée avec succès,</li>
+<li><strong>error</strong> contient le message d'erreur eventuel,</li>
+<li><strong>data</strong> contient le résultat de l'appel.</li>
+</ul>
+<h1 id="creer-un-compte-et-se-connecter">Créer un compte et se connecter</h1>
+<p>La création d'un compte et la connection se font avec une unique fonction de l'API.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>47</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">ResultMsg</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">login</span>(<span class="z-support z-class z-dart">String</span> userName<span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">String</span> password<span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">bool</span> create) <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>48</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">login</span>(userName<span class="z-punctuation z-comma z-dart">,</span> password<span class="z-punctuation z-comma z-dart">,</span> create)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>49</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">if</span> (msg<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>50</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">await</span> <span class="z-entity z-name z-function z-dart">initialise</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>51</td><td><span class="z-source z-dart">    }
+</span></td></tr><tr><td>52</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">return</span> msg<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>53</td><td><span class="z-source z-dart">  }
+</span></td></tr></tbody></table></code></pre>
+<p>La différence entre une création de compte et une connection réside dans la valeur de <strong>create</strong>:</p>
+<ul>
+<li><strong>false</strong>: la fonction se connectera si le compte existe, et retournera une erreur si il n'existe pas</li>
+<li><strong>true</strong>: la fonction va créer le compte et se connecter si il n'existe pas, et retournera une erreur si le compte existe déja</li>
+</ul>
+<p>Si la connection est un succès, la fonction <em>initialise();</em> est appellée. La librairie <strong>Discret</strong> ne démarre qu'après l'authentification, donc le <strong>ChatState</strong>  ne peut pas être initialisé avant.</p>
+<h1 id="initalisation-du-chatstate">Initalisation du <em>ChatState</em></h1>
+<p>La fonction d'initialisation est la suivante:</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>58</td><td><span class="z-source z-dart"><span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">initialise</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>59</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">privateRoom</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>60</td><td><span class="z-source z-dart">  privateRoom <span class="z-keyword z-operator z-assignment z-dart">=</span> msg<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>61</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>62</td><td><span class="z-source z-dart">  eventlistener <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">eventStream</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">listen</span>((event) <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>63</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">switch</span> (event<span class="z-punctuation z-dot z-dart">.</span>type) {
+</span></td></tr><tr><td>64</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">EventType</span><span class="z-punctuation z-dot z-dart">.</span>dataChanged<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span></td></tr><tr><td>65</td><td><span class="z-source z-dart">          <span class="z-keyword z-control z-dart">await</span> <span class="z-entity z-name z-function z-dart">refreshChat</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>66</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>67</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">default</span><span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span></td></tr><tr><td>68</td><td><span class="z-source z-dart">      }
+</span></td></tr><tr><td>69</td><td><span class="z-source z-dart">  }<span class="z-punctuation z-comma z-dart">,</span> onDone<span class="z-keyword z-operator z-ternary z-dart">:</span> () {}<span class="z-punctuation z-comma z-dart">,</span> onError<span class="z-keyword z-operator z-ternary z-dart">:</span> (error) {})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>70</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>71</td><td><span class="z-source z-dart">  <span class="z-entity z-name z-function z-dart">refreshChat</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>72</td><td><span class="z-source z-dart">}
+</span></td></tr></tbody></table></code></pre>
+<p>La ligne 60 récupère la <em>Room</em> privée de l'utiliteur. Le concept de Room définit le système d'autorisations utilisé par <em>Discret</em> pour synchroniser les données avec ses Pairs. Les données insérées dans une <em>Room</em> ne seront synchronisées qu'avec les Pairs ayant accès à cette <em>Room</em>. </p>
+<p>Nous allons insérer les messages dans la <em>Room</em> Privée de l'utilisateur, donc lui seul sera capable d'y accèder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. </p>
+<p>Vous pourrez en apprendre plus dans la section <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> de la documentation.</p>
+<hr />
+<p>A partir de la ligne 62, nous allons écouter le flux d'évènements envoyé par <em>Discret</em>. Nous ne nous interessont qu'à l'évènement <strong>EventType.dataChanged</strong> qui est envoyé quand <em>Discret</em> détecte que des données ont été modifiées. </p>
+<p>Dans cet exemple, cet évènement est déclenché:</p>
+<ul>
+<li>quand vous insérez un message depuis cette instance de l'application</li>
+<li>quand des données d'autre instance de l'application sont synchronisées avec cette instance</li>
+</ul>
+<p>Quand cet évènement est détecté, la fonction <strong>refreshChat()</strong> est appelée pout mettre à jours la liste des messages.</p>
+<p>Vous pourrez en apprendre plus sur les différents evènements dans la section <a href="https://discretlib.github.io/doc/fr/learn/events/">Evènements système</a> de la documentation.</p>
+<hr />
+<p>Une fois l'initialisation terminée la fonction <strong>refreshChat()</strong> est appelée un première fois pour récupérer les messages qui ont pu être écrits lors d'une session précedente.</p>
+<h1 id="recuperer-les-messages-la-fonction-refreshchat">Récupérer les messages: la fonction refreshChat()</h1>
+<p>La fonction utilisée pour récupérer les messages est la suivante:</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>77</td><td><span class="z-source z-dart"><span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">refreshChat</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>78</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;query {
+</span></span></td></tr><tr><td>79</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          res: chat.Message(
+</span></span></td></tr><tr><td>80</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">              order_by(mdate asc, id asc), 
+</span></span></td></tr><tr><td>81</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">              after(<span class="z-constant z-character z-escape z-dart">\$</span>mdate, <span class="z-constant z-character z-escape z-dart">\$</span>id),
+</span></span></td></tr><tr><td>82</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">              room_id = <span class="z-constant z-character z-escape z-dart">\$</span>room_id
+</span></span></td></tr><tr><td>83</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          ) {
+</span></span></td></tr><tr><td>84</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">                  id
+</span></span></td></tr><tr><td>85</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">                  mdate
+</span></span></td></tr><tr><td>86</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">                  content
+</span></span></td></tr><tr><td>87</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          }
+</span></span></td></tr><tr><td>88</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>89</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">query</span>(
+</span></td></tr><tr><td>90</td><td><span class="z-source z-dart">      query<span class="z-punctuation z-comma z-dart">,</span> {<span class="z-string z-interpolated z-double z-dart">&quot;mdate&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> lastEntryDate<span class="z-punctuation z-comma z-dart">,</span> <span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> lastId<span class="z-punctuation z-comma z-dart">,</span> <span class="z-string z-interpolated z-double z-dart">&quot;room_id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> privateRoom})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>91</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>92</td><td><span class="z-source z-dart">  <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>93</td><td><span class="z-source z-dart">      <span class="z-entity z-name z-function z-dart">print</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>94</td><td><span class="z-source z-dart">  } <span class="z-keyword z-control z-dart">else</span> {
+</span></td></tr><tr><td>95</td><td><span class="z-source z-dart">      <span class="z-storage z-modifier z-dart">final</span> json <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-entity z-name z-function z-dart">jsonDecode</span>(res<span class="z-punctuation z-dot z-dart">.</span>data) <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>96</td><td><span class="z-source z-dart">      <span class="z-storage z-modifier z-dart">final</span> msgArray <span class="z-keyword z-operator z-assignment z-dart">=</span> json[<span class="z-string z-interpolated z-double z-dart">&quot;res&quot;</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>97</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>98</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">for</span> (<span class="z-storage z-type z-primitive z-dart">var</span> msgObject <span class="z-keyword z-control z-dart">in</span> msgArray) {
+</span></td></tr><tr><td>99</td><td><span class="z-source z-dart">      <span class="z-storage z-type z-primitive z-dart">var</span> message <span class="z-keyword z-operator z-assignment z-dart">=</span> msgObject <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>100</td><td><span class="z-source z-dart">      <span class="z-storage z-type z-primitive z-dart">var</span> entry <span class="z-keyword z-operator z-assignment z-dart">=</span>
+</span></td></tr><tr><td>101</td><td><span class="z-source z-dart">          <span class="z-support z-class z-dart">ChatEntry</span>(message[<span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span>]<span class="z-punctuation z-comma z-dart">,</span> message[<span class="z-string z-interpolated z-double z-dart">&quot;mdate&quot;</span>]<span class="z-punctuation z-comma z-dart">,</span> message[<span class="z-string z-interpolated z-double z-dart">&quot;content&quot;</span>])<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>102</td><td><span class="z-source z-dart">      lastEntryDate <span class="z-keyword z-operator z-assignment z-dart">=</span> entry<span class="z-punctuation z-dot z-dart">.</span>date<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>103</td><td><span class="z-source z-dart">      lastId <span class="z-keyword z-operator z-assignment z-dart">=</span> entry<span class="z-punctuation z-dot z-dart">.</span>id<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>104</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>105</td><td><span class="z-source z-dart">      chat<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">add</span>(entry)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>106</td><td><span class="z-source z-dart">      }
+</span></td></tr><tr><td>107</td><td><span class="z-source z-dart">      <span class="z-entity z-name z-function z-dart">notifyListeners</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>108</td><td><span class="z-source z-dart">  }
+</span></td></tr><tr><td>109</td><td><span class="z-source z-dart">}
+</span></td></tr></tbody></table></code></pre>
+<p>La fonction envoie une requête de type <strong>query</strong> qui permet de récupérer des données depuis la base de donnée de <em>Discret</em>. Vous pourrez en apprendre plus sur les requêtes de sélection de données dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/query/">Requête</a> de la documentation.</p>
+<p>Vous pourrez noter que cette requête définit trois paramètres: </p>
+<ul>
+<li><strong>$mdate</strong> </li>
+<li><strong>$id</strong></li>
+<li><strong>$room_id</strong></li>
+</ul>
+<p>qui sont passés lors de l'appel à l'API:</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">query</span>(
+</span><span class="z-source z-dart">    query<span class="z-punctuation z-comma z-dart">,</span> {
+</span><span class="z-source z-dart">        <span class="z-string z-interpolated z-double z-dart">&quot;mdate&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> lastEntryDate<span class="z-punctuation z-comma z-dart">,</span>
+</span><span class="z-source z-dart">        <span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> lastId<span class="z-punctuation z-comma z-dart">,</span> 
+</span><span class="z-source z-dart">        <span class="z-string z-interpolated z-double z-dart">&quot;room_id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> privateRoom
+</span><span class="z-source z-dart">    }
+</span><span class="z-source z-dart">)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<h1 id="envoyer-un-message">Envoyer un message</h1>
+<p>La fonction utilisée pour envoyer un message est la suivante:</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>113</td><td><span class="z-source z-dart"><span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">sendMessage</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>114</td><td><span class="z-source z-dart">  <span class="z-keyword z-control z-dart">if</span> (chatController<span class="z-punctuation z-dot z-dart">.</span>text <span class="z-keyword z-operator z-comparison z-dart">!=</span> <span class="z-string z-interpolated z-double z-dart">&quot;&quot;</span>) {
+</span></td></tr><tr><td>115</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
+</span></span></td></tr><tr><td>116</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        res : chat.Message{
+</span></span></td></tr><tr><td>117</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">            room_id: <span class="z-constant z-character z-escape z-dart">\$</span>room_id
+</span></span></td></tr><tr><td>118</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">            content: <span class="z-constant z-character z-escape z-dart">\$</span>content
+</span></span></td></tr><tr><td>119</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        }
+</span></span></td></tr><tr><td>120</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>121</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>122</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">mutate</span>(
+</span></td></tr><tr><td>123</td><td><span class="z-source z-dart">          query<span class="z-punctuation z-comma z-dart">,</span> {<span class="z-string z-interpolated z-double z-dart">&quot;room_id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> privateRoom<span class="z-punctuation z-comma z-dart">,</span> <span class="z-string z-interpolated z-double z-dart">&quot;content&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> chatController<span class="z-punctuation z-dot z-dart">.</span>text})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>124</td><td><span class="z-source z-dart">  
+</span></td></tr><tr><td>125</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>126</td><td><span class="z-source z-dart">      <span class="z-entity z-name z-function z-dart">print</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>127</td><td><span class="z-source z-dart">      } <span class="z-keyword z-control z-dart">else</span> {
+</span></td></tr><tr><td>128</td><td><span class="z-source z-dart">      chatController<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">clear</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>129</td><td><span class="z-source z-dart">      }
+</span></td></tr><tr><td>130</td><td><span class="z-source z-dart">  }
+</span></td></tr><tr><td>131</td><td><span class="z-source z-dart">}
+</span></td></tr></tbody></table></code></pre>
+<p>Nous utilisons une requête de type <strong>mutation</strong> pour insérer un tuple de l'entité <strong>chat.Message</strong> définie dans le modèle de données. </p>
+<p>Vous noterez que <strong>room_id</strong> n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.</p>
+<p><strong>$room_id</strong> et <strong>$message</strong> sont des paramêtres de la requête qui sont passés lors de l'appel à l'API: </p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">mutate</span>(
+</span><span class="z-source z-dart">  query<span class="z-punctuation z-comma z-dart">,</span> {
+</span><span class="z-source z-dart">    <span class="z-string z-interpolated z-double z-dart">&quot;room_id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> privateRoom<span class="z-punctuation z-comma z-dart">,</span> 
+</span><span class="z-source z-dart">    <span class="z-string z-interpolated z-double z-dart">&quot;content&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> chatController<span class="z-punctuation z-dot z-dart">.</span>text
+</span><span class="z-source z-dart">  }
+</span><span class="z-source z-dart">)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<p>Vous pourrez en apprendre plus sur l'insertion et la modification de données dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/mutation/">Mutations et Suppression</a> de la documentation.</p>
+
 
     <nav class="lower_nav">
         <div> <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/"><i class="fa fa-arrow-left"></i> Précédent:
@@ -298,6 +512,40 @@
     </nav>
 </article>
 
+
+<nav class="sticky">
+    <section class="toc">
+        <h1>Sur cette page</h1>
+        <ul>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#preparation-de-l-api">Preparation de l&#x27;API</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#l-objet-resultmsg">L&#x27;objet ResultMsg</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#creer-un-compte-et-se-connecter">Créer un compte et se connecter</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#initalisation-du-chatstate">Initalisation du ChatState</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#recuperer-les-messages-la-fonction-refreshchat">Récupérer les messages: la fonction refreshChat()</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#envoyer-un-message">Envoyer un message</a>
+            </li>
+            
+        </ul>
+        <div class="wordcount">1185 mots, 6 min de lecture</div>
+    </section>
+</nav>
 
 
 

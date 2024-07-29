@@ -7,6 +7,8 @@ weight = 1
 
 *Discret* provides some configuration options that will be passed to the engine at startup. 
 
+---
+
 ```js
 parallelism: integer
 ```
@@ -18,6 +20,8 @@ Defines the global parellism capabilities. This number impact:
 - the depth of the channels that are used to transmit message accross services
 
 Larger numbers will provides better performances at the cost of more memory usage. Having a number larger that the number of CPU might not provides increased performances
+
+---
 
 ```js
 auto_accept_local_device: boolean
@@ -33,6 +37,7 @@ In this case, when a new device is detected on the local network:
 - a PendingHardware Event will be triggered
 - the current coonection attempt will be rejected
 
+---
 
 ```js
 auto_allow_new_peers: boolean
@@ -53,6 +58,7 @@ If auto_allow_new_peers is set to 'false',
 - a **sys.AllowedPeer** tuple is created with the status set to **pending**
 - a **PendingPeer** event is triggered
  
+---
 
 ```js
 max_object_size_in_kb: integer
@@ -65,17 +71,22 @@ Increasing this value will increase the RAM usage of the application
 
 **!!WARNING!!** once your program is in production, decreasing this value will break the system. No data will be lost but the system will not be able to synchronized objects that are larger than the reduced value.
 
+---
     
 ```js    
 read_cache_size_in_kb: integer
 ```
 Set the maximum cache size for the database reading threads. Increasing it can improve performances. Every read threads consumes up to that amount, meaning that increasing the "parallelism" configuration will increase the memory usage.
+
+---
        
 ```js  
 write_cache_size_in_kb: integer
 ```
 Set the maximum of cache size for the database writing thread. increasing it may improvee performances
-    
+
+---
+
 ```js 
 write_buffer_length: integer
 ```
@@ -88,38 +99,66 @@ It greatly increase insertion and update rate, compared to autocommit. To get an
 
 If one a buffered query fails, the transaction will be rolled back and every other queries in the buffer will fail too. This should not be an issue as INSERT query are not expected to fail. The only reasons to fail an insertion are a bugs or a system failure (like no more space available on disk), and in both case, it is ok to fail the last insertions batch.
     
+---
 
 ```js 
 announce_frequency_in_ms: integer
 ```
 how often (in milliseconds) an annouces are sent over the network to meet peers to connect to.
     
+---
     
 ```js 
 enable_multicast: boolean
 ```   
 Enable/disable multicast discovery, i.e. local network peer discovery
 
+---
+
 ```js 
 multicast_ipv4_interface: String
 ```   
 *Discret* uses the IP multicast feature to discover peers on local networks. On systems with multiple network interfaces, it might be necessary to provide the right ip adress for multicast to work properly. the default (let the OS choose for you) should work on most cases.
     
+---
+
 ```js 
  multicast_ipv4_group: String
 ``` 
 The multicast group that is used to perform peer discovery
     
+---
+
 ```js 
 pub enable_beacons: boolean
 ```
 Enable/Disable beacon peer discovery. I.e. meet peers over the Internet.
      
+---
+
 ```js  
 pub beacons: List<BeaconConfig>,
 ```
 List of Beacon servers that are used for peer discovery.
-    
+Here is a sample configuraiton in the TOML format:
+```toml 
+[[beacons]]
+hostname = "sever.com:4264"
+cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
+
+[[beacons]]
+hostname = "192.168.1.8:4266"
+cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
+```
+
+A beacon defines two fields:
+- *hostname*: the server address
+- *cert_hash*: The certificate *hash* used by the server. This value is generated at the start of the server.
+
+You will find information on how to start a beacon server and retrieve the *cert_hash* in the [Beacon](@/learn/configuration/beacon.md) section.
+
+---
+
 ```js      
 pub enable_database_memory_security: boolean
 ```

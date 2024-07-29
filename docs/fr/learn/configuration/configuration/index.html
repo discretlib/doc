@@ -328,6 +328,7 @@
         Configuration
     </h1>
     <p><em>Discret</em> propose un certain nombre d'options de configuration qui sont passées au démarage du système.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">parallelism</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Définit le niveau parallélisme de l'application. Ce nombre impacte:</p>
@@ -339,6 +340,7 @@
 <li>la taille des <em>channels</em> utilisés pour transmettre des messages entre les services internes</li>
 </ul>
 <p>Un plus grand nombre ca fournir de meilleures performances au prix d'une plus grande utilisation mémoire. Un nombre plus grand que le nombre de CPU ne devrait pas apporter de gains importants.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_accept_local_device</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont authorisés à se connecter. </p>
@@ -351,6 +353,7 @@ Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:</p>
 <li>un évènement <strong>PendingHardware</strong> sera déclenché</li>
 <li>la tentative de connection sera rejetée</li>
 </ul>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_allow_new_peers</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Définit le comportement de <em>Discret</em> quand il découvre un nouveau pair lors de la synchronisation des <strong>Rooms</strong></p>
@@ -369,18 +372,22 @@ Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:</p>
 <li>un tuple <strong>sys.AllowedPeer</strong> est créé avec le status <strong>pending</strong>, is created in the private room, with the status set to 'pending'</li>
 <li>un événement <strong>PendingPeer</strong> est déclenché.</li>
 </ul>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">max_object_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Definit la taille maximum d'un tuple. Les tuples doivent avoir une taille raisonable pour garantir une synchronisation efficace.
 Cet paramètre impacte la taille des <em>buffers</em> utilisés pour lire et écrire des données sur le réseau.</p>
 <p><strong>/!Attention!\</strong> une fois votre programme en production, diminuer cette valeur cassera <em>Discret</em>. Aucune donnée ne sera perdue mais le système ne pourra plus synchroniser les tuples plus grand que cette valeur.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">read_cache_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Définit la taille maximum des caches de lecture de la base de données. Augmenter cette valeur peut améliorer les performance. Chaque <em>thread</em> de lecture va utiliser cette
 quantité mémoire.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_cache_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Définit la taille maximum du caches d'écriture de la base de données. Augmenter cette valeur peut améliorer les performance.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_buffer_length</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Les requêtes d'écriture en base de données sont écrite par bloc. Quand le process d'écriture est prêt, il récupère toutes les requêtes en attente jusqu'a atteindre la limite définie par ce paramêtre. Ce bloc de requête sera ensuite effectué dans une unique transaction. Cela augmente énormément les performances, comparé à l'écriture des requêtes une par une (autocommit).</p>
@@ -392,24 +399,45 @@ quantité mémoire.</p>
 <li>write_buffer_length = 1000    Insertions/secondes: 32000</li>
 </ul>
 <p>Si une requête échoue au sein d'un bloc, la transaction sera annulée et toutes les autre requêtes échoueront. Cela ne devrait pas être un problèmes car les requêtes d'écriture n'échouent qu'en cas de problème matériel (plus de place sur le disque dur, par exemple) ou de <em>Bug</em>. Dans les deux cas, cela ne pose pas de problème d'annuler tout un bloc de données.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">announce_frequency_in_ms</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>La fréquence (en millisecondes) à laquelle des annonces sont envoyés sur le réseau pour trouver vos pairs.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">enable_multicast</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Active/désactive la decouverte de vos pairs sur le réseau local</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">multicast_ipv4_interface</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
 <p><em>Discret</em> utilise la fonction <em>IP multicast</em> pour découvrir vos pairs sur le réseau local.Sur certain système avec plusieurs cartes réseau, il pourrait être necessaire d'indiquer votre adresse IP locale pour que le <em>multicast</em> fonctionne. La valeur par défaut (laisser le système d'exploitation se débrouiller) devrait néanmoins fonctionner dans la plupart des cas. </p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"> <span class="z-entity z-name z-label z-ts">multicast_ipv4_group</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
 <p>Le groupe <em>IP multicast</em> utilisé. </p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Active/désactive la decouverte de vos pairs  sur internet.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">List</span><span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-variable z-other z-readwrite z-ts">BeaconConfig</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></code></pre>
-<p>Liste des serveur <em>Beacon</em> utilisés pour découvrir vos Pairs sur internet.</p>
+<p>Liste des serveur <em>Beacon</em> utilisés pour découvrir vos Pairs sur internet. Voici un exemple de configuration au format TOML:</p>
+<pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>sever.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>192.168.1.8:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span></code></pre>
+<p>Un serveur beacon comporte deux champs:</p>
+<ul>
+<li><em>hostname</em>: l'adresse du serveur</li>
+<li><em>cert_hash</em>: le <em>hash</em> du certificat utilisé par ce serveur. Cette valeur est générée par le serveur au démarage.</li>
+</ul>
+<p>La section <a href="https://discretlib.github.io/doc/fr/learn/configuration/beacon/">Beacon</a> fournit les informations nécessaires pour créer un serveur et récupérer son <em>cert_hash</em>.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_database_memory_security</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Empêche la mémoire d'être écrite en <em>swap</em> et vide la mémoire(<em>zeroise</em>) quand elle est libérée.</p>

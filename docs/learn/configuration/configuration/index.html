@@ -325,6 +325,7 @@
         Configuration
     </h1>
     <p><em>Discret</em> provides some configuration options that will be passed to the engine at startup. </p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">parallelism</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Defines the global parellism capabilities. This number impact:</p>
@@ -336,6 +337,7 @@
 <li>the depth of the channels that are used to transmit message accross services</li>
 </ul>
 <p>Larger numbers will provides better performances at the cost of more memory usage. Having a number larger that the number of CPU might not provides increased performances</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_accept_local_device</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
@@ -348,6 +350,7 @@ In this case, when a new device is detected on the local network:</p>
 <li>a PendingHardware Event will be triggered</li>
 <li>the current coonection attempt will be rejected</li>
 </ul>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_allow_new_peers</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Defines the behavior of the system when it discover a new peer while synchronizing a room.</p>
@@ -366,18 +369,22 @@ In this case, when a new device is detected on the local network:</p>
 <li>a <strong>sys.AllowedPeer</strong> tuple is created with the status set to <strong>pending</strong></li>
 <li>a <strong>PendingPeer</strong> event is triggered</li>
 </ul>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">max_object_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Defines the maximum size of an entity tupple. Object size should be kept relatively small to ensure efficient synchronisation.</p>
 <p>This parameter has a direct impact on the size of the buffers used to read and write data on the network
 Increasing this value will increase the RAM usage of the application</p>
 <p><strong>!!WARNING!!</strong> once your program is in production, decreasing this value will break the system. No data will be lost but the system will not be able to synchronized objects that are larger than the reduced value.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">read_cache_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Set the maximum cache size for the database reading threads. Increasing it can improve performances. Every read threads consumes up to that amount, meaning that increasing the &quot;parallelism&quot; configuration will increase the memory usage.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_cache_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Set the maximum of cache size for the database writing thread. increasing it may improvee performances</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_buffer_length</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Write queries are buffered while the database thread is working. When the database thread is ready, the buffer is sent and is processed in one single transaction.
@@ -389,24 +396,46 @@ It greatly increase insertion and update rate, compared to autocommit. To get an
 <li>Buffer size: 1000   Insert/seconds: 32000</li>
 </ul>
 <p>If one a buffered query fails, the transaction will be rolled back and every other queries in the buffer will fail too. This should not be an issue as INSERT query are not expected to fail. The only reasons to fail an insertion are a bugs or a system failure (like no more space available on disk), and in both case, it is ok to fail the last insertions batch.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">announce_frequency_in_ms</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>how often (in milliseconds) an annouces are sent over the network to meet peers to connect to.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">enable_multicast</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Enable/disable multicast discovery, i.e. local network peer discovery</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">multicast_ipv4_interface</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
 <p><em>Discret</em> uses the IP multicast feature to discover peers on local networks. On systems with multiple network interfaces, it might be necessary to provide the right ip adress for multicast to work properly. the default (let the OS choose for you) should work on most cases.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"> <span class="z-entity z-name z-label z-ts">multicast_ipv4_group</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
 <p>The multicast group that is used to perform peer discovery</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Enable/Disable beacon peer discovery. I.e. meet peers over the Internet.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">List</span><span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-variable z-other z-readwrite z-ts">BeaconConfig</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></code></pre>
-<p>List of Beacon servers that are used for peer discovery.</p>
+<p>List of Beacon servers that are used for peer discovery.
+Here is a sample configuraiton in the TOML format:</p>
+<pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>sever.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>192.168.1.8:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span></code></pre>
+<p>A beacon defines two fields:</p>
+<ul>
+<li><em>hostname</em>: the server address</li>
+<li><em>cert_hash</em>: The certificate <em>hash</em> used by the server. This value is generated at the start of the server.</li>
+</ul>
+<p>You will find information on how to start a beacon server and retrieve the <em>cert_hash</em> in the <a href="https://discretlib.github.io/doc/learn/configuration/beacon/">Beacon</a> section.</p>
+<hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_database_memory_security</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Enable_memory_security: Prevents memory to be written into swap and zeroise memory after free.</p>

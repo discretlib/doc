@@ -6,6 +6,7 @@ weight = 1
 
 *Discret* propose un certain nombre d'options de configuration qui sont passées au démarage du système.
 
+---
 
 ```js
 parallelism: integer
@@ -18,6 +19,8 @@ Définit le niveau parallélisme de l'application. Ce nombre impacte:
 - la taille des *channels* utilisés pour transmettre des messages entre les services internes
 
 Un plus grand nombre ca fournir de meilleures performances au prix d'une plus grande utilisation mémoire. Un nombre plus grand que le nombre de CPU ne devrait pas apporter de gains importants.
+
+---
 
 ```js
 auto_accept_local_device: boolean
@@ -34,7 +37,7 @@ Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:
 - un évènement **PendingHardware** sera déclenché
 - la tentative de connection sera rejetée
 
-
+---
 
 ```js
 auto_allow_new_peers: boolean
@@ -55,6 +58,7 @@ Si auto_allow_new_peers est 'false',
 - un tuple **sys.AllowedPeer** est créé avec le status **pending**, is created in the private room, with the status set to 'pending'
 - un événement **PendingPeer** est déclenché.
     
+---
 
 ```js
 max_object_size_in_kb: integer
@@ -64,17 +68,22 @@ Cet paramètre impacte la taille des *buffers* utilisés pour lire et écrire de
 
 **/!Attention!\\** une fois votre programme en production, diminuer cette valeur cassera *Discret*. Aucune donnée ne sera perdue mais le système ne pourra plus synchroniser les tuples plus grand que cette valeur.
 
+---
+
 ```js    
 read_cache_size_in_kb: integer
 ```
 Définit la taille maximum des caches de lecture de la base de données. Augmenter cette valeur peut améliorer les performance. Chaque *thread* de lecture va utiliser cette
 quantité mémoire.
 
+---
+
 ```js  
 write_cache_size_in_kb: integer
 ```
 Définit la taille maximum du caches d'écriture de la base de données. Augmenter cette valeur peut améliorer les performance.
 
+---
     
 ```js 
 write_buffer_length: integer
@@ -89,39 +98,64 @@ Pour donner une idée de l'amélioration des performance, un test d'insertion de
 
 Si une requête échoue au sein d'un bloc, la transaction sera annulée et toutes les autre requêtes échoueront. Cela ne devrait pas être un problèmes car les requêtes d'écriture n'échouent qu'en cas de problème matériel (plus de place sur le disque dur, par exemple) ou de *Bug*. Dans les deux cas, cela ne pose pas de problème d'annuler tout un bloc de données.
 
-    
+---    
 
 ```js 
 announce_frequency_in_ms: integer
 ```
 La fréquence (en millisecondes) à laquelle des annonces sont envoyés sur le réseau pour trouver vos pairs.
     
-    
+---
+
 ```js 
 enable_multicast: boolean
 ```   
 Active/désactive la decouverte de vos pairs sur le réseau local
 
+---
+
 ```js 
 multicast_ipv4_interface: String
 ```   
 *Discret* utilise la fonction *IP multicast* pour découvrir vos pairs sur le réseau local.Sur certain système avec plusieurs cartes réseau, il pourrait être necessaire d'indiquer votre adresse IP locale pour que le *multicast* fonctionne. La valeur par défaut (laisser le système d'exploitation se débrouiller) devrait néanmoins fonctionner dans la plupart des cas. 
-    
+
+---
+
 ```js 
  multicast_ipv4_group: String
 ``` 
 Le groupe *IP multicast* utilisé. 
-    
+
+---
+
 ```js 
 pub enable_beacons: boolean
 ```
 Active/désactive la decouverte de vos pairs  sur internet.
 
-     
+---
+
 ```js  
 pub beacons: List<BeaconConfig>,
 ```
-Liste des serveur *Beacon* utilisés pour découvrir vos Pairs sur internet.
+Liste des serveur *Beacon* utilisés pour découvrir vos Pairs sur internet. Voici un exemple de configuration au format TOML:
+```toml 
+[[beacons]]
+hostname = "sever.com:4264"
+cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
+
+[[beacons]]
+hostname = "192.168.1.8:4266"
+cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
+```
+
+Un serveur beacon comporte deux champs:
+- *hostname*: l'adresse du serveur
+- *cert_hash*: le *hash* du certificat utilisé par ce serveur. Cette valeur est générée par le serveur au démarage.
+
+La section [Beacon](@/learn/configuration/beacon.fr.md) fournit les informations nécessaires pour créer un serveur et récupérer son *cert_hash*.
+
+---
     
 ```js      
 pub enable_database_memory_security: boolean
