@@ -93,31 +93,19 @@ a:visited {
     text-decoration: none;
 }
 
-
-.header-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    background-image: var(--header-background-image);
-    height: var(--header-height);
-    z-index: 1;
-}
-
 .header {
     background-image: var(--header-background-image);
     position: sticky;
     top: 0;
     align-self: flex-start;
     padding: 0;
+    padding-left: 1rem;
     margin: 0;
     z-index: 2;
     display: block;
     width: 100%;
-    height: var(--header-height);
+    // height: var(--header-height);
     margin: 0;
-    padding: 0;
     color: var(--header-font-color);
     font-size: var(--header-font-size);
 
@@ -225,7 +213,7 @@ a:visited {
 }
 
 article {
-
+    z-index: 1;
     min-width: 20rem;
     max-width: var(--article-width);
     padding: 0.5rem 2rem;
