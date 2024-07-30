@@ -79,7 +79,7 @@
                   
                   <li>
                     <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/">
-                      Chat multi utilisateurs
+                      Chat Multi Utilisateurs
                     </a>
                   </li>
                   
@@ -270,7 +270,7 @@
                 
                 <li class="active" >
                     <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/">
-                        Chat multi utilisateurs
+                        Chat Multi Utilisateurs
                     </a>
                 </li>
                 
@@ -283,9 +283,294 @@
 </section>
 <article>
     <h1>
-        Chat multi utilisateurs
+        Chat Multi Utilisateurs
     </h1>
-    <p>Ce document considère que vous avez suivi déja le tutorial <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/">Chat Flutter Minimaliste</a></p>
+    <p>Ce document décrit l'exemple avancé de chat nommé <em>example_advanced_chat.dart</em> disponible dans le répertoire <strong>./lib/</strong>, 
+et considère que vous avez déja suivi le tutoriel <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/">Chat Flutter Minimaliste</a>. Seules les fonctions introduisant de nouvelles parties de l'API seront décrites.</p>
+<p>Commencez par supprimer</p>
+<ul>
+<li>remplacer ./lib/main.dart par le nouveau fichier d'exemple ./lib/example_advanced_chat.dart. </li>
+<li>compilez ensuite l'application. cela peut prendre plusieurs minutes</li>
+</ul>
+<p>Commandes à lancer sous linux:</p>
+<pre class="z-code"><code><span class="z-text z-plain">rm ./lib/main.dart
+</span><span class="z-text z-plain">cp ./lib/example_advanced_chat.dart ./lib/main.dart
+</span><span class="z-text z-plain">flutter build linux
+</span></code></pre>
+<p>Ensuite aller dans le répertoire indiqué à la fin de la compilation, pour linux:</p>
+<pre class="z-code"><code><span class="z-text z-plain">cd build/linux/x64/release/bundle/
+</span></code></pre>
+<ul>
+<li>Lancez un première fois l'application <em>discret_flutter</em> et créez un nouveau compte. Par rapport au précedent exemple, vous noterez qu'un nouveau champ nommé <strong>displayed name</strong> est apparu. Il s'agit du nom que les autres Pairs verront.</li>
+<li>Gardez la premère application ouverte, lancez l'application une seconde fois et créez un secong compte.</li>
+<li>Sur la première fenêtres, cliquez sur le bouton <strong>Invite</strong>, copiez l'invitation en cliquant sur <strong>Copy to Clipboard</strong> et fermez la fenêtre en cliquant sur <strong>Ok</strong></li>
+<li>Sur la seconde fenêtre, cliquez sur le bouton <strong>Accept Invite</strong>, collez l'invitation dans le champs prévu à cet effet et appuyez sur <strong>Ok</strong>.</li>
+<li>Vous devrier voir les noms des comptes apparaîtres dans les deux fenêtres, indiquant que l'invition a été acceptée.</li>
+<li>Vous devriez pouvoir discuter entre les deux comptes.</li>
+</ul>
+<p>Si vous copiez le programme sur une autre machine du réseau et que vous re-créez un des comptes, vous devriez pouvoir discutter entre vos deux machines, avec deux comptes différents. </p>
+<p>Pour trois utlisateurs, vous devriez voir l'écran du type:
+
+<img src="https:&#x2F;&#x2F;discretlib.github.io&#x2F;doc&#x2F;advanced_chat.png"></p>
+<h1 id="preparation-de-l-api">Préparation de l'API</h1>
+<p>L'initialisation de l'API ne change pas beaucoup par rapport à l'exemple précedent.</p>
+<p>Seul le repertoire où stocker des données est modifié pour être compatible avec les <em>smartphone</em> et <em>tablet</em>.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>18</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr><tr><td>19</td><td><span class="z-source z-dart"><span class="z-storage z-type z-primitive z-dart">void</span> <span class="z-entity z-name z-function z-dart">main</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>20</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">WidgetsFlutterBinding</span><span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">ensureInitialized</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>21</td><td><span class="z-source z-dart">  <span class="z-storage z-modifier z-dart">final</span> path <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> _localPath<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>22</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> dataPath <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-single z-dart">&#39;$<span class="z-variable z-parameter z-dart">path</span>/.discret_data&#39;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr></tbody></table></code></pre>
+<h1 id="architecture">Architecture</h1>
+<p>Pour gérer les différents groupes de discussion, la classe  <strong>ChatState</strong> contient une liste de <strong>ChatRoom</strong> ainsi que tous les champs et fonctions pour gérer:</p>
+<ul>
+<li>la connections</li>
+<li>les invitations</li>
+<li>la gestion de la liste des groupes de discution.</li>
+</ul>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-keyword z-declaration z-dart">class</span> <span class="z-support z-class z-dart">ChatState</span> <span class="z-keyword z-declaration z-dart">extends</span> <span class="z-support z-class z-dart">ChangeNotifier</span> {
+</span><span class="z-source z-dart">  <span class="z-storage z-modifier z-dart">final</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">ChatRoom</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> chatRooms <span class="z-keyword z-operator z-assignment z-dart">=</span> []<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//..</span>
+</span><span class="z-source z-dart">}
+</span></code></pre>
+<p>La classe <strong>ChatRoom</strong> contient tous les champs et fonctions pour:</p>
+<ul>
+<li>envoyer des message </li>
+<li>recevoir les messages.</li>
+</ul>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-keyword z-declaration z-dart">class</span> <span class="z-support z-class z-dart">ChatRoom</span> {
+</span><span class="z-source z-dart">  <span class="z-storage z-modifier z-dart">final</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">ChatEntry</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> chat <span class="z-keyword z-operator z-assignment z-dart">=</span> []<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> roomId<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-support z-class z-dart">String</span> name<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-support z-class z-dart">int</span> mdate<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">}
+</span></code></pre>
+<h1 id="initialisation">Initialisation</h1>
+<p>L'initialisation du <strong>ChatState</strong> est plus complexe que la précédente.</p>
+<p>La ligne 60 récupère la <strong>verifyingKey</strong> de l'utilisateur connecté. Cela représente l'identité publique de l'utilisateur.</p>
+<p>Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs verifieront cette signature lors de la synchonisation des données.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>59</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
+</span></td></tr><tr><td>60</td><td><span class="z-source z-dart">    msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">verifyingKey</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>61</td><td><span class="z-source z-dart">    myVerifyingKey <span class="z-keyword z-operator z-assignment z-dart">=</span> msg<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>62</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//..</span>
+</span></td></tr></tbody></table></code></pre>
+<hr />
+<p>La gestion du flux d'évènements envoyé par <em>Discret</em> est plus complète.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart">eventlistener <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">eventStream</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">listen</span>((event) <span class="z-keyword z-control z-dart">async</span> {
+</span><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">switch</span> (event<span class="z-punctuation z-dot z-dart">.</span>type) {
+</span><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">EventType</span><span class="z-punctuation z-dot z-dart">.</span>dataChanged<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">        {
+</span><span class="z-source z-dart">          <span class="z-support z-class z-dart">DataModification</span> modif <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>data <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">DataModification</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          modif<span class="z-punctuation z-dot z-dart">.</span>rooms<span class="z-keyword z-operator z-ternary z-dart">?</span><span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">forEach</span>((key<span class="z-punctuation z-comma z-dart">,</span> value) {
+</span><span class="z-source z-dart">            <span class="z-keyword z-control z-dart">if</span> (chatMap<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">containsKey</span>(key)) {
+</span><span class="z-source z-dart">              <span class="z-support z-class z-dart">ChatRoom</span> chatRoom <span class="z-keyword z-operator z-assignment z-dart">=</span> chatMap[key]<span class="z-keyword z-operator z-logical z-dart">!</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">              chatRoom<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">refresh</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">            }
+</span><span class="z-source z-dart">          })<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          chatRooms<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">sort</span>((a<span class="z-punctuation z-comma z-dart">,</span> b) <span class="z-keyword z-operator z-closure z-dart">=&gt;</span> b<span class="z-punctuation z-dot z-dart">.</span>mdate<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">compareTo</span>(a<span class="z-punctuation z-dot z-dart">.</span>mdate))<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          <span class="z-entity z-name z-function z-dart">notifyListeners</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">        }
+</span><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">EventType</span><span class="z-punctuation z-dot z-dart">.</span>roomModified<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">        {
+</span><span class="z-source z-dart">          <span class="z-support z-class z-dart">String</span> roomId <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>data <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">String</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          <span class="z-keyword z-control z-dart">await</span> <span class="z-entity z-name z-function z-dart">loadRoom</span>(roomId)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          <span class="z-entity z-name z-function z-dart">notifyListeners</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">        }
+</span><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">EventType</span><span class="z-punctuation z-dot z-dart">.</span>peerConnected<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">        {
+</span><span class="z-source z-dart">          <span class="z-support z-class z-dart">PeerConnection</span> peer <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>data <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">PeerConnection</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          <span class="z-storage z-type z-primitive z-dart">var</span> key <span class="z-keyword z-operator z-assignment z-dart">=</span> peer<span class="z-punctuation z-dot z-dart">.</span>verifyingKey<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(<span class="z-string z-interpolated z-single z-dart">&#39;Peer connected: $<span class="z-variable z-parameter z-dart">key</span>&#39;</span>)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">        }
+</span><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">EventType</span><span class="z-punctuation z-dot z-dart">.</span>peerDisconnected<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">        {
+</span><span class="z-source z-dart">          <span class="z-support z-class z-dart">PeerConnection</span> peer <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>data <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">PeerConnection</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          <span class="z-storage z-type z-primitive z-dart">var</span> key <span class="z-keyword z-operator z-assignment z-dart">=</span> peer<span class="z-punctuation z-dot z-dart">.</span>verifyingKey<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">          logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(<span class="z-string z-interpolated z-single z-dart">&#39;Peer disconnected: $<span class="z-variable z-parameter z-dart">key</span>&#39;</span>)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">        }
+</span><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">default</span><span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">    }
+</span><span class="z-source z-dart">  }<span class="z-punctuation z-comma z-dart">,</span> onDone<span class="z-keyword z-operator z-ternary z-dart">:</span> () {}<span class="z-punctuation z-comma z-dart">,</span> onError<span class="z-keyword z-operator z-ternary z-dart">:</span> (error) {})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<p>L'évènement <strong>EventType.dataChanged</strong> doit maintenant prendre en compte les différent groupe de discussion et ne rafraichira que les <strong>Rooms</strong> qui ont de nouveaux messages.</p>
+<p>Un nouvel évènement est traité <strong>EventType.roomModified</strong>. Cet évènement sera envoyé pendant le traitements des invitations et permet de détecter qu'un nouveau groupe de discussion est disponible. </p>
+<p>Les évènements <strong>EventType.peerConnected</strong>, <strong>EventType.peerDisconnected</strong> permettent de détecter qu'un Pair vient de se connecter ou de se déconnecter. Ils ne sont pas utilisés dans le code et ne font qu'écrire dans le log.</p>
+<hr />
+<p>L'initialisation définit ensuite la gestion du flux de <em>logs</em> envoyé par <em>Discret</em>.
+Ces <em>logs</em> sont principalement utilisés pour renvoyer des erreurs techniques qui ne sont pas particulièrement liées à un appel de l'API.</p>
+<p>Le code suivant ne fait que renvoyer ces <em>logs</em> dans le log Flutter de deboggage.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart">loglistener <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">logStream</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">listen</span>((event) <span class="z-keyword z-control z-dart">async</span> {
+</span><span class="z-source z-dart">  <span class="z-storage z-type z-primitive z-dart">var</span> date <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-support z-class z-dart">DateTime</span><span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">fromMillisecondsSinceEpoch</span>(event<span class="z-punctuation z-dot z-dart">.</span>date)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-storage z-type z-primitive z-dart">var</span> message <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>message<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-keyword z-control z-dart">switch</span> (event<span class="z-punctuation z-dot z-dart">.</span>type) {
+</span><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">LogType</span><span class="z-punctuation z-dot z-dart">.</span>info<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">      message <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-single z-dart">&#39;INFO: $<span class="z-variable z-parameter z-dart">message</span>&#39;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">
+</span><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">case</span> <span class="z-support z-class z-dart">LogType</span><span class="z-punctuation z-dot z-dart">.</span>error<span class="z-keyword z-operator z-ternary z-dart">:</span>
+</span><span class="z-source z-dart">      <span class="z-storage z-type z-primitive z-dart">var</span> source <span class="z-keyword z-operator z-assignment z-dart">=</span> event<span class="z-punctuation z-dot z-dart">.</span>source<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">      message <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-single z-dart">&#39;ERROR: source: $<span class="z-variable z-parameter z-dart">source</span> message: $<span class="z-variable z-parameter z-dart">message</span>&#39;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  }
+</span><span class="z-source z-dart">  logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(message<span class="z-punctuation z-comma z-dart">,</span> time<span class="z-keyword z-operator z-ternary z-dart">:</span> date)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<h1 id="creer-un-compte">Créer un Compte</h1>
+<p>La fonction de login n'a pas changée mais la fonction de création de compte est plus complexe car elle doit désormais gérer le champ <strong>Display Name</strong>.</p>
+<p>Ce champ est utilisé pour associer un nom à votre identité publique (votre verifying_key). Votre identité ainsi que ce nom seront envoyés aux Pairs lors du traitement des invitations.</p>
+<p>Cette association se fait dans l'entité <strong>sys.Peer</strong> qui contient tous les Pairs que vous connaissez, vous y compris.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>135</td><td><span class="z-source z-dart"> <span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">ResultMsg</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">createAccount</span>(
+</span></td></tr><tr><td>136</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">String</span> userName<span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">String</span> password<span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">String</span> displayName) <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>137</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">login</span>(userName<span class="z-punctuation z-comma z-dart">,</span> password<span class="z-punctuation z-comma z-dart">,</span> <span class="z-constant z-language z-dart">true</span>)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>138</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">if</span> (msg<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>139</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">await</span> <span class="z-entity z-name z-function z-dart">initialise</span>()<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>140</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;query{
+</span></span></td></tr><tr><td>141</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        sys.Peer(verifying_key=<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey){
+</span></span></td></tr><tr><td>142</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          id
+</span></span></td></tr><tr><td>143</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        }
+</span></span></td></tr><tr><td>144</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>145</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>146</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span>
+</span></td></tr><tr><td>147</td><td><span class="z-source z-dart">          <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">query</span>(query<span class="z-punctuation z-comma z-dart">,</span> {<span class="z-string z-interpolated z-double z-dart">&quot;verifyingKey&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> myVerifyingKey})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>148</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>149</td><td><span class="z-source z-dart">        logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>150</td><td><span class="z-source z-dart">        <span class="z-keyword z-control z-dart">return</span> res<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>151</td><td><span class="z-source z-dart">      }
+</span></td></tr><tr><td>152</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>153</td><td><span class="z-source z-dart">      <span class="z-storage z-modifier z-dart">final</span> json <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-entity z-name z-function z-dart">jsonDecode</span>(res<span class="z-punctuation z-dot z-dart">.</span>data) <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>154</td><td><span class="z-source z-dart">      <span class="z-storage z-modifier z-dart">final</span> msgArray <span class="z-keyword z-operator z-assignment z-dart">=</span> json[<span class="z-string z-interpolated z-double z-dart">&quot;sys.Peer&quot;</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>155</td><td><span class="z-source z-dart">      <span class="z-storage z-type z-primitive z-dart">var</span> result <span class="z-keyword z-operator z-assignment z-dart">=</span> msgArray[<span class="z-constant z-numeric z-dart">0</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>156</td><td><span class="z-source z-dart">      <span class="z-storage z-type z-primitive z-dart">var</span> id <span class="z-keyword z-operator z-assignment z-dart">=</span> result[<span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span>]<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>157</td><td><span class="z-source z-dart">      <span class="z-support z-class z-dart">String</span> mutate <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
+</span></span></td></tr><tr><td>158</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        sys.Peer{
+</span></span></td></tr><tr><td>159</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          id:<span class="z-constant z-character z-escape z-dart">\$</span>id
+</span></span></td></tr><tr><td>160</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          name:<span class="z-constant z-character z-escape z-dart">\$</span>name
+</span></span></td></tr><tr><td>161</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        }
+</span></span></td></tr><tr><td>162</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>163</td><td><span class="z-source z-dart">      res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">mutate</span>(mutate<span class="z-punctuation z-comma z-dart">,</span> {<span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> id<span class="z-punctuation z-comma z-dart">,</span> <span class="z-string z-interpolated z-double z-dart">&quot;name&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> displayName})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>164</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>165</td><td><span class="z-source z-dart">        logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>166</td><td><span class="z-source z-dart">        <span class="z-keyword z-control z-dart">return</span> res<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>167</td><td><span class="z-source z-dart">      }
+</span></td></tr><tr><td>168</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">return</span> res<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>169</td><td><span class="z-source z-dart">    }
+</span></td></tr><tr><td>170</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">return</span> msg<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>171</td><td><span class="z-source z-dart">  }
+</span></td></tr></tbody></table></code></pre>
+<hr />
+<p>La première requête ligne 140 va récupérer l'identifiant <strong>id</strong> du tuple correspondant à votre identité.</p>
+<p>Chaque tuple en base de données possède un identifiant unique généré lors de l'insertion.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;query{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  sys.Peer(verifying_key=<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey){
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    id
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">}&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<hr />
+<p>La seconde requête ligne 157 va mettre à jour le champ <strong>name</strong> avec la valeur de <strong>Display Name</strong>.</p>
+<p>Toute requête de type <strong>mutate</strong> qui fournit un <strong>id</strong> est une requête de mise à jours. Si l'identifiant n'existe pas en base de données, une erreur est retournée.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">String</span> mutate <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  sys.Peer{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    id:<span class="z-constant z-character z-escape z-dart">\$</span>id
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    name:<span class="z-constant z-character z-escape z-dart">\$</span>name
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">}&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<h1 id="creer-une-invitation">Créer une invitation</h1>
+<p>Chaque demande d'invitation va créer une nouvelle <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> qui va permettre de limiter les droits d'accès au groupe de discussion.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>280</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">createInvite</span>() <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>281</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
+</span></span></td></tr><tr><td>282</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      sys.Room{
+</span></span></td></tr><tr><td>283</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        admin: [{
+</span></span></td></tr><tr><td>284</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          verif_key:<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey
+</span></span></td></tr><tr><td>285</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        }]
+</span></span></td></tr><tr><td>286</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        authorisations:[{
+</span></span></td></tr><tr><td>287</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          name:&quot;chat&quot;
+</span></span></td></tr><tr><td>288</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          rights:[{
+</span></span></td></tr><tr><td>289</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">            entity:&quot;chat.Message&quot;
+</span></span></td></tr><tr><td>290</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">            mutate_self:true
+</span></span></td></tr><tr><td>291</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">            mutate_all:false
+</span></span></td></tr><tr><td>292</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          }]
+</span></span></td></tr><tr><td>293</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          users:[{
+</span></span></td></tr><tr><td>294</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">              verif_key:<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey
+</span></span></td></tr><tr><td>295</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          }]
+</span></span></td></tr><tr><td>296</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        }]
+</span></span></td></tr><tr><td>297</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }
+</span></span></td></tr><tr><td>298</td><td><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    }&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>299</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>300</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span>
+</span></td></tr><tr><td>301</td><td><span class="z-source z-dart">        <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">mutate</span>(query<span class="z-punctuation z-comma z-dart">,</span> {<span class="z-string z-interpolated z-double z-dart">&quot;verifyingKey&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> myVerifyingKey})<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>302</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>303</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>304</td><td><span class="z-source z-dart">      logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>305</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">return</span> <span class="z-string z-interpolated z-double z-dart">&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>306</td><td><span class="z-source z-dart">    }
+</span></td></tr><tr><td>307</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>308</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">final</span> json <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-entity z-name z-function z-dart">jsonDecode</span>(res<span class="z-punctuation z-dot z-dart">.</span>data) <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>309</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">final</span> msgArray <span class="z-keyword z-operator z-assignment z-dart">=</span> json[<span class="z-string z-interpolated z-double z-dart">&quot;sys.Room&quot;</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>310</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">String</span> roomId <span class="z-keyword z-operator z-assignment z-dart">=</span> msgArray[<span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span>]<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>311</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>312</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">final</span> auths <span class="z-keyword z-operator z-assignment z-dart">=</span> msgArray[<span class="z-string z-interpolated z-double z-dart">&quot;authorisations&quot;</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>313</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">final</span> authorisation <span class="z-keyword z-operator z-assignment z-dart">=</span> auths[<span class="z-constant z-numeric z-dart">0</span>] <span class="z-keyword z-cast z-dart">as</span> <span class="z-support z-class z-dart">Map</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">String</span><span class="z-punctuation z-comma z-dart">,</span> <span class="z-support z-class z-dart">dynamic</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>314</td><td><span class="z-source z-dart">    <span class="z-storage z-modifier z-dart">final</span> authId <span class="z-keyword z-operator z-assignment z-dart">=</span> authorisation[<span class="z-string z-interpolated z-double z-dart">&quot;id&quot;</span>]<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>315</td><td><span class="z-source z-dart">
+</span></td></tr><tr><td>316</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> invite <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">invite</span>(roomId<span class="z-punctuation z-comma z-dart">,</span> authId)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>317</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>res<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>318</td><td><span class="z-source z-dart">      logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(res<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>319</td><td><span class="z-source z-dart">      <span class="z-keyword z-control z-dart">return</span> <span class="z-string z-interpolated z-double z-dart">&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>320</td><td><span class="z-source z-dart">    }
+</span></td></tr><tr><td>321</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">return</span> invite<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>322</td><td><span class="z-source z-dart">  }
+</span></td></tr></tbody></table></code></pre>
+<p>La requête ligne 281 va créer une nouvelle Room pour acceuillir le nouvel invité.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  sys.Room{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    admin: [{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      verif_key:<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    }]
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    authorisations:[{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      name:&quot;chat&quot;
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      rights:[{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        entity:&quot;chat.Message&quot;
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        mutate_self:true
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">        mutate_all:false
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }]
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      users:[{
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">          verif_key:<span class="z-constant z-character z-escape z-dart">\$</span>verifyingKey
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">      }]
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    }]
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }
+</span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">}&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<p>Lors de la creation de la <em>Room</em> l'identité (la <strong>verifying_key</strong>) du pair invité est encore inconnue, vous n'insérez donc que votre propre identité.</p>
+<p>Vous pourrez noter que votre identité est utilisée deux fois:</p>
+<ul>
+<li>une fois dans le champ <strong>admin</strong>, indiquant que vous être l'administrateur de cette Room,</li>
+<li>une fois dans le champ <strong>user</strong> de l'authorisation. Ce n'est pas vraiment nécessaire car les administateurs ont tous les droits, mais cela simplifie le code de cet exemple. Dans la liste des groupe de chat nous n'afficheront que les <strong>Rooms</strong> possédant deux entrées dans le champs <strong>user</strong>, car cela indique que l'invitation a été acceptée.</li>
+</ul>
+<p>le champ <strong>rights</strong> de l'authorisation indique que seul les tuples de type <strong>chat.Message</strong> sont acceptés. Tenter d'insérer d'autres données renverra une erreur.</p>
+<hr />
+<p>L'API de creation d'invitation requiers:</p>
+<ul>
+<li>l'<strong>id</strong> de la <em>Room</em>,</li>
+<li>l'<strong>id</strong> d'une authorisation interne à cette <em>Room</em>.</li>
+</ul>
+<p>Ces identifiants sont récupérés en lisant le résultat de la requête de création (lignes 308 à 314), qui contient les identifiants générés lors de la création.</p>
+<p>Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'authorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette <em>Room</em>.</p>
+<hr />
+<p>L'appel de la fonction de l'API va retourner une grande chaine de caractères qui devra être transmise au pair que vous voulez inviter par des moyens externe à l'application.</p>
+<pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"> <span class="z-support z-class z-dart">ResultMsg</span> invite <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">invite</span>(roomId<span class="z-punctuation z-comma z-dart">,</span> authId)<span class="z-punctuation z-terminator z-dart">;</span>
+</span><span class="z-source z-dart">  <span class="z-comment z-line z-double-slash z-dart">//..</span>
+</span><span class="z-source z-dart"> <span class="z-keyword z-control z-dart">return</span> invite<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
+</span></code></pre>
+<h1 id="accepter-une-invitation">Accepter une invitation</h1>
+<p>Accepter un invitation se résume à appeler la fonction de l'API avec l'invitation reçue. L'invitation va permettre aux deux pairs de se retrouver sur le réseau et se connecter. </p>
+<p>Une invitation ne peut être utilisée qu'une seule fois.</p>
+<pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>18</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">acceptInvite</span>(<span class="z-support z-class z-dart">String</span> invite) <span class="z-keyword z-control z-dart">async</span> {
+</span></td></tr><tr><td>19</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">acceptInvite</span>(invite)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>20</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">if</span> (<span class="z-keyword z-operator z-logical z-dart">!</span>msg<span class="z-punctuation z-dot z-dart">.</span>successful) {
+</span></td></tr><tr><td>21</td><td><span class="z-source z-dart">      logger<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">log</span>(msg<span class="z-punctuation z-dot z-dart">.</span>error)<span class="z-punctuation z-terminator z-dart">;</span>
+</span></td></tr><tr><td>22</td><td><span class="z-source z-dart">    }
+</span></td></tr><tr><td>23</td><td><span class="z-source z-dart">  }
+</span></td></tr></tbody></table></code></pre>
 
 
     <nav class="lower_nav">
@@ -297,6 +582,40 @@
     </nav>
 </article>
 
+
+<nav class="sticky">
+    <section class="toc">
+        <h1>Sur cette page</h1>
+        <ul>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#preparation-de-l-api">Préparation de l&#x27;API</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#architecture">Architecture</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#initialisation">Initialisation</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#creer-un-compte">Créer un Compte</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#creer-une-invitation">Créer une invitation</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/#accepter-une-invitation">Accepter une invitation</a>
+            </li>
+            
+        </ul>
+        <div class="wordcount">1414 mots, 8 min de lecture</div>
+    </section>
+</nav>
 
 
 
