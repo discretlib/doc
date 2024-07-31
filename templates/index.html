@@ -64,7 +64,7 @@
         </li>
         <li>
           <section class="learn">
-            <a href="">
+            <a href="#">
               Learn
               <i class="fa fa-caret-down"></i>
             </a>
@@ -109,7 +109,7 @@
         <section class="header_right">
           {% set id = get_section(path="hire_me/_index.md") %}
           <li><a  href="{{ id.permalink | safe }}">Hire Me</a></li>
-          <li><a href="/fr/" class="flag"><img src="/fr.svg" alt="french translation" /></a>
+          <li><a href="{{ "/fr/" }}" class="flag"><img src="{{ "/fr.svg" }}" alt="french" /></a>
         </section>
       </ul>
     </section>

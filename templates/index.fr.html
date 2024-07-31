@@ -64,7 +64,7 @@
         </li>
         <li>
           <section class="learn">
-            <a href="">
+            <a href="#">
               Apprendre
               <i class="fa fa-caret-down"></i>
             </a>
@@ -107,10 +107,10 @@
         </li>
 
         <section class="header_right">
-        
-         {% set id = get_section(path="hire_me/_index.fr.md") %}
-          <li><a  href="{{ id.permalink | safe }}">Me Recruter</a></li>
-          <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
+
+          {% set id = get_section(path="hire_me/_index.fr.md") %}
+          <li><a href="{{ id.permalink | safe }}">Me Recruter</a></li>
+          <li><a href="{{ "/" }}" class="flag"><img src="{{ "/gb.svg" }}" alt="english" /></a>
           </li>
 
 
@@ -124,15 +124,16 @@
   </section>
   <section class="footer">
     <div>
-      Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>. 
+      Le design de ce site est une mauvaise copie du site <a href="https://www.mkdocs.org/">MkDocs</a>.
       Le language de requête est très fortement inspiré de <a href="https://graphql.org/">GraphQL</a>.
     </div>
 
-    <div> 
-      Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>.
-      La librairie Discret est sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>. 
-      Les exemples et le *binding* Flutter est sous licence <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a> 
-    <div />
+    <div>
+      Copyright © 2024 Adrien SALAIS. Le contenu de ce site est sous licence <a
+        href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC-BY-SA</a>.
+      La librairie Discret est sous licence <a href="https://www.gnu.org/licenses/agpl-3.0.fr.html">AGPL V3</a>.
+      Les exemples et le *binding* Flutter est sous licence <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a>
+      <div />
   </section>
 </body>
 
