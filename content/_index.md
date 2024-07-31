@@ -13,7 +13,7 @@ page_template = "index-page.html"
 
 - Dive deeper in the [Learn](@/learn/_index.md) section. 
 
-- And contribution are always welcome in the [Github](https://github.com/discretlib/) projects!
+- And contribution are always welcome in the [Github](https://github.com/discretlib/discret) projects!
 
-This website is also available in [french](@/fr/).
+This website is also available in [french](fr/).
 
