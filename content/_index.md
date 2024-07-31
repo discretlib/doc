@@ -15,5 +15,5 @@ page_template = "index-page.html"
 
 - And contribution are always welcome in the [Github](https://github.com/discretlib/) projects!
 
-This website is also available in [french](/fr/).
+This website is also available in [french](@/fr/).
 
