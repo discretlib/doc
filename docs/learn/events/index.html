@@ -326,7 +326,7 @@
     <p><em>Discret</em> react to some actions by triggering system wide events. Those events can be listened by using the API function <strong>subscribe_for_events</strong>.</p>
 <h1 id="datachanged-data-modification">DataChanged(data_modification)</h1>
 <p>This event is triggered whenever data is modified or inserted. Data is inserted/deleted in batches and this events describes each batch.</p>
-<p><strong>data_modification</strong> constains a <em>HashMap</em>:</p>
+<p><strong>data_modification</strong> contains a <em>HashMap</em>:</p>
 <ul>
 <li>the key is the identifier of the <em>Rooms</em> that have been modified</li>
 <li>the data contains the modified Entity name and the mutation days (date without hour:minutes:second).</li>
@@ -358,7 +358,7 @@
 <li><strong>room_id</strong>: the <em>Room</em> identifier</li>
 </ul>
 <h1 id="pendingpeer">PendingPeer</h1>
-<p>This event is triggered when a new peer is found when synchronising a <strong>Room</strong>.
+<p>This event is triggered when a new peer is found when synchronizing a <strong>Room</strong>.
 A list of pending peers can be retrieved using the following query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">sys</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">AllowedPeer</span></span><span class="z-meta z-brace z-round z-ts">(</span>
@@ -374,7 +374,7 @@ A list of pending peers can be retrieved using the following query:</p>
 </span></code></pre>
 <h1 id="pendinghardware">PendingHardware</h1>
 <p>This event is triggered when a new device is detected. 
-A list of devices waiting for manual authorisation can be retrieved using the following query:</p>
+A list of devices waiting for manual authorization can be retrieved using the following query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">     <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">AllowedHardware</span></span><span class="z-meta z-brace z-round z-ts">(</span> 
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">            <span class="z-variable z-other z-readwrite z-ts">status</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>pending<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>

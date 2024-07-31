@@ -326,7 +326,7 @@
     <h1>
         Configuration
     </h1>
-    <p><em>Discret</em> propose un certain nombre d'options de configuration qui sont passées au démarage du système.</p>
+    <p><em>Discret</em> propose un certain nombre d'options de configuration qui sont passées au démarrage du système.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">parallelism</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
@@ -342,10 +342,10 @@
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_accept_local_device</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
-<p>Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont authorisés à se connecter. </p>
-<p>Cela ajoute un niveau additionel de sécurité dans le cas où votre secret serait aussi utilisé par une autre personne sur Internet. Cela peut arriver dans le cas où vos utlisateur utilisent des mots de passe faibles. </p>
+<p>Lorsque vous vous connectez avec le même secrets sur deux appareils différents, ces deux appareils s'échangent une signature matérielle pour vérifier qu'ils sont autorisés à se connecter. </p>
+<p>Cela ajoute un niveau additionnel de sécurité dans le cas où votre secret serait aussi utilisé par une autre personne sur Internet. Cela peut arriver dans le cas où vos utilisateurs utilisent des mots de passe faibles. </p>
 <p>Si la connection se fait sur internet, un nouvel appareil sera toujours rejeté.</p>
-<p>Par contre, sur un réseau local un nouvel appareil sera authorisé par défaut. Ce comportement peut être désactivé en modifiant 'auto_accept_local_device' à false.
+<p>Par contre, sur un réseau local un nouvel appareil sera autorisé par défaut. Ce comportement peut être désactivé en modifiant 'auto_accept_local_device' à false.
 Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:</p>
 <ul>
 <li>un tuple <strong>sys.AllowedHardware</strong> sera créé avec le status:'pending'</li>
@@ -358,14 +358,14 @@ Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:</p>
 <p>Définit le comportement de <em>Discret</em> quand il découvre un nouveau pair lors de la synchronisation des <strong>Rooms</strong></p>
 <p>auto_allow_new_peers=true:</p>
 <ul>
-<li>Je fais confiance aux amis de mes amis et ceux-ci seront authorisés à se connecter directement à mes appareils. </li>
+<li>Je fais confiance aux amis de mes amis et ceux-ci seront autorisés à se connecter directement à mes appareils. </li>
 </ul>
 <p>auto_allow_new_peers=false:</p>
 <ul>
-<li>par défaut, les amis de mes amis ne sont pas authorisés à se connecter à mes apparareils. C'est la configuration par défaut.</li>
+<li>par défaut, les amis de mes amis ne sont pas autorisés à se connecter à mes appareils. C'est la configuration par défaut.</li>
 </ul>
 <p>Par exemple, imaginons que vous avez invités Bob à discuter avec vous. Bob crée un groupe de discussion avec vous et Alice. Lors de la première synchronisation, <em>Discret</em>  va détecter un nouveau pair nommé Alice et va l'ajouter dans <strong>sys.Peer</strong>.</p>
-<p>Si  auto_allow_new_peers est 'true', <em>Discret</em> va l'ajouter dans <strong>sys.AllowedPeer</strong> avec le status <strong>enabled</strong>, et l'authoriser à se connecter directement. Cela rend le réseau plus efficace car Alice pourra voir vos nouveaux messages même quand Bob ne sera pas connecté. Par contre cela se fait au prix d'une perte de vie privée car Alice connaitra votre adresse IP. </p>
+<p>Si  auto_allow_new_peers est 'true', <em>Discret</em> va l'ajouter dans <strong>sys.AllowedPeer</strong> avec le status <strong>enabled</strong>, et l'autoriser à se connecter directement. Cela rend le réseau plus efficace car Alice pourra voir vos nouveaux messages même quand Bob ne sera pas connecté. Par contre cela se fait au prix d'une perte de vie privée car Alice connaîtra votre adresse IP. </p>
 <p>Si auto_allow_new_peers est 'false',</p>
 <ul>
 <li>un tuple <strong>sys.AllowedPeer</strong> est créé avec le status <strong>pending</strong>, is created in the private room, with the status set to 'pending'</li>
@@ -374,7 +374,7 @@ Dans ce cas, quand un nouvel appareil est détecté sur le réseau local:</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">max_object_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>Definit la taille maximum d'un tuple. Les tuples doivent avoir une taille raisonable pour garantir une synchronisation efficace.
+<p>Définit la taille maximum d'un tuple. Les tuples doivent avoir une taille raisonnable pour garantir une synchronisation efficace.
 Cet paramètre impacte la taille des <em>buffers</em> utilisés pour lire et écrire des données sur le réseau.</p>
 <p><strong>/!Attention!\</strong> une fois votre programme en production, diminuer cette valeur cassera <em>Discret</em>. Aucune donnée ne sera perdue mais le système ne pourra plus synchroniser les tuples plus grand que cette valeur.</p>
 <hr />
@@ -389,7 +389,7 @@ quantité mémoire.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_buffer_length</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>Les requêtes d'écriture en base de données sont écrite par bloc. Quand le process d'écriture est prêt, il récupère toutes les requêtes en attente jusqu'a atteindre la limite définie par ce paramêtre. Ce bloc de requête sera ensuite effectué dans une unique transaction. Cela augmente énormément les performances, comparé à l'écriture des requêtes une par une (autocommit).</p>
+<p>Les requêtes d'écriture en base de données sont écrite par bloc. Quand le process d'écriture est prêt, il récupère toutes les requêtes en attente jusqu'a atteindre la limite définie par ce paramètre. Ce bloc de requête sera ensuite effectué dans une unique transaction. Cela augmente énormément les performances, comparé à l'écriture des requêtes une par une (autocommit).</p>
 <p>Pour donner une idée de l'amélioration des performance, un test d'insertion de 100 000 tuples donne le résultat suivant:</p>
 <ul>
 <li>write_buffer_length = 1       Insertions/secondes: 55  &lt;- cela insère les données une par une</li>
@@ -405,11 +405,11 @@ quantité mémoire.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">enable_multicast</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
-<p>Active/désactive la decouverte de vos pairs sur le réseau local</p>
+<p>Active/désactive la découverte de vos pairs sur le réseau local</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">multicast_ipv4_interface</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
-<p><em>Discret</em> utilise la fonction <em>IP multicast</em> pour découvrir vos pairs sur le réseau local.Sur certain système avec plusieurs cartes réseau, il pourrait être necessaire d'indiquer votre adresse IP locale pour que le <em>multicast</em> fonctionne. La valeur par défaut (laisser le système d'exploitation se débrouiller) devrait néanmoins fonctionner dans la plupart des cas. </p>
+<p><em>Discret</em> utilise la fonction <em>IP multicast</em> pour découvrir vos pairs sur le réseau local.Sur certain système avec plusieurs cartes réseau, il pourrait être nécessaire d'indiquer votre adresse IP locale pour que le <em>multicast</em> fonctionne. La valeur par défaut (laisser le système d'exploitation se débrouiller) devrait néanmoins fonctionner dans la plupart des cas. </p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"> <span class="z-entity z-name z-label z-ts">multicast_ipv4_group</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span>
 </span></code></pre>
@@ -417,7 +417,7 @@ quantité mémoire.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
-<p>Active/désactive la decouverte de vos pairs  sur internet.</p>
+<p>Active/désactive la découverte de vos pairs  sur internet.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">List</span><span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-variable z-other z-readwrite z-ts">BeaconConfig</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></code></pre>
@@ -433,14 +433,14 @@ quantité mémoire.</p>
 <p>Un serveur beacon comporte deux champs:</p>
 <ul>
 <li><em>hostname</em>: l'adresse du serveur</li>
-<li><em>cert_hash</em>: le <em>hash</em> du certificat utilisé par ce serveur. Cette valeur est générée par le serveur au démarage.</li>
+<li><em>cert_hash</em>: le <em>hash</em> du certificat utilisé par ce serveur. Cette valeur est générée par le serveur au démarrage.</li>
 </ul>
 <p>La section <a href="https://discretlib.github.io/doc/fr/learn/configuration/beacon/">Beacon</a> fournit les informations nécessaires pour créer un serveur et récupérer son <em>cert_hash</em>.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">enable_database_memory_security</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
 <p>Empêche la mémoire d'être écrite en <em>swap</em> et vide la mémoire(<em>zeroise</em>) quand elle est libérée.</p>
-<p>Désactivé par défaut car cela impacte fortement les performances(d'environ 50%). Cela ne devrait être utilisé que si votre système demande un niveau de sécurité extrêmement élévé.</p>
+<p>Désactivé par défaut car cela impacte fortement les performances(d'environ 50%). Cela ne devrait être utilisé que si votre système demande un niveau de sécurité extrêmement élevé.</p>
 <p>source: <a href="https://discuss.zetetic.net/t/what-is-the-purpose-of-pragma-cipher-memory-security/3953">cipher_memory_security</a></p>
 
 

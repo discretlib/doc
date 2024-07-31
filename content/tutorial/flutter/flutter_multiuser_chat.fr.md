@@ -5,42 +5,41 @@ weight = 2
 +++
 
 Ce document décrit l'exemple avancé de chat nommé *example_advanced_chat.dart* disponible dans le répertoire **./lib/**, 
- et considère que vous avez déja suivi le tutoriel [Chat Flutter Minimaliste](@/tutorial/flutter/flutter_chat.fr.md). Seules les fonctions introduisant de nouvelles parties de l'API seront décrites.
+ et considère que vous avez déjà suivi le tutoriel [Chat Flutter Minimaliste](@/tutorial/flutter/flutter_chat.fr.md). Seules les fonctions introduisant de nouvelles parties de l'API seront décrites.
 
-Commencez par supprimer
-- remplacer ./lib/main.dart par le nouveau fichier d'exemple ./lib/example_advanced_chat.dart. 
+Pour commencer:
+- remplacez ./lib/main.dart par le nouveau fichier d'exemple ./lib/example_advanced_chat.dart. 
 - compilez ensuite l'application. cela peut prendre plusieurs minutes
 
-Commandes à lancer sous linux:
 ```
 rm ./lib/main.dart
 cp ./lib/example_advanced_chat.dart ./lib/main.dart
 flutter build linux
 ```
 
-Ensuite aller dans le répertoire indiqué à la fin de la compilation, pour linux:
+Ensuite, allez dans le répertoire indiqué à la fin de la compilation, pour Linux:
 ```
 cd build/linux/x64/release/bundle/
 ```
 
 
-- Lancez un première fois l'application *discret_flutter* et créez un nouveau compte. Par rapport au précedent exemple, vous noterez qu'un nouveau champ nommé **displayed name** est apparu. Il s'agit du nom que les autres Pairs verront.
-- Gardez la premère application ouverte, lancez l'application une seconde fois et créez un secong compte.
+- Lancez un première fois l'application *discret_flutter* et créez un nouveau compte. Par rapport au précédent exemple, vous noterez qu'un nouveau champ nommé **displayed name** est apparu. Il s'agit du nom que les autres Pairs verront.
+- Gardez la première application ouverte, lancez l'application une seconde fois, et créez un second compte.
 - Sur la première fenêtres, cliquez sur le bouton **Invite**, copiez l'invitation en cliquant sur **Copy to Clipboard** et fermez la fenêtre en cliquant sur **Ok**
 - Sur la seconde fenêtre, cliquez sur le bouton **Accept Invite**, collez l'invitation dans le champs prévu à cet effet et appuyez sur **Ok**.
-- Vous devrier voir les noms des comptes apparaîtres dans les deux fenêtres, indiquant que l'invition a été acceptée.
+- Vous devriez voir les noms des comptes apparaître dans les deux fenêtres, indiquant que l'invitation a été acceptée.
 - Vous devriez pouvoir discuter entre les deux comptes.
 
-Si vous copiez le programme sur une autre machine du réseau et que vous re-créez un des comptes, vous devriez pouvoir discutter entre vos deux machines, avec deux comptes différents. 
+Si vous copiez le programme sur une autre machine du réseau et que vous re-créez un des comptes, vous devriez pouvoir discuter entre vos deux machines, avec deux comptes différents. 
 
-Pour trois utlisateurs, vous devriez voir l'écran du type:
+Pour trois utilisateurs, vous devriez voir l'écran:
 {{ image(path="/advanced_chat.png") }}
 
 # Préparation de l'API
 
-L'initialisation de l'API ne change pas beaucoup par rapport à l'exemple précedent.
+L'initialisation de l'API ne change pas beaucoup par rapport à l'exemple précédent.
 
-Seul le repertoire où stocker des données est modifié pour être compatible avec les *smartphone* et *tablet*.
+Seul le répertoire où stocker des données est modifié pour être compatible avec les *smartphone* et *tablet*.
 
 ```dart,linenos, linenostart=18
 //...
@@ -54,7 +53,7 @@ void main() async {
 Pour gérer les différents groupes de discussion, la classe  **ChatState** contient une liste de **ChatRoom** ainsi que tous les champs et fonctions pour gérer:
 - la connections
 - les invitations
-- la gestion de la liste des groupes de discution.
+- la gestion de la liste des groupes de discussion.
 
 ```dart
 class ChatState extends ChangeNotifier {
@@ -81,7 +80,7 @@ L'initialisation du **ChatState** est plus complexe que la précédente.
 
 La ligne 60 récupère la **verifyingKey** de l'utilisateur connecté. Cela représente l'identité publique de l'utilisateur.
 
-Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs verifieront cette signature lors de la synchonisation des données.
+Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs vérifieront cette signature lors de la synchronisation des données.
 
 ```dart,linenos, linenostart=59
 //...
@@ -130,7 +129,7 @@ eventlistener = Discret().eventStream().listen((event) async {
     }
   }, onDone: () {}, onError: (error) {});
 ```
-L'évènement **EventType.dataChanged** doit maintenant prendre en compte les différent groupe de discussion et ne rafraichira que les **Rooms** qui ont de nouveaux messages.
+L'évènement **EventType.dataChanged** doit maintenant prendre en compte les différent groupe de discussion et ne rafraîchira que les **Rooms** qui ont de nouveaux messages.
 
 Un nouvel évènement est traité **EventType.roomModified**. Cet évènement sera envoyé pendant le traitements des invitations et permet de détecter qu'un nouveau groupe de discussion est disponible. 
 
@@ -286,7 +285,7 @@ Chaque demande d'invitation va créer une nouvelle [Room](@/learn/access_rights/
   }
 ```
 
-La requête ligne 281 va créer une nouvelle Room pour acceuillir le nouvel invité.
+La requête ligne 281 va créer une nouvelle Room pour accueillir le nouvel invité.
 
 ```dart
 String query = """mutate {
@@ -308,28 +307,28 @@ String query = """mutate {
   }
 }""";
 ```
-Lors de la creation de la *Room* l'identité (la **verifying_key**) du pair invité est encore inconnue, vous n'insérez donc que votre propre identité.
+Lors de la création de la *Room*, l'identité (**verifying_key**) du pair invité est encore inconnue, vous n'insérez donc que votre propre identité.
 
 Vous pourrez noter que votre identité est utilisée deux fois:
-- une fois dans le champ **admin**, indiquant que vous être l'administrateur de cette Room,
-- une fois dans le champ **user** de l'authorisation. Ce n'est pas vraiment nécessaire car les administateurs ont tous les droits, mais cela simplifie le code de cet exemple. Dans la liste des groupe de chat nous n'afficheront que les **Rooms** possédant deux entrées dans le champs **user**, car cela indique que l'invitation a été acceptée.
+- une fois dans le champ **admin**, indiquant que vous être administrateur de cette *Room*,
+- une fois dans le champ **user** de l'autorisation. Ce n'est pas vraiment nécessaire car les administrateurs ont tous les droits, mais cela simplifie le code de cet exemple. Dans la liste des groupe de chat nous n'afficheront que les **Rooms** possédant deux entrées dans le champs **user**, car cela indique que l'invitation a été acceptée.
 
-le champ **rights** de l'authorisation indique que seul les tuples de type **chat.Message** sont acceptés. Tenter d'insérer d'autres données renverra une erreur.
+Le champ **rights** de l'autorisation indique que seul les tuples de type **chat.Message** sont acceptés. Tenter d'insérer d'autres données renverra une erreur.
 
 
 ---
 
 L'API de creation d'invitation requiers:
 - l'**id** de la *Room*,
-- l'**id** d'une authorisation interne à cette *Room*.
+- l'**id** d'une autorisation interne à cette *Room*.
 
 Ces identifiants sont récupérés en lisant le résultat de la requête de création (lignes 308 à 314), qui contient les identifiants générés lors de la création.
 
-Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'authorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette *Room*.
+Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'autorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette *Room*.
 
 ---
 
-L'appel de la fonction de l'API va retourner une grande chaine de caractères qui devra être transmise au pair que vous voulez inviter par des moyens externe à l'application.
+L'appel de la fonction de l'API va retourner une grande chaîne de caractères qui devra être transmise au pair que vous voulez inviter par des moyens externe à l'application.
 ```dart
  ResultMsg invite = await Discret().invite(roomId, authId);
   //..
@@ -339,7 +338,7 @@ L'appel de la fonction de l'API va retourner une grande chaine de caractères qu
 
 # Accepter une invitation
 
-Accepter un invitation se résume à appeler la fonction de l'API avec l'invitation reçue. L'invitation va permettre aux deux pairs de se retrouver sur le réseau et se connecter. 
+Accepter une invitation se résume à appeler la fonction de l'API avec l'invitation reçue. L'invitation va permettre aux deux pairs de se retrouver sur le réseau et se connecter. 
 
 Une invitation ne peut être utilisée qu'une seule fois.
 

@@ -1,6 +1,6 @@
 +++
 title = "Requêtes"
-description = "Decouvrez le moteur de requêtes et toute ses options"
+description = "Découvrez le moteur de requêtes et toute ses options"
 weight = 3
 +++
 
@@ -47,7 +47,7 @@ Avec les données suivantes:
 
 # Syntaxe
 
-Commençons par faire une requête simple qui va recupérer le nom et prénom de toutes les personnes présentes dans la base de données:
+Commençons par faire une requête simple qui va récupérer le nom et prénom de toutes les personnes présentes dans la base de données:
 ```js
 query {
     result: Person {
@@ -57,7 +57,7 @@ query {
 }
 ```
 Il faut noter que:
-- **result** est un alias, il peut être nommé différement,
+- **result** est un alias, il peut être nommé différemment,
 - les champs demandés *ne sont pas* délimités par une virgule.
 
 Cette requête retournera l'objet JSON suivant:
@@ -85,7 +85,7 @@ Il faut noter que:
 # Requête Multiples
 Il est possible de faire plusieurs requêtes en une seule fois.
 
-La requête suivante va recupérér la liste des personnes et la liste des familiers:
+La requête suivante va récupérer la liste des personnes et la liste des familiers:
 ```js
 query {
     persons: Person {
@@ -118,7 +118,7 @@ et retourne l'objet JSON suivant:
 Les alias **persons** et **pets** doivent être uniques au sein de la requête. 
 
 # Filtrer
-Les exemples précedents récupèrent la totalité des tuples correspondant à une entitée. Dans la réalité, les données doivent être filtrées.
+Les exemples précédents récupèrent la totalité des tuples correspondant à une entité. Dans la réalité, les données doivent être filtrées.
 
 Les filtres supportent les opérateurs suivants:
 - **=**     égal
@@ -188,11 +188,11 @@ query {
 
 
 # Recherche plein texte
-Par défaut, toute les données texte sont indéxées pour pouvoir effectuer des recherches plein texte en utilisant la clause **search**
+Par défaut, toute les données texte sont indexées pour pouvoir effectuer des recherches plein texte en utilisant la clause **search**
 
-L'index utilisé est un index *trigram*, donc seule les chaines de plus de 3 charactères peuvent être recherchées.
+L'index utilisé est un index *trigram*, donc seule les chaines de plus de 3 caractères peuvent être recherchées.
 
-L'indexation peut être [desactivée pour une entité](@/learn/datamodel/schema.fr.md#desactiver-l-indexation-plein-texte).
+L'indexation peut être [désactivée pour une entité](@/learn/datamodel/schema.fr.md#desactiver-l-indexation-plein-texte).
 
 ```js
 query {
@@ -214,7 +214,7 @@ Cette recherche retourne uniquement le tuple contenant "Alice".
 # Requêtes imbriquées
 Les requêtes ne sont pas limitées à la récupération d'un seul type d'entité. Au sein d'une même requête il est possible de récupérer une entité et ses relations.
 
-la requête suivante récupère les persones et leur familier:
+la requête suivante récupère les personnes et leur familier:
 ```js
 query {
     result: Person {
@@ -250,7 +250,7 @@ Elle produit le résultat suivant:
 
 La requête renvoie uniquement les **Person** qui possèdent un **Pet**. Cela permet de garantir que votre requête renverra toujours des données non nulles, ce qui facilite le traitement.
 
-Des filtres peuvent êtres appliqués aux sous entitées, comme pour l'entitée principale: 
+Des filtres peuvent êtres appliqués aux sous-entités, comme pour l'entité principale: 
 ```js
 query {
     Person {
@@ -356,7 +356,7 @@ query {
 ```
 
 # Trier les résultats
-Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de resultats se fait avec la clause **order_by**.
+Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de résultats se fait avec la clause **order_by**.
 
 Le tri peut se faire sur plusieurs champs. Chaque champ doit avoir une indication de direction de tri:
 - **asc** du plus petit au plus grand (ascendant)
@@ -440,7 +440,7 @@ Ici, le premier tuple est ignoré, et les deux suivants sont retournés:
 # Pagination
 Il peut être tentant d'utiliser les clauses **skip** et **first** pour paginer de grands tableaux de résultats, mais cette méthode peut se reveler très lente car la clause **skip** peut avoir à itérer sur un très grand nombre de tuples. 
 
-*Discret* fournit une alternative plus efficace avec les clauses **before** et **after**. Ces clauses fonctionent en association avec la clause **order_by** et permettent de demander de filtrer les tuples retrounés. 
+*Discret* fournit une alternative plus efficace avec les clauses **before** et **after**. Ces clauses fonctionnent en association avec la clause **order_by** et permettent de demander de filtrer les tuples retournés. 
 
 La syntaxe est la suivante:
 
@@ -455,15 +455,15 @@ query {
     }
 }
 ```
-Dans cette requête, les valeurs retournée seront celles dont la **mdate** est supérieure au paramêtre **\$date** et dont l'**id** est supérieur à **\$id** si les dates sont égales.
+Dans cette requête, les valeurs retournée seront celles dont la **mdate** est supérieure au paramètre **\$date** et dont l'**id** est supérieur à **\$id** si les dates sont égales.
 
 Cette méthode de pagination est plus souple et bien plus rapide que l'utilisation de **skip** et **first**.
 
 # Sélecteurs Json 
-Les champs de types JSON peuvent êtres accedés à l'aide du selecteur json **->$.**.
+Les champs de types JSON peuvent êtres accédés à l'aide du sélecteur json **->$.**.
 
 
-Considerons l'entité suivante contenant un champ JSON :
+Considérons l'entité suivante contenant un champ JSON:
 ```js
 {
     Article {
@@ -472,7 +472,7 @@ Considerons l'entité suivante contenant un champ JSON :
 }
 ```
 
-et inseront le tuple suivant 
+et insérons le tuple suivant:
 ```js
 mutate {
     Article {
@@ -484,7 +484,7 @@ mutate {
 }
 ```
 
-La requête suivante retournera le titre de l'article
+La requête suivante retournera le titre de l'article:
 ```js
 query sample{
     Article{
@@ -503,16 +503,16 @@ query sample{
 
 
 
-# Aggrégation
+# Agrégation
 
-*Discret* fournit les fonctions d'aggrégation de données suivantes.**(field)** réprésente le nom du champ à aggréger.
+*Discret* fournit les fonctions d'agrégation de données suivantes.**(field)** représente le nom du champ à agréger.
 - **avg(field)**
 - **count()**
 - **max(field)**
 - **min(field)**
 - **sum(field)**
 
-Un champ d'aggrégation se présente sous la forme **alias: fonction()**. Si une entité definit un champ d'aggrégation, tous les autres champs doivent aussi être des champs aggrégés.
+Un champ d'agrégation se présente sous la forme **alias: fonction()**. Si une entité définit un champ d'agrégation, tous les autres champs doivent aussi être des champs agrégés.
 
 La requête suivante compte le nombre de parents pour une personne: 
 ```js

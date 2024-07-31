@@ -12,12 +12,12 @@ weight = 1
 ```js
 parallelism: integer
 ```
-Defines the global parellism capabilities. This number impact:
+Defines the global parallelism capabilities. This number impact:
 - the maximum number of room that can be synchronized in parallel,
 - the number of database readings threads
 - the number of signature verification threads
 - the number of shared buffers used for reading and writing data on the network
-- the depth of the channels that are used to transmit message accross services
+- the depth of the channels that are used to transmit message across services
 
 Larger numbers will provides better performances at the cost of more memory usage. Having a number larger that the number of CPU might not provides increased performances
 
@@ -26,16 +26,16 @@ Larger numbers will provides better performances at the cost of more memory usag
 ```js
 auto_accept_local_device: boolean
 ```
-When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
+When connecting with the same key_material on different devices, those devices exchanges their hardware fingerprint to check wether they are allowed to connect.
 This add an extra layer of security in the unlucky case where your secret material is shared by another person on the internet (which could be relatively frequent as users tends use weak passwords).
     
-When connecting over the internet, new harware is allways silently rejected.
+When connecting over the internet, new hardware is always silently rejected.
     
 However, on local network we trust new hardware by default. This behaviors can be disabled by setting 'auto_accept_local_device' to false.
 In this case, when a new device is detected on the local network:
 - a sys.AllowedHardware will be created with the status:'pending'
 - a PendingHardware Event will be triggered
-- the current coonection attempt will be rejected
+- the current connection attempt will be rejected
 
 ---
 
@@ -45,14 +45,14 @@ auto_allow_new_peers: boolean
 Defines the behavior of the system when it discover a new peer while synchronizing a room.
 
 auto_allow_new_peers=true:
-- I implicitely trust friends of my friends. It is easy to setup, but could cause problems.
+- I implicitly trust friends of my friends. It is easy to setup, but could cause problems.
 
 auto_allow_new_peers=false:
 - Trust is given on a case by case basis, this is the recommended configuration.
 
-Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the **sys.Peer** list.
+Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronization, you device detects a new peer(Alice), and add it to the **sys.Peer** list.
 
-If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP adress with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase ressources usage.
+If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP address with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase resources usage.
 
 If auto_allow_new_peers is set to 'false',
 - a **sys.AllowedPeer** tuple is created with the status set to **pending**
@@ -64,7 +64,7 @@ If auto_allow_new_peers is set to 'false',
 max_object_size_in_kb: integer
 ```   
 
-Defines the maximum size of an entity tupple. Object size should be kept relatively small to ensure efficient synchronisation.
+Defines the maximum size of an entity tuple. Object size should be kept relatively small to ensure efficient synchronization.
 
 This parameter has a direct impact on the size of the buffers used to read and write data on the network
 Increasing this value will increase the RAM usage of the application
@@ -83,7 +83,7 @@ Set the maximum cache size for the database reading threads. Increasing it can i
 ```js  
 write_cache_size_in_kb: integer
 ```
-Set the maximum of cache size for the database writing thread. increasing it may improvee performances
+Set the maximum of cache size for the database writing thread. increasing it may improve performances
 
 ---
 
@@ -91,7 +91,7 @@ Set the maximum of cache size for the database writing thread. increasing it may
 write_buffer_length: integer
 ```
 Write queries are buffered while the database thread is working. When the database thread is ready, the buffer is sent and is processed in one single transaction.
-It greatly increase insertion and update rate, compared to autocommit. To get an idea of the perforance difference, a very simple benchmak on a laptop with 100 000 insertions gives:
+It greatly increase insertion and update rate, compared to autocommit. To get an idea of the performance difference, a very simple benchmark on a laptop with 100 000 insertions gives:
 - Buffer size: 1      Insert/seconds: 55  <- this is equivalent to autocommit
 - Buffer size: 10     Insert/seconds: 500
 - Buffer size: 100    Insert/seconds: 3000
@@ -104,7 +104,7 @@ If one a buffered query fails, the transaction will be rolled back and every oth
 ```js 
 announce_frequency_in_ms: integer
 ```
-how often (in milliseconds) an annouces are sent over the network to meet peers to connect to.
+how often (in milliseconds) an announces are sent over the network to meet peers to connect to.
     
 ---
     
@@ -140,7 +140,7 @@ Enable/Disable beacon peer discovery. I.e. meet peers over the Internet.
 pub beacons: List<BeaconConfig>,
 ```
 List of Beacon servers that are used for peer discovery.
-Here is a sample configuraiton in the TOML format:
+Here is a sample configuration in the TOML format:
 ```toml 
 [[beacons]]
 hostname = "sever.com:4264"

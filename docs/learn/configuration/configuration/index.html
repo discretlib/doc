@@ -327,27 +327,27 @@
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">parallelism</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>Defines the global parellism capabilities. This number impact:</p>
+<p>Defines the global parallelism capabilities. This number impact:</p>
 <ul>
 <li>the maximum number of room that can be synchronized in parallel,</li>
 <li>the number of database readings threads</li>
 <li>the number of signature verification threads</li>
 <li>the number of shared buffers used for reading and writing data on the network</li>
-<li>the depth of the channels that are used to transmit message accross services</li>
+<li>the depth of the channels that are used to transmit message across services</li>
 </ul>
 <p>Larger numbers will provides better performances at the cost of more memory usage. Having a number larger that the number of CPU might not provides increased performances</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_accept_local_device</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
-<p>When connecting with the same key_material on different devices, thoses devices exchanges their hardaware fingerprint to check wether they are allowed to connect.
+<p>When connecting with the same key_material on different devices, those devices exchanges their hardware fingerprint to check wether they are allowed to connect.
 This add an extra layer of security in the unlucky case where your secret material is shared by another person on the internet (which could be relatively frequent as users tends use weak passwords).</p>
-<p>When connecting over the internet, new harware is allways silently rejected.</p>
+<p>When connecting over the internet, new hardware is always silently rejected.</p>
 <p>However, on local network we trust new hardware by default. This behaviors can be disabled by setting 'auto_accept_local_device' to false.
 In this case, when a new device is detected on the local network:</p>
 <ul>
 <li>a sys.AllowedHardware will be created with the status:'pending'</li>
 <li>a PendingHardware Event will be triggered</li>
-<li>the current coonection attempt will be rejected</li>
+<li>the current connection attempt will be rejected</li>
 </ul>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">auto_allow_new_peers</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
@@ -355,14 +355,14 @@ In this case, when a new device is detected on the local network:</p>
 <p>Defines the behavior of the system when it discover a new peer while synchronizing a room.</p>
 <p>auto_allow_new_peers=true:</p>
 <ul>
-<li>I implicitely trust friends of my friends. It is easy to setup, but could cause problems.</li>
+<li>I implicitly trust friends of my friends. It is easy to setup, but could cause problems.</li>
 </ul>
 <p>auto_allow_new_peers=false:</p>
 <ul>
 <li>Trust is given on a case by case basis, this is the recommended configuration.</li>
 </ul>
-<p>Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the <strong>sys.Peer</strong> list.</p>
-<p>If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP adress with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase ressources usage.</p>
+<p>Let's imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronization, you device detects a new peer(Alice), and add it to the <strong>sys.Peer</strong> list.</p>
+<p>If auto_allow_new_peers is set to 'true', you're device will allow Alice to directly connect with you. It makes the network stronger, as Alice will be able to see your message even if Bob is not connected. But it comes at the cost of some privacy, because you now share your IP address with Alice. In case of large communities, this setup will make your allowed peers very large, increasing the number of network connections, and increase resources usage.</p>
 <p>If auto_allow_new_peers is set to 'false',</p>
 <ul>
 <li>a <strong>sys.AllowedPeer</strong> tuple is created with the status set to <strong>pending</strong></li>
@@ -371,7 +371,7 @@ In this case, when a new device is detected on the local network:</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">max_object_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>Defines the maximum size of an entity tupple. Object size should be kept relatively small to ensure efficient synchronisation.</p>
+<p>Defines the maximum size of an entity tuple. Object size should be kept relatively small to ensure efficient synchronization.</p>
 <p>This parameter has a direct impact on the size of the buffers used to read and write data on the network
 Increasing this value will increase the RAM usage of the application</p>
 <p><strong>!!WARNING!!</strong> once your program is in production, decreasing this value will break the system. No data will be lost but the system will not be able to synchronized objects that are larger than the reduced value.</p>
@@ -382,12 +382,12 @@ Increasing this value will increase the RAM usage of the application</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_cache_size_in_kb</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>Set the maximum of cache size for the database writing thread. increasing it may improvee performances</p>
+<p>Set the maximum of cache size for the database writing thread. increasing it may improve performances</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">write_buffer_length</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
 <p>Write queries are buffered while the database thread is working. When the database thread is ready, the buffer is sent and is processed in one single transaction.
-It greatly increase insertion and update rate, compared to autocommit. To get an idea of the perforance difference, a very simple benchmak on a laptop with 100 000 insertions gives:</p>
+It greatly increase insertion and update rate, compared to autocommit. To get an idea of the performance difference, a very simple benchmark on a laptop with 100 000 insertions gives:</p>
 <ul>
 <li>Buffer size: 1      Insert/seconds: 55  &lt;- this is equivalent to autocommit</li>
 <li>Buffer size: 10     Insert/seconds: 500</li>
@@ -398,7 +398,7 @@ It greatly increase insertion and update rate, compared to autocommit. To get an
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">announce_frequency_in_ms</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">integer</span>
 </span></code></pre>
-<p>how often (in milliseconds) an annouces are sent over the network to meet peers to connect to.</p>
+<p>how often (in milliseconds) an announces are sent over the network to meet peers to connect to.</p>
 <hr />
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-entity z-name z-label z-ts">enable_multicast</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span>
 </span></code></pre>
@@ -419,7 +419,7 @@ It greatly increase insertion and update rate, compared to autocommit. To get an
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">pub</span> <span class="z-entity z-name z-label z-ts">beacons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">List</span><span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-variable z-other z-readwrite z-ts">BeaconConfig</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></code></pre>
 <p>List of Beacon servers that are used for peer discovery.
-Here is a sample configuraiton in the TOML format:</p>
+Here is a sample configuration in the TOML format:</p>
 <pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
 </span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>sever.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
 </span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>

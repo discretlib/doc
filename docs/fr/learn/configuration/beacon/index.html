@@ -326,20 +326,20 @@
     <h1>
         Le serveur Beacon
     </h1>
-    <p>En réseau local, <em>Discret</em> peut découvrir et se connecter aux pairs sans équiment particulier. 
-Mais quand les Pair sont sur Internet, un serveur de <em>rencontre</em> nommé <em>Beacon</em> est nécessaire pour que les Pairs puissent se retrouvrer.</p>
+    <p>En réseau local, <em>Discret</em> peut découvrir et se connecter aux pairs sans équipement particulier. 
+Mais quand les Pair sont sur Internet, un serveur de <em>rencontre</em> nommé <em>Beacon</em> est nécessaire pour que les Pairs puissent se retrouver.</p>
 <p>Le fonctionnement du serveur de rencontre est le suivant. Supposons qu'Alice et Bob veuillent se connecter:</p>
 <ul>
 <li>Alice envoie un identifiant connu par Bob au serveur Beacon. Le serveur conserve cette information tant qu'Alice est connectée.</li>
 <li>Bob se connecte un peut plus tard, et envoie le même identifiant au serveur.</li>
-<li>Le serveur Beacon reconnait que Alice et Bob ont envoyé le même identifiant:
+<li>Le serveur Beacon reconnaît que Alice et Bob ont envoyé le même identifiant:
 <ul>
-<li>il envoie à Alice l'addresse de Bob,</li>
+<li>il envoie à Alice l’adresse de Bob,</li>
 <li>et envoie a Bob l'adresse d'Alice.</li>
 </ul>
 </li>
-<li>Alice et Bob connaissent maitenant leur adresses publique respectives et peuvent se connecter.</li>
-<li>Une fois connectés, Alice et Bob vérifient leur identités respectives, car l'intentifiant envoyé au serveur n'est pas une preuve d'identité mais juste un moyen de se retrouver.</li>
+<li>Alice et Bob connaissent maintenant leur adresses publique respectives et peuvent se connecter.</li>
+<li>Une fois connectés, Alice et Bob vérifient leur identités respectives, car l'identifiant envoyé au serveur n'est pas une preuve d'identité mais juste un moyen de se retrouver.</li>
 </ul>
 <h1 id="hebergement">Hébergement</h1>
 <p>Le serveur Beacon a pour but de résoudre les adresses IP publiques des Pairs voulant se connecter. </p>
@@ -351,7 +351,7 @@ Mais quand les Pair sont sur Internet, un serveur de <em>rencontre</em> nommé <
 <li>etc.</li>
 </ul>
 <h1 id="installation">Installation</h1>
-<p>Aucune version précompilée n'est actuellement fournie, il vous faut donc compiler vous même le serveur.</p>
+<p>Aucune version pré-compilée n'est actuellement fournie, il vous faut donc compiler vous même le serveur.</p>
 <p>Commencer par récupérer le projet</p>
 <pre class="z-code"><code><span class="z-text z-plain">git clone https://github.com/discretlib/discret_beacon.git
 </span></code></pre>
@@ -359,9 +359,9 @@ Mais quand les Pair sont sur Internet, un serveur de <em>rencontre</em> nommé <
 <pre class="z-code"><code><span class="z-text z-plain">cd discret_beacon
 </span><span class="z-text z-plain">cargo build --release
 </span></code></pre>
-<p>Le programme compilé se trouvera dans le répertoire <em>./target/release/</em>. Le nom exact depend de votre systeme d'exploitation. 
-Sous linux le fichier se nomme <em>discret_beacon</em>;</p>
-<p>Copiez le dans le repertoire de votre choix, puis lancez le. Sous linux, la commande suivante le lancera en tache de fond.</p>
+<p>Le programme compilé se trouvera dans le répertoire <em>./target/release/</em>. Le nom exact depend de votre système d'exploitation. 
+Sous Linux le fichier se nomme <em>discret_beacon</em>;</p>
+<p>Copiez le dans le repertoire de votre choix, puis lancez le. Sous Linux, la commande suivante le lancera en tache de fond.</p>
 <pre class="z-code"><code><span class="z-text z-plain">nohup ./discret_beacon &amp;
 </span></code></pre>
 <h1 id="utilisation">Utilisation</h1>
@@ -383,12 +383,12 @@ Sous linux le fichier se nomme <em>discret_beacon</em>;</p>
 <p>Le fichier <strong>cert_der.bin</strong> devrait être sauvegarder pour pouvoir reconfigurer un serveur avec le même certificat en cas de panne.</p>
 <p>Si vous devez reconfigurer un serveur en cas de crash:</p>
 <ul>
-<li>copiez le fichier <strong>cert_der.bin</strong> précédemment sauvegardé dans le répértoire de <strong>discret_beacon</strong></li>
+<li>copiez le fichier <strong>cert_der.bin</strong> précédemment sauvegardé dans le répertoire de <strong>discret_beacon</strong></li>
 <li>lancez le serveur</li>
 </ul>
 <h1 id="reutilisation-d-un-certificat">Réutilisation d'un certificat</h1>
 <p>Le fichier <strong>cert_der.bin</strong> peut être utilisé par plusieurs serveurs.
-Pour un système en production il est necessaire d'avoir plusieurs serveurs Beacon, afin que les pairs puissent se découvrir même si un des serveurs tombe en panne. </p>
+Pour un système en production il est nécessaire d'avoir plusieurs serveurs Beacon, afin que les pairs puissent se découvrir même si un des serveurs tombe en panne. </p>
 <p>Pour simplifier le déploiement de ces serveurs, un seul fichier <strong>cert_der.bin</strong> peut être utilisé. Ce n'est pas obligatoire, mais cela simplifie la gestion des certificats.</p>
 <p>En supposant que vous ayez déployé trois serveurs (firstbeacon.com, secondbeacon.com, thirdbeacon.com) avec le même fichier <strong>cert_der.bin</strong>, Discret pourra être <a href="https://discretlib.github.io/doc/fr/learn/configuration/configuration/">configuré</a> de la façon suivante (en supposant que le fichier de configuration est enregistré au format TOML):</p>
 <pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv4</span>
@@ -429,13 +429,13 @@ Vous noterez que chaque serveur est déclaré deux fois: </p>
 <li>une fois pour le port d'écoute IPV6</li>
 </ul>
 <h1 id="configuration-de-beacon-conf-toml">Configuration de Beacon.conf.toml</h1>
-<p>le fichier ne contient que trois paramêtres:</p>
+<p>le fichier ne contient que trois paramètres:</p>
 <ul>
 <li><strong>ipv4_port</strong>: le port d'écoute IPV4</li>
 <li><strong>ipv6_port</strong>: le port d'écoute IPV6</li>
-<li><strong>num_buffers</strong>: le nombre de buffer partagé par les connections. Augmenter ce nombre peut améliorer les performances si votre serveur est utilisé par de nombreuses personnes, mais ce au prix d'une augmentation de la consomation mémoire. Chaque buffer consommant 4kb de mémoire.</li>
+<li><strong>num_buffers</strong>: le nombre de buffer partagé par les connections. Augmenter ce nombre peut améliorer les performances si votre serveur est utilisé par de nombreuses personnes, mais ce au prix d'une augmentation de la consommation mémoire. Chaque buffer consommant 4kb de mémoire.</li>
 </ul>
-<p>les changements dans ce fichier ne seront pris en compte qu'après le redémarage du service.</p>
+<p>les changements dans ce fichier ne seront pris en compte qu'après le redémarrage du service.</p>
 
 
     <nav class="lower_nav">
@@ -478,7 +478,7 @@ Vous noterez que chaque serveur est déclaré deux fois: </p>
             </li>
             
         </ul>
-        <div class="wordcount">724 mots, 4 min de lecture</div>
+        <div class="wordcount">725 mots, 4 min de lecture</div>
     </section>
 </nav>
 

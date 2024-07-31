@@ -21,7 +21,7 @@ sys{
 
 **OwnedInvite** contient les invitations que vous avez crées:
 - **room**: indique la *Room* par défaut dans laquelle le pair sera ajouté quand il aura accepté l'invitation
-- **authorisation**: indique l'auhorisation de la *Room* qui sera utilisée
+- **authorisation**: indique l’autorisation de la *Room* qui sera utilisée
 
 **Invite** contient les invitations que vous avez accepté et contient les informations nécessaires à la vérification du Pair lors de la première connection.
 

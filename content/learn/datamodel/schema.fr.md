@@ -163,7 +163,7 @@ Cet exemple crée un index sur le tuple **(name, id)**:
 
 
 # Désactiver l'indexation plein texte
-Par défaut, tout les champs de type **String** sont indexés ensemble pour fournir une fonctionalité de *recherche de texte libre*. Cette fonctionalité peut être désactivée en utlisant le mot clé **no_full_text_index**.
+Par défaut, tout les champs de type **String** sont indexés ensemble pour fournir une fonctionnalité de *recherche de texte libre*. Cette fonctionnalité peut être désactivée en utilisant le mot clé **no_full_text_index**.
 
 Les indexes définit dans l'entité ne sont pas désactivés.
 
@@ -178,23 +178,23 @@ my_data {
 
 # Mettre à jour le modèle
 
-Pendant la durée de vie d'un logiciel, le modèle de données est appelé à evoluer. Un ensemble de règles doivent être respecter pour s'assurer que les évolution ne provoque pas de régressions.
+Pendant la durée de vie d'un logiciel, le modèle de données est appelé à évoluer. Un ensemble de règles doivent être respecter pour s'assurer que les évolution ne provoque pas de régressions.
 
 Un changement de modèle de donné doit contenir le modèle complet, pas seulement les modifications. *Discret* va comparer l'ancien et le nouveau modèle pour s'assurer que les règles suivantes sont respectées:
-- Il est interdit de supprimier des entités, champs, et espace de nom.
+- Il est interdit de supprimer des entités, champs, et espace de nom.
 - Les espaces de nom doivent être insérés dans le même ordre. Les nouveaux espaces doivent être insérés à la fin.
-- Les entités doivent être insérées dans le même ordre à l'interieur de leur espace de nom. Les nouvelles entités doivent être insérées à la fin.
-- Les champs doivent apparaitre dans le même ordre au sein d'une entité. Le nouveaux champs doivent apparaitre à la fin.
+- Les entités doivent être insérées dans le même ordre à l'intérieur de leur espace de nom. Les nouvelles entités doivent être insérées à la fin.
+- Les champs doivent apparaître dans le même ordre au sein d'une entité. Le nouveaux champs doivent apparaître à la fin.
 
 L'insertion et la modification de champs doit obéir aux règles suivantes.
-- le type d'un champ ne peut pas être modifé
-- un champ scalaire peut être modifié pour devenir **nullable**
-- un champs peut devenir non vide à condition de rajouter une valeur par défaut 
+- le type d'un champ ne peut pas être modifié,
+- un champ scalaire peut être modifié pour devenir **nullable**,
+- un champs peut devenir non vide à condition de rajouter une valeur par défaut,
 - un nouveau champ peut être soit *nullable* soit contenir une valeur par défaut.
 
-Cet ensemble de contrainte empêche les regression et permet d'éviter d'avoir à gérer differentes versions du modèle de données. 
+Cet ensemble de contrainte empêche les regression et permet d'éviter d'avoir à gérer différentes versions du modèle de données. 
 
-Prenons un exemple, et considéront la définition suivante comme l'ancien modèle de données.
+Prenons un exemple, et considérons la définition suivante comme l'ancien modèle de données.
 ```js
 {
     Person {
@@ -258,9 +258,9 @@ my_data {
 
 
 # Dépréciation
-Nous avons vu dans le précédent chapitre qu'il est interdit de supprimer des champs et des entités. Il est neanmoins possible d'indiquer aux developeurs de l'application que des champs ou entités ne doivent plus être utilisés en les "dépréciant" avec le mot clé **@deprecated**. 
+Nous avons vu dans le précédent chapitre qu'il est interdit de supprimer des champs et des entités. Il est néanmoins possible d'indiquer aux développeurs de l'application que des champs ou entités ne doivent plus être utilisés en les "dépréciant" avec le mot clé **@deprecated**. 
 
-C'est un mot clé de documentation, les champs et entités dépréciés peuvent toujours être utlisé et aucune erreur ou avertissement ne sera généré.
+C'est un mot clé de documentation, les champs et entités dépréciés peuvent toujours être utilisé et aucune erreur ou avertissement ne sera généré.
 
 la syntaxe et la suivante:
 ```js

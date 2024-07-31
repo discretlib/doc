@@ -324,7 +324,7 @@
         Queries
     </h1>
     <p><em>Discret</em> provides a query engine inspired by GraphQL</p>
-<p>Most of the examples of this document will use the following <a href="https://discretlib.github.io/doc/learn/datamodel/schema/">data model</a> suivant:</p>
+<p>Most of the examples of this document will use the following <a href="https://discretlib.github.io/doc/learn/datamodel/schema/">data model</a>:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -533,7 +533,7 @@ The search engine uses a <em>trigram</em> index, only string greater or equal th
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
 <p>The query only provides <strong>Person</strong> that have at least a <strong>Pet</strong>. <strong>Person</strong> without pets are filtered. 
-This makes the result very easy to use as it is guaranted that you will never encouter a <strong>null</strong> value</p>
+This makes the result very easy to use as it is guaranteed that you will never encounter a <strong>null</strong> value</p>
 <p>Filters can be applied to sub-entities:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -627,7 +627,7 @@ This makes the result very easy to use as it is guaranted that you will never en
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
 <h1 id="sorting-result">Sorting result</h1>
-<p>When a query returns several tuples, the tuple order is not guaranted. Sorting results can be done by using the <strong>order_by</strong> keyword.</p>
+<p>When a query returns several tuples, the tuple order is not guaranteed. Sorting results can be done by using the <strong>order_by</strong> keyword.</p>
 <p>You can sort on multiple fields. Each field must have a sort order:</p>
 <ul>
 <li><strong>asc</strong> lower to greater (ascending)</li>
@@ -653,8 +653,8 @@ This makes the result very easy to use as it is guaranted that you will never en
 </span></code></pre>
 <p>The <strong>order_by</strong> clause can be used in sub-entities.</p>
 <h1 id="limiting-the-number-of-results">Limiting the number of results</h1>
-<p>If a query is expected to return a large number of results, you can limit the number of fied by using the  <strong>first</strong> keyword.</p>
-<p>The following query returns the fisrt two tuples:</p>
+<p>If a query is expected to return a large number of results, you can limit the number of field by using the  <strong>first</strong> keyword.</p>
+<p>The following query returns the first two tuples:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">order_by</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">name</span> <span class="z-variable z-other z-readwrite z-ts">desc</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">surname</span> <span class="z-variable z-other z-readwrite z-ts">asc</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -872,7 +872,7 @@ This makes the result very easy to use as it is guaranted that you will never en
             </li>
             
         </ul>
-        <div class="wordcount">1274 words, 7 min read</div>
+        <div class="wordcount">1273 words, 7 min read</div>
     </section>
 </nav>
 

@@ -334,7 +334,7 @@
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="inserting-data">Inserting data</h1>
-<p>Inserting a new tuple is done using the followinf query::</p>
+<p>Inserting a new tuple is done using the following query::</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>Doe<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
@@ -386,7 +386,7 @@
 </span></span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-objectliteral z-ts"><span class="z-meta z-object z-member z-ts">        </span><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>You will notice that for technical reasons, the JSON field order is not guaranted ot be the same as the aliases order in query.</p>
+<p>You will notice that for technical reasons, the JSON field order is not guaranteed ot be the same as the aliases order in query.</p>
 <h1 id="nesting-mutation">Nesting mutation</h1>
 <p>In one single query, you can create an entity tuple with all its relations. 
 The following query insert 'John Doe' and its parents.</p>
@@ -409,7 +409,7 @@ The following query insert 'John Doe' and its parents.</p>
 <li>Alice and Bob are not defined as <strong>Person</strong> because it is implied by the data model definition</li>
 <li>the two parents definition is separated by a comma</li>
 </ul>
-<p>If some tuples have allready been created, you can use them during the creation of a new tuple.</p>
+<p>If some tuples have already been created, you can use them during the creation of a new tuple.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>Doe<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
@@ -451,7 +451,7 @@ The following query insert 'John Doe' and its parents.</p>
 </span></code></pre>
 <p>This query will add to the tuple with the provided <strong>$id</strong>:</p>
 <ul>
-<li>a refeérence to the tuple defined <strong>$mother_id</strong></li>
+<li>a reference to the tuple defined <strong>$mother_id</strong></li>
 <li>create a new tuple <strong>Person</strong> for &quot;Bob&quot; and add its reference to the parent tuple.</li>
 </ul>
 <p>You can also delete all references of a field by setting its value to <strong>null</strong>:</p>

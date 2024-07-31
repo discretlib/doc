@@ -400,20 +400,20 @@
 </span></td></tr><tr><td>71</td><td><span class="z-source z-dart">  <span class="z-entity z-name z-function z-dart">refreshChat</span>()<span class="z-punctuation z-terminator z-dart">;</span>
 </span></td></tr><tr><td>72</td><td><span class="z-source z-dart">}
 </span></td></tr></tbody></table></code></pre>
-<p>La ligne 60 récupère la <em>Room</em> privée de l'utiliteur. Le concept de Room définit le système d'autorisations utilisé par <em>Discret</em> pour synchroniser les données avec ses Pairs. Les données insérées dans une <em>Room</em> ne seront synchronisées qu'avec les Pairs ayant accès à cette <em>Room</em>. </p>
-<p>Nous allons insérer les messages dans la <em>Room</em> Privée de l'utilisateur, donc lui seul sera capable d'y accèder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. </p>
+<p>La ligne 60 récupère la <em>Room</em> privée de l'utilisateur. Le concept de Room définit le système d'autorisations utilisé par <em>Discret</em> pour synchroniser les données avec ses Pairs. Les données insérées dans une <em>Room</em> ne seront synchronisées qu'avec les Pairs ayant accès à cette <em>Room</em>. </p>
+<p>Nous allons insérer les messages dans la <em>Room</em> Privée de l'utilisateur, donc lui seul sera capable d'y accéder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. </p>
 <p>Vous pourrez en apprendre plus dans la section <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> de la documentation.</p>
 <hr />
-<p>A partir de la ligne 62, nous allons écouter le flux d'évènements envoyé par <em>Discret</em>. Nous ne nous interessont qu'à l'évènement <strong>EventType.dataChanged</strong> qui est envoyé quand <em>Discret</em> détecte que des données ont été modifiées. </p>
+<p>A partir de la ligne 62, nous allons écouter le flux d'évènements envoyé par <em>Discret</em>. Nous ne nous intéressons qu'à l'évènement <strong>EventType.dataChanged</strong> qui est envoyé quand <em>Discret</em> détecte que des données ont été modifiées. </p>
 <p>Dans cet exemple, cet évènement est déclenché:</p>
 <ul>
 <li>quand vous insérez un message depuis cette instance de l'application</li>
 <li>quand des données d'autre instance de l'application sont synchronisées avec cette instance</li>
 </ul>
 <p>Quand cet évènement est détecté, la fonction <strong>refreshChat()</strong> est appelée pout mettre à jours la liste des messages.</p>
-<p>Vous pourrez en apprendre plus sur les différents evènements dans la section <a href="https://discretlib.github.io/doc/fr/learn/events/">Evènements système</a> de la documentation.</p>
+<p>Vous pourrez en apprendre plus sur les différents évènements dans la section <a href="https://discretlib.github.io/doc/fr/learn/events/">Évènements Système</a> de la documentation.</p>
 <hr />
-<p>Une fois l'initialisation terminée la fonction <strong>refreshChat()</strong> est appelée un première fois pour récupérer les messages qui ont pu être écrits lors d'une session précedente.</p>
+<p>Une fois l'initialisation terminée la fonction <strong>refreshChat()</strong> est appelée un première fois pour récupérer les messages qui ont pu être écrits lors d'une session précédente.</p>
 <h1 id="recuperer-les-messages-la-fonction-refreshchat">Récupérer les messages: la fonction refreshChat()</h1>
 <p>La fonction utilisée pour récupérer les messages est la suivante:</p>
 <pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>77</td><td><span class="z-source z-dart"><span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">refreshChat</span>() <span class="z-keyword z-control z-dart">async</span> {
@@ -489,8 +489,8 @@
 </span></td></tr><tr><td>131</td><td><span class="z-source z-dart">}
 </span></td></tr></tbody></table></code></pre>
 <p>Nous utilisons une requête de type <strong>mutation</strong> pour insérer un tuple de l'entité <strong>chat.Message</strong> définie dans le modèle de données. </p>
-<p>Vous noterez que <strong>room_id</strong> n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.</p>
-<p><strong>$room_id</strong> et <strong>$message</strong> sont des paramêtres de la requête qui sont passés lors de l'appel à l'API: </p>
+<p>Vous noterez que <strong>room_id</strong> n'a pas été défini dans le modèle de données. C'est un champ système disponible pour toutes les entités.</p>
+<p><strong>$room_id</strong> et <strong>$message</strong> sont des paramètres de la requête qui sont passés lors de l'appel à l'API: </p>
 <pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">ResultMsg</span> res <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">mutate</span>(
 </span><span class="z-source z-dart">  query<span class="z-punctuation z-comma z-dart">,</span> {
 </span><span class="z-source z-dart">    <span class="z-string z-interpolated z-double z-dart">&quot;room_id&quot;</span><span class="z-keyword z-operator z-ternary z-dart">:</span> privateRoom<span class="z-punctuation z-comma z-dart">,</span> 

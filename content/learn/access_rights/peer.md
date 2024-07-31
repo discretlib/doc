@@ -6,7 +6,7 @@ weight = 2
 
 *Discret* maintains a list of peers that contains the known users. Those peers come from two sources:
 - Peers you have invited
-- Peers who have *Rooms* in common with you. For example, imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronisation, you device detects a new peer(Alice), and add it to the list.
+- Peers who have *Rooms* in common with you. For example, imagine that you have manually invited Bob to chat with you. Bob want's you to meet Alice and creates a group chat with both of you. During the synchronization, you device detects a new peer(Alice), and add it to the list.
 
 The data model is the following:
 ```js

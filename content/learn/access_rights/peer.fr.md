@@ -21,7 +21,7 @@ Il est a noter que **name** n'est pas forcement unique. C'est au développeur de
 
 La **pub_key** est la clé de signature du pair qui peut être utilisée pour lui donner des droits dans une *Room*.
 
-Par défaut, seul les pairs que vous avez invités ont le droit de se connecter à vos appareils. La liste des pairs authorisés est géré par l'entité:
+Par défaut, seul les pairs que vous avez invités ont le droit de se connecter à vos appareils. La liste des pairs autorisés est géré par l'entité:
 ```js
 sys{
     AllowedPeer{
@@ -32,4 +32,4 @@ sys{
     }
 }
 ```
-Les pairs ayant le droit de se connecter auront leur **status** égal à **enabled**. Vous avez la possibilité d'interdir la connection à un pair en mettant la valeur **disabled**.
+Les pairs ayant le droit de se connecter auront leur **status** égal à **enabled**. Vous avez la possibilité d’interdire la connection à un pair en mettant la valeur **disabled**.

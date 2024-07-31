@@ -4,13 +4,13 @@ description = "Learn how to manage data access rights"
 weight = 1
 +++
 
-*Discret* data synchronisation uses fined grained access rights to decide which data needs to be synchronised with peers. Every tuple can be put in a *Room* that defines a set of rigths:
+*Discret* data synchronization uses fined grained access rights to decide which data needs to be synchronized with peers. Every tuple can be put in a *Room* that defines a set of rights:
 - who can modified data
 - who can read data
 - what kind of entity is valid
 - who can admin the *Room* 
 
-Each tuple can be in a single *Room*, but can be moved accross *Rooms*.
+Each tuple can be in a single *Room*, but can be moved across *Rooms*.
 
 When inserting or mutating a tuple belonging to a *Room*, the access rights will be used to verify that the peer has the necessary rights do perform the action. 
 
@@ -52,7 +52,7 @@ The **Room** entity is the root and contains:
 - **admin**: the *Room* administors,
 - **authorisations**: the access rights. 
 
-The **Authorisation** entity contains access rights for a *Room*. A *Room* can contains several authorisations:
+The **Authorisation** entity contains access rights for a *Room*. A *Room* can contains several authorizations:
 - **name**: a descriptive name, for example: authors, readers, etc.
 - **rights**: entity level access rights: what kind of entity can be in this room,
 - **users**:  the authorised users,
@@ -61,7 +61,7 @@ The **Authorisation** entity contains access rights for a *Room*. A *Room* can c
 The **UserAuth** entity defines users:
 - **verif_key**: the cryptographic signature verifying key of the user,
 - **enabled**: enable/disable this user,
-- **mdate**: the **mdate** system field defines the validity starting date of this user authorisation.  
+- **mdate**: the **mdate** system field defines the validity starting date of this user authorization.  
 
 
 Every users defined in a *Room* have a read only access on all data. The **EntityRight** entity defines the mutation rights for an entity:
@@ -73,7 +73,7 @@ Every users defined in a *Room* have a read only access on all data. The **Entit
 while not recommended, it is possible to global mutation rights on all entities by setting the **\*** wildcard in the **entity** field. Wilcard right will only be used if an inserted entity is not defined in a **EntityRight**.
 
 To guarantee data integrity, some *Room* modifications constraint are enforced:
-- it is forbidden to delete a Room sub entity. for example **Authorisation** or **EntityRight** cannot be deleted.
+- it is forbidden to delete a Room sub entity. for example **Authorization** or **EntityRight** cannot be deleted.
 - it is forbidden de modify the **UserAuth** et **EntityRight** tuples. if you need to modify an existing right, you will need to create a new version.
 
 # Inseting data in a *Room*
@@ -159,17 +159,17 @@ mutate {
 }
 ```
 
-Lines *7* to *23* create authorisations for the authors, and line *24* to *34* create authorisations for readers.
+Lines *7* to *23* create authorizations for the authors, and line *24* to *34* create authorizations for readers.
 
 You can notice that:
 - not rights have been defined for the **Article** entity for the readers. Every users having an access to the *Room* can read every entities.
-- no **user_admin** have been defined for both authorisations. It means that only **admin** of the *Room* can manage users.
+- no **user_admin** have been defined for both authorizations. It means that only **admin** of the *Room* can manage users.
 
 
 # Example: a shared calendar
 This example is more complex than the previous one and show interactions between several *Rooms*. 
 
-We want to have two differents access rigths between an appointment dates and its details. For example: 
+We want to have two different access rights between an appointment dates and its details. For example: 
 - we want to share our calendar with every employee of our company but without revealing details about appointments
 - we want to share our calendar with the details to our team.
 
@@ -237,7 +237,7 @@ mutate {
     }
 }
 ```
-Users that are not the author don't have any mutation rights, so no **rights** are defined for the **readers** authorisation.
+Users that are not the author don't have any mutation rights, so no **rights** are defined for the **readers** authorization.
 
 The **$room_cal_detail** *Room* is created using the query:
 ```js
@@ -267,7 +267,7 @@ mutate {
     }
 }
 ```
-You will notice that **$team_user** is the only one allowed in the **readers** authorisation.
+You will notice that **$team_user** is the only one allowed in the **readers** authorization.
 
 A new calendar will be created with the following query:
 ```js
@@ -297,7 +297,7 @@ mutate {
 }
 ```
 
-The following query will retrieve the appointements:
+The following query will retrieve the appointments:
 ```js
 query {
     res: cal.Calendar(

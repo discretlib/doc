@@ -286,35 +286,34 @@
         Chat Multi Utilisateurs
     </h1>
     <p>Ce document décrit l'exemple avancé de chat nommé <em>example_advanced_chat.dart</em> disponible dans le répertoire <strong>./lib/</strong>, 
-et considère que vous avez déja suivi le tutoriel <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/">Chat Flutter Minimaliste</a>. Seules les fonctions introduisant de nouvelles parties de l'API seront décrites.</p>
-<p>Commencez par supprimer</p>
+et considère que vous avez déjà suivi le tutoriel <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/">Chat Flutter Minimaliste</a>. Seules les fonctions introduisant de nouvelles parties de l'API seront décrites.</p>
+<p>Pour commencer:</p>
 <ul>
-<li>remplacer ./lib/main.dart par le nouveau fichier d'exemple ./lib/example_advanced_chat.dart. </li>
+<li>remplacez ./lib/main.dart par le nouveau fichier d'exemple ./lib/example_advanced_chat.dart. </li>
 <li>compilez ensuite l'application. cela peut prendre plusieurs minutes</li>
 </ul>
-<p>Commandes à lancer sous linux:</p>
 <pre class="z-code"><code><span class="z-text z-plain">rm ./lib/main.dart
 </span><span class="z-text z-plain">cp ./lib/example_advanced_chat.dart ./lib/main.dart
 </span><span class="z-text z-plain">flutter build linux
 </span></code></pre>
-<p>Ensuite aller dans le répertoire indiqué à la fin de la compilation, pour linux:</p>
+<p>Ensuite, allez dans le répertoire indiqué à la fin de la compilation, pour Linux:</p>
 <pre class="z-code"><code><span class="z-text z-plain">cd build/linux/x64/release/bundle/
 </span></code></pre>
 <ul>
-<li>Lancez un première fois l'application <em>discret_flutter</em> et créez un nouveau compte. Par rapport au précedent exemple, vous noterez qu'un nouveau champ nommé <strong>displayed name</strong> est apparu. Il s'agit du nom que les autres Pairs verront.</li>
-<li>Gardez la premère application ouverte, lancez l'application une seconde fois et créez un secong compte.</li>
+<li>Lancez un première fois l'application <em>discret_flutter</em> et créez un nouveau compte. Par rapport au précédent exemple, vous noterez qu'un nouveau champ nommé <strong>displayed name</strong> est apparu. Il s'agit du nom que les autres Pairs verront.</li>
+<li>Gardez la première application ouverte, lancez l'application une seconde fois, et créez un second compte.</li>
 <li>Sur la première fenêtres, cliquez sur le bouton <strong>Invite</strong>, copiez l'invitation en cliquant sur <strong>Copy to Clipboard</strong> et fermez la fenêtre en cliquant sur <strong>Ok</strong></li>
 <li>Sur la seconde fenêtre, cliquez sur le bouton <strong>Accept Invite</strong>, collez l'invitation dans le champs prévu à cet effet et appuyez sur <strong>Ok</strong>.</li>
-<li>Vous devrier voir les noms des comptes apparaîtres dans les deux fenêtres, indiquant que l'invition a été acceptée.</li>
+<li>Vous devriez voir les noms des comptes apparaître dans les deux fenêtres, indiquant que l'invitation a été acceptée.</li>
 <li>Vous devriez pouvoir discuter entre les deux comptes.</li>
 </ul>
-<p>Si vous copiez le programme sur une autre machine du réseau et que vous re-créez un des comptes, vous devriez pouvoir discutter entre vos deux machines, avec deux comptes différents. </p>
-<p>Pour trois utlisateurs, vous devriez voir l'écran du type:
+<p>Si vous copiez le programme sur une autre machine du réseau et que vous re-créez un des comptes, vous devriez pouvoir discuter entre vos deux machines, avec deux comptes différents. </p>
+<p>Pour trois utilisateurs, vous devriez voir l'écran:
 
 <img src="https:&#x2F;&#x2F;discretlib.github.io&#x2F;doc&#x2F;advanced_chat.png"></p>
 <h1 id="preparation-de-l-api">Préparation de l'API</h1>
-<p>L'initialisation de l'API ne change pas beaucoup par rapport à l'exemple précedent.</p>
-<p>Seul le repertoire où stocker des données est modifié pour être compatible avec les <em>smartphone</em> et <em>tablet</em>.</p>
+<p>L'initialisation de l'API ne change pas beaucoup par rapport à l'exemple précédent.</p>
+<p>Seul le répertoire où stocker des données est modifié pour être compatible avec les <em>smartphone</em> et <em>tablet</em>.</p>
 <pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>18</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
 </span></td></tr><tr><td>19</td><td><span class="z-source z-dart"><span class="z-storage z-type z-primitive z-dart">void</span> <span class="z-entity z-name z-function z-dart">main</span>() <span class="z-keyword z-control z-dart">async</span> {
 </span></td></tr><tr><td>20</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">WidgetsFlutterBinding</span><span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">ensureInitialized</span>()<span class="z-punctuation z-terminator z-dart">;</span>
@@ -326,7 +325,7 @@ et considère que vous avez déja suivi le tutoriel <a href="https://discretlib.
 <ul>
 <li>la connections</li>
 <li>les invitations</li>
-<li>la gestion de la liste des groupes de discution.</li>
+<li>la gestion de la liste des groupes de discussion.</li>
 </ul>
 <pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-keyword z-declaration z-dart">class</span> <span class="z-support z-class z-dart">ChatState</span> <span class="z-keyword z-declaration z-dart">extends</span> <span class="z-support z-class z-dart">ChangeNotifier</span> {
 </span><span class="z-source z-dart">  <span class="z-storage z-modifier z-dart">final</span> <span class="z-support z-class z-dart">List</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-support z-class z-dart">ChatRoom</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> chatRooms <span class="z-keyword z-operator z-assignment z-dart">=</span> []<span class="z-punctuation z-terminator z-dart">;</span>
@@ -348,7 +347,7 @@ et considère que vous avez déja suivi le tutoriel <a href="https://discretlib.
 <h1 id="initialisation">Initialisation</h1>
 <p>L'initialisation du <strong>ChatState</strong> est plus complexe que la précédente.</p>
 <p>La ligne 60 récupère la <strong>verifyingKey</strong> de l'utilisateur connecté. Cela représente l'identité publique de l'utilisateur.</p>
-<p>Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs verifieront cette signature lors de la synchonisation des données.</p>
+<p>Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs vérifieront cette signature lors de la synchronisation des données.</p>
 <pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>59</td><td><span class="z-source z-dart"><span class="z-comment z-line z-double-slash z-dart">//...</span>
 </span></td></tr><tr><td>60</td><td><span class="z-source z-dart">    msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">verifyingKey</span>()<span class="z-punctuation z-terminator z-dart">;</span>
 </span></td></tr><tr><td>61</td><td><span class="z-source z-dart">    myVerifyingKey <span class="z-keyword z-operator z-assignment z-dart">=</span> msg<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
@@ -392,7 +391,7 @@ et considère que vous avez déja suivi le tutoriel <a href="https://discretlib.
 </span><span class="z-source z-dart">    }
 </span><span class="z-source z-dart">  }<span class="z-punctuation z-comma z-dart">,</span> onDone<span class="z-keyword z-operator z-ternary z-dart">:</span> () {}<span class="z-punctuation z-comma z-dart">,</span> onError<span class="z-keyword z-operator z-ternary z-dart">:</span> (error) {})<span class="z-punctuation z-terminator z-dart">;</span>
 </span></code></pre>
-<p>L'évènement <strong>EventType.dataChanged</strong> doit maintenant prendre en compte les différent groupe de discussion et ne rafraichira que les <strong>Rooms</strong> qui ont de nouveaux messages.</p>
+<p>L'évènement <strong>EventType.dataChanged</strong> doit maintenant prendre en compte les différent groupe de discussion et ne rafraîchira que les <strong>Rooms</strong> qui ont de nouveaux messages.</p>
 <p>Un nouvel évènement est traité <strong>EventType.roomModified</strong>. Cet évènement sera envoyé pendant le traitements des invitations et permet de détecter qu'un nouveau groupe de discussion est disponible. </p>
 <p>Les évènements <strong>EventType.peerConnected</strong>, <strong>EventType.peerDisconnected</strong> permettent de détecter qu'un Pair vient de se connecter ou de se déconnecter. Ils ne sont pas utilisés dans le code et ne font qu'écrire dans le log.</p>
 <hr />
@@ -520,7 +519,7 @@ Ces <em>logs</em> sont principalement utilisés pour renvoyer des erreurs techni
 </span></td></tr><tr><td>321</td><td><span class="z-source z-dart">    <span class="z-keyword z-control z-dart">return</span> invite<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
 </span></td></tr><tr><td>322</td><td><span class="z-source z-dart">  }
 </span></td></tr></tbody></table></code></pre>
-<p>La requête ligne 281 va créer une nouvelle Room pour acceuillir le nouvel invité.</p>
+<p>La requête ligne 281 va créer une nouvelle Room pour accueillir le nouvel invité.</p>
 <pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"><span class="z-support z-class z-dart">String</span> query <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-string z-interpolated z-triple z-double z-dart">&quot;&quot;&quot;mutate {
 </span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  sys.Room{
 </span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">    admin: [{
@@ -540,29 +539,29 @@ Ces <em>logs</em> sont principalement utilisés pour renvoyer des erreurs techni
 </span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">  }
 </span></span><span class="z-source z-dart"><span class="z-string z-interpolated z-triple z-double z-dart">}&quot;&quot;&quot;</span><span class="z-punctuation z-terminator z-dart">;</span>
 </span></code></pre>
-<p>Lors de la creation de la <em>Room</em> l'identité (la <strong>verifying_key</strong>) du pair invité est encore inconnue, vous n'insérez donc que votre propre identité.</p>
+<p>Lors de la création de la <em>Room</em>, l'identité (<strong>verifying_key</strong>) du pair invité est encore inconnue, vous n'insérez donc que votre propre identité.</p>
 <p>Vous pourrez noter que votre identité est utilisée deux fois:</p>
 <ul>
-<li>une fois dans le champ <strong>admin</strong>, indiquant que vous être l'administrateur de cette Room,</li>
-<li>une fois dans le champ <strong>user</strong> de l'authorisation. Ce n'est pas vraiment nécessaire car les administateurs ont tous les droits, mais cela simplifie le code de cet exemple. Dans la liste des groupe de chat nous n'afficheront que les <strong>Rooms</strong> possédant deux entrées dans le champs <strong>user</strong>, car cela indique que l'invitation a été acceptée.</li>
+<li>une fois dans le champ <strong>admin</strong>, indiquant que vous être administrateur de cette <em>Room</em>,</li>
+<li>une fois dans le champ <strong>user</strong> de l'autorisation. Ce n'est pas vraiment nécessaire car les administrateurs ont tous les droits, mais cela simplifie le code de cet exemple. Dans la liste des groupe de chat nous n'afficheront que les <strong>Rooms</strong> possédant deux entrées dans le champs <strong>user</strong>, car cela indique que l'invitation a été acceptée.</li>
 </ul>
-<p>le champ <strong>rights</strong> de l'authorisation indique que seul les tuples de type <strong>chat.Message</strong> sont acceptés. Tenter d'insérer d'autres données renverra une erreur.</p>
+<p>Le champ <strong>rights</strong> de l'autorisation indique que seul les tuples de type <strong>chat.Message</strong> sont acceptés. Tenter d'insérer d'autres données renverra une erreur.</p>
 <hr />
 <p>L'API de creation d'invitation requiers:</p>
 <ul>
 <li>l'<strong>id</strong> de la <em>Room</em>,</li>
-<li>l'<strong>id</strong> d'une authorisation interne à cette <em>Room</em>.</li>
+<li>l'<strong>id</strong> d'une autorisation interne à cette <em>Room</em>.</li>
 </ul>
 <p>Ces identifiants sont récupérés en lisant le résultat de la requête de création (lignes 308 à 314), qui contient les identifiants générés lors de la création.</p>
-<p>Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'authorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette <em>Room</em>.</p>
+<p>Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'autorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette <em>Room</em>.</p>
 <hr />
-<p>L'appel de la fonction de l'API va retourner une grande chaine de caractères qui devra être transmise au pair que vous voulez inviter par des moyens externe à l'application.</p>
+<p>L'appel de la fonction de l'API va retourner une grande chaîne de caractères qui devra être transmise au pair que vous voulez inviter par des moyens externe à l'application.</p>
 <pre data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><span class="z-source z-dart"> <span class="z-support z-class z-dart">ResultMsg</span> invite <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">invite</span>(roomId<span class="z-punctuation z-comma z-dart">,</span> authId)<span class="z-punctuation z-terminator z-dart">;</span>
 </span><span class="z-source z-dart">  <span class="z-comment z-line z-double-slash z-dart">//..</span>
 </span><span class="z-source z-dart"> <span class="z-keyword z-control z-dart">return</span> invite<span class="z-punctuation z-dot z-dart">.</span>data<span class="z-punctuation z-terminator z-dart">;</span>
 </span></code></pre>
 <h1 id="accepter-une-invitation">Accepter une invitation</h1>
-<p>Accepter un invitation se résume à appeler la fonction de l'API avec l'invitation reçue. L'invitation va permettre aux deux pairs de se retrouver sur le réseau et se connecter. </p>
+<p>Accepter une invitation se résume à appeler la fonction de l'API avec l'invitation reçue. L'invitation va permettre aux deux pairs de se retrouver sur le réseau et se connecter. </p>
 <p>Une invitation ne peut être utilisée qu'une seule fois.</p>
 <pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>18</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">acceptInvite</span>(<span class="z-support z-class z-dart">String</span> invite) <span class="z-keyword z-control z-dart">async</span> {
 </span></td></tr><tr><td>19</td><td><span class="z-source z-dart">    <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">acceptInvite</span>(invite)<span class="z-punctuation z-terminator z-dart">;</span>
@@ -613,7 +612,7 @@ Ces <em>logs</em> sont principalement utilisés pour renvoyer des erreurs techni
             </li>
             
         </ul>
-        <div class="wordcount">1414 mots, 8 min de lecture</div>
+        <div class="wordcount">1405 mots, 8 min de lecture</div>
     </section>
 </nav>
 

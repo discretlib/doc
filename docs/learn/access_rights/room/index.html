@@ -323,14 +323,14 @@
     <h1>
         Rooms
     </h1>
-    <p><em>Discret</em> data synchronisation uses fined grained access rights to decide which data needs to be synchronised with peers. Every tuple can be put in a <em>Room</em> that defines a set of rigths:</p>
+    <p><em>Discret</em> data synchronization uses fined grained access rights to decide which data needs to be synchronized with peers. Every tuple can be put in a <em>Room</em> that defines a set of rights:</p>
 <ul>
 <li>who can modified data</li>
 <li>who can read data</li>
 <li>what kind of entity is valid</li>
 <li>who can admin the <em>Room</em> </li>
 </ul>
-<p>Each tuple can be in a single <em>Room</em>, but can be moved accross <em>Rooms</em>.</p>
+<p>Each tuple can be in a single <em>Room</em>, but can be moved across <em>Rooms</em>.</p>
 <p>When inserting or mutating a tuple belonging to a <em>Room</em>, the access rights will be used to verify that the peer has the necessary rights do perform the action. </p>
 <p>When connecting with other peers, the <em>Rooms</em> will be used to known which data needs to be synchronized with those peers. Other peers will not receive data from <em>Rooms</em> they don't belong to.</p>
 <p>When synchronising data, each tuple will be checked to ensure received data have the necessary rights in the <em>Rooms</em></p>
@@ -366,7 +366,7 @@
 <li><strong>admin</strong>: the <em>Room</em> administors,</li>
 <li><strong>authorisations</strong>: the access rights. </li>
 </ul>
-<p>The <strong>Authorisation</strong> entity contains access rights for a <em>Room</em>. A <em>Room</em> can contains several authorisations:</p>
+<p>The <strong>Authorisation</strong> entity contains access rights for a <em>Room</em>. A <em>Room</em> can contains several authorizations:</p>
 <ul>
 <li><strong>name</strong>: a descriptive name, for example: authors, readers, etc.</li>
 <li><strong>rights</strong>: entity level access rights: what kind of entity can be in this room,</li>
@@ -377,7 +377,7 @@
 <ul>
 <li><strong>verif_key</strong>: the cryptographic signature verifying key of the user,</li>
 <li><strong>enabled</strong>: enable/disable this user,</li>
-<li><strong>mdate</strong>: the <strong>mdate</strong> system field defines the validity starting date of this user authorisation.</li>
+<li><strong>mdate</strong>: the <strong>mdate</strong> system field defines the validity starting date of this user authorization.</li>
 </ul>
 <p>Every users defined in a <em>Room</em> have a read only access on all data. The <strong>EntityRight</strong> entity defines the mutation rights for an entity:</p>
 <ul>
@@ -389,7 +389,7 @@
 <p>while not recommended, it is possible to global mutation rights on all entities by setting the <strong>*</strong> wildcard in the <strong>entity</strong> field. Wilcard right will only be used if an inserted entity is not defined in a <strong>EntityRight</strong>.</p>
 <p>To guarantee data integrity, some <em>Room</em> modifications constraint are enforced:</p>
 <ul>
-<li>it is forbidden to delete a Room sub entity. for example <strong>Authorisation</strong> or <strong>EntityRight</strong> cannot be deleted.</li>
+<li>it is forbidden to delete a Room sub entity. for example <strong>Authorization</strong> or <strong>EntityRight</strong> cannot be deleted.</li>
 <li>it is forbidden de modify the <strong>UserAuth</strong> et <strong>EntityRight</strong> tuples. if you need to modify an existing right, you will need to create a new version.</li>
 </ul>
 <h1 id="inseting-data-in-a-room">Inseting data in a <em>Room</em></h1>
@@ -468,15 +468,15 @@
 </span></span></span></td></tr><tr><td>36</td><td><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span></td></tr><tr><td>37</td><td><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></td></tr></tbody></table></code></pre>
-<p>Lines <em>7</em> to <em>23</em> create authorisations for the authors, and line <em>24</em> to <em>34</em> create authorisations for readers.</p>
+<p>Lines <em>7</em> to <em>23</em> create authorizations for the authors, and line <em>24</em> to <em>34</em> create authorizations for readers.</p>
 <p>You can notice that:</p>
 <ul>
 <li>not rights have been defined for the <strong>Article</strong> entity for the readers. Every users having an access to the <em>Room</em> can read every entities.</li>
-<li>no <strong>user_admin</strong> have been defined for both authorisations. It means that only <strong>admin</strong> of the <em>Room</em> can manage users.</li>
+<li>no <strong>user_admin</strong> have been defined for both authorizations. It means that only <strong>admin</strong> of the <em>Room</em> can manage users.</li>
 </ul>
 <h1 id="example-a-shared-calendar">Example: a shared calendar</h1>
 <p>This example is more complex than the previous one and show interactions between several <em>Rooms</em>. </p>
-<p>We want to have two differents access rigths between an appointment dates and its details. For example: </p>
+<p>We want to have two different access rights between an appointment dates and its details. For example: </p>
 <ul>
 <li>we want to share our calendar with every employee of our company but without revealing details about appointments</li>
 <li>we want to share our calendar with the details to our team.</li>
@@ -544,7 +544,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Users that are not the author don't have any mutation rights, so no <strong>rights</strong> are defined for the <strong>readers</strong> authorisation.</p>
+<p>Users that are not the author don't have any mutation rights, so no <strong>rights</strong> are defined for the <strong>readers</strong> authorization.</p>
 <p>The <strong>$room_cal_detail</strong> <em>Room</em> is created using the query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-object z-ts">sys</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">Room</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -572,7 +572,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>You will notice that <strong>$team_user</strong> is the only one allowed in the <strong>readers</strong> authorisation.</p>
+<p>You will notice that <strong>$team_user</strong> is the only one allowed in the <strong>readers</strong> authorization.</p>
 <p>A new calendar will be created with the following query:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-entity z-name z-label z-ts">res</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-object z-ts">cal</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">Calendar</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -597,7 +597,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>The following query will retrieve the appointements:</p>
+<p>The following query will retrieve the appointments:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-entity z-name z-label z-ts">res</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">cal</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">Calendar</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">id</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-variable z-other z-readwrite z-ts">$calendar_id</span>

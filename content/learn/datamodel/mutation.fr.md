@@ -1,6 +1,6 @@
 +++
 title = "Mutations et Suppression"
-description = "Apprenez à inserer des données, les modifier et les supprimer"
+description = "Apprenez à insérer des données, les modifier et les supprimer"
 weight = 2
 +++
 
@@ -61,7 +61,7 @@ mutate {
     }
 }
 ```
-Les alias *p1, p2, last* peuvent être n'importe quelle chaine de caractères mais doivent être uniques pour la mutation, car chaque requête va retourner un champs JSON différent. Le résultat de la mutation sera l'object JSON suivant:
+Les alias *p1, p2, last* peuvent être n'importe quelle chaîne de caractères mais doivent être uniques pour la mutation, car chaque requête va retourner un champs JSON différent. Le résultat de la mutation sera l'object JSON suivant:
 
 ```js
 {
@@ -106,7 +106,7 @@ Vous pourrez noter que:
 - la définition des deux parents est séparée par une virgule;
 - il n'est pas nécessaire d'indiquer que Alice et Bob sont de type **Person** car cela et sous entendu par la définition du schéma.
 
-Si les relations ont déja été insérées et que vous connaissez leur **id** il est possible de les utiliser lors de l'insertion d'un nouveau tuple
+Si les relations ont déjà été insérées et que vous connaissez leur **id** il est possible de les utiliser lors de l'insertion d'un nouveau tuple
 ```js
 mutate {
     Person {
@@ -124,7 +124,7 @@ mutate {
     }
 }
 ```
-Si les **id** fournits n'existent pas, une erreur est retournée.
+Si les **id** fournis n'existent pas, une erreur est retournée.
 
 # Mettre à jour 
 Une requête de mise à jour est de type *mutation* qui contient l'identifiant du tuple à modifier.
@@ -153,8 +153,8 @@ mutate {
     }
 }
 ```
-Cette requête va ajouter au tuple reférencé par **$id**:
-- une reférence au tuple défini par **$mother_id**
+Cette requête va ajouter au tuple référencé par **$id**:
+- une référence au tuple défini par **$mother_id**
 - un nouveau tuple **Person** ayant pour nom "Bob"
 
 Il est aussi possible de supprimer toutes les relation d'un champ donné en lui passant la valeur **null**:
@@ -173,7 +173,7 @@ Cette requête supprime tous les parents du tuple référencé par **$id**
 La suppression de données s'effectue en utilisant une requête de type **delete**.
 il est possible de supprimer un tuple, ou bien une relation dans un champs du tuple.
 
-La requête suivante supprimer un tuple ayant pour identitifiant **$id**:
+La requête suivante supprimer un tuple ayant pour identifiant **$id**:
 ```js 
 delete {
     Person { $id }

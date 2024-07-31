@@ -362,7 +362,7 @@
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="syntaxe">Syntaxe</h1>
-<p>Commençons par faire une requête simple qui va recupérer le nom et prénom de toutes les personnes présentes dans la base de données:</p>
+<p>Commençons par faire une requête simple qui va récupérer le nom et prénom de toutes les personnes présentes dans la base de données:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-entity z-name z-label z-ts">result</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">name</span>
@@ -372,7 +372,7 @@
 </span></code></pre>
 <p>Il faut noter que:</p>
 <ul>
-<li><strong>result</strong> est un alias, il peut être nommé différement,</li>
+<li><strong>result</strong> est un alias, il peut être nommé différemment,</li>
 <li>les champs demandés <em>ne sont pas</em> délimités par une virgule.</li>
 </ul>
 <p>Cette requête retournera l'objet JSON suivant:</p>
@@ -399,7 +399,7 @@
 </ul>
 <h1 id="requete-multiples">Requête Multiples</h1>
 <p>Il est possible de faire plusieurs requêtes en une seule fois.</p>
-<p>La requête suivante va recupérér la liste des personnes et la liste des familiers:</p>
+<p>La requête suivante va récupérer la liste des personnes et la liste des familiers:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-entity z-name z-label z-ts">persons</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">name</span>
@@ -427,7 +427,7 @@
 </span></code></pre>
 <p>Les alias <strong>persons</strong> et <strong>pets</strong> doivent être uniques au sein de la requête. </p>
 <h1 id="filtrer">Filtrer</h1>
-<p>Les exemples précedents récupèrent la totalité des tuples correspondant à une entitée. Dans la réalité, les données doivent être filtrées.</p>
+<p>Les exemples précédents récupèrent la totalité des tuples correspondant à une entité. Dans la réalité, les données doivent être filtrées.</p>
 <p>Les filtres supportent les opérateurs suivants:</p>
 <ul>
 <li><strong>=</strong>     égal</li>
@@ -486,9 +486,9 @@
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
 <h1 id="recherche-plein-texte">Recherche plein texte</h1>
-<p>Par défaut, toute les données texte sont indéxées pour pouvoir effectuer des recherches plein texte en utilisant la clause <strong>search</strong></p>
-<p>L'index utilisé est un index <em>trigram</em>, donc seule les chaines de plus de 3 charactères peuvent être recherchées.</p>
-<p>L'indexation peut être <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/#desactiver-l-indexation-plein-texte">desactivée pour une entité</a>.</p>
+<p>Par défaut, toute les données texte sont indexées pour pouvoir effectuer des recherches plein texte en utilisant la clause <strong>search</strong></p>
+<p>L'index utilisé est un index <em>trigram</em>, donc seule les chaines de plus de 3 caractères peuvent être recherchées.</p>
+<p>L'indexation peut être <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/#desactiver-l-indexation-plein-texte">désactivée pour une entité</a>.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">search</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>lic<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-meta z-brace z-round z-ts">)</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">Alice contient lic</span>
@@ -505,7 +505,7 @@
 </span></code></pre>
 <h1 id="requetes-imbriquees">Requêtes imbriquées</h1>
 <p>Les requêtes ne sont pas limitées à la récupération d'un seul type d'entité. Au sein d'une même requête il est possible de récupérer une entité et ses relations.</p>
-<p>la requête suivante récupère les persones et leur familier:</p>
+<p>la requête suivante récupère les personnes et leur familier:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-entity z-name z-label z-ts">result</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">name</span>
@@ -537,7 +537,7 @@
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
 <p>La requête renvoie uniquement les <strong>Person</strong> qui possèdent un <strong>Pet</strong>. Cela permet de garantir que votre requête renverra toujours des données non nulles, ce qui facilite le traitement.</p>
-<p>Des filtres peuvent êtres appliqués aux sous entitées, comme pour l'entitée principale: </p>
+<p>Des filtres peuvent êtres appliqués aux sous-entités, comme pour l'entité principale: </p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-variable z-other z-readwrite z-ts">name</span>
@@ -630,7 +630,7 @@
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
 <h1 id="trier-les-resultats">Trier les résultats</h1>
-<p>Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de resultats se fait avec la clause <strong>order_by</strong>.</p>
+<p>Lorsqu'une requête retourne plusieurs tuples, l'ordre des tuples n'est pas garanti. Le tri de résultats se fait avec la clause <strong>order_by</strong>.</p>
 <p>Le tri peut se faire sur plusieurs champs. Chaque champ doit avoir une indication de direction de tri:</p>
 <ul>
 <li><strong>asc</strong> du plus petit au plus grand (ascendant)</li>
@@ -696,7 +696,7 @@
 </span></code></pre>
 <h1 id="pagination">Pagination</h1>
 <p>Il peut être tentant d'utiliser les clauses <strong>skip</strong> et <strong>first</strong> pour paginer de grands tableaux de résultats, mais cette méthode peut se reveler très lente car la clause <strong>skip</strong> peut avoir à itérer sur un très grand nombre de tuples. </p>
-<p><em>Discret</em> fournit une alternative plus efficace avec les clauses <strong>before</strong> et <strong>after</strong>. Ces clauses fonctionent en association avec la clause <strong>order_by</strong> et permettent de demander de filtrer les tuples retrounés. </p>
+<p><em>Discret</em> fournit une alternative plus efficace avec les clauses <strong>before</strong> et <strong>after</strong>. Ces clauses fonctionnent en association avec la clause <strong>order_by</strong> et permettent de demander de filtrer les tuples retournés. </p>
 <p>La syntaxe est la suivante:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span>
@@ -708,18 +708,18 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Dans cette requête, les valeurs retournée seront celles dont la <strong>mdate</strong> est supérieure au paramêtre <strong>$date</strong> et dont l'<strong>id</strong> est supérieur à <strong>$id</strong> si les dates sont égales.</p>
+<p>Dans cette requête, les valeurs retournée seront celles dont la <strong>mdate</strong> est supérieure au paramètre <strong>$date</strong> et dont l'<strong>id</strong> est supérieur à <strong>$id</strong> si les dates sont égales.</p>
 <p>Cette méthode de pagination est plus souple et bien plus rapide que l'utilisation de <strong>skip</strong> et <strong>first</strong>.</p>
 <h1 id="selecteurs-json">Sélecteurs Json</h1>
-<p>Les champs de types JSON peuvent êtres accedés à l'aide du selecteur json <strong>-&gt;$.</strong>.</p>
-<p>Considerons l'entité suivante contenant un champ JSON :</p>
+<p>Les champs de types JSON peuvent êtres accédés à l'aide du sélecteur json <strong>-&gt;$.</strong>.</p>
+<p>Considérons l'entité suivante contenant un champ JSON:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Article</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">content</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">json</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>et inseront le tuple suivant </p>
+<p>et insérons le tuple suivant:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Article</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">content</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span><span class="z-invalid z-illegal z-newline z-ts">{</span></span>
@@ -729,7 +729,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>La requête suivante retournera le titre de l'article</p>
+<p>La requête suivante retournera le titre de l'article:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-variable z-other z-readwrite z-ts">sample</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Article</span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">title</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">content</span><span class="z-keyword z-operator z-arithmetic z-ts">-</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span><span class="z-variable z-other z-object z-ts">$</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">title</span>
@@ -742,8 +742,8 @@
 </span></span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-meta z-sequence z-json">    <span class="z-punctuation z-section z-sequence z-end z-json">]</span></span>
 </span></span><span class="z-source z-json"><span class="z-meta z-mapping z-value z-json"><span class="z-punctuation z-section z-mapping z-end z-json">}</span></span>
 </span></code></pre>
-<h1 id="aggregation">Aggrégation</h1>
-<p><em>Discret</em> fournit les fonctions d'aggrégation de données suivantes.<strong>(field)</strong> réprésente le nom du champ à aggréger.</p>
+<h1 id="agregation">Agrégation</h1>
+<p><em>Discret</em> fournit les fonctions d'agrégation de données suivantes.<strong>(field)</strong> représente le nom du champ à agréger.</p>
 <ul>
 <li><strong>avg(field)</strong></li>
 <li><strong>count()</strong></li>
@@ -751,7 +751,7 @@
 <li><strong>min(field)</strong></li>
 <li><strong>sum(field)</strong></li>
 </ul>
-<p>Un champ d'aggrégation se présente sous la forme <strong>alias: fonction()</strong>. Si une entité definit un champ d'aggrégation, tous les autres champs doivent aussi être des champs aggrégés.</p>
+<p>Un champ d'agrégation se présente sous la forme <strong>alias: fonction()</strong>. Si une entité définit un champ d'agrégation, tous les autres champs doivent aussi être des champs agrégés.</p>
 <p>La requête suivante compte le nombre de parents pour une personne: </p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts">    <span class="z-variable z-other z-readwrite z-ts">query</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">        <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span> <span class="z-meta z-brace z-round z-ts">(</span>
@@ -867,7 +867,7 @@
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/fr/learn/datamodel/query/#aggregation">Aggrégation</a>
+                <a href="https://discretlib.github.io/doc/fr/learn/datamodel/query/#agregation">Agrégation</a>
             </li>
             
         </ul>

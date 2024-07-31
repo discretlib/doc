@@ -340,8 +340,8 @@
 <li><strong>nickname</strong> which is defined as nullable and may contain a <strong>String</strong></li>
 <li><strong>parents</strong> contains an array of <strong>Person</strong>. We we call it a <em>relation field</em> in the documentation </li>
 </ul>
-<p>Entity names are <em>case censitive</em>, <strong>Person</strong> and  <strong>person</strong> would define two different entities.</p>
-<p>Field names are <em>case censitive</em>, a field <strong>name</strong> will be different from <strong>Name</strong> </p>
+<p>Entity names are <em>case sensitive</em>, <strong>Person</strong> and  <strong>person</strong> would define two different entities.</p>
+<p>Field names are <em>case sensitive</em>, a field <strong>name</strong> will be different from <strong>Name</strong> </p>
 <h1 id="scalar-fields">Scalar Fields</h1>
 <p>Discret defines the following scalar types to store your data:</p>
 <ul>
@@ -352,7 +352,7 @@
 <li><strong>Json</strong>: a Json String,</li>
 <li><strong>Base64</strong>: a base64 encoded String to store binary data.</li>
 </ul>
-<p>Scalar types are <em>case incensitive</em>. for example, <strong>integer</strong> or <strong>iNteGer</strong> is valid.</p>
+<p>Scalar types are <em>case insensitive</em>. for example, <strong>integer</strong> or <strong>iNteGer</strong> is valid.</p>
 <p>By default scalar types are <em>not</em> nullable. but it is possible to :</p>
 <ul>
 <li>provide a default value</li>
@@ -366,7 +366,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">age</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Integer</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-constant z-numeric z-decimal z-ts">0</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">height</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Float</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-constant z-numeric z-decimal z-ts">3<span class="z-meta z-delimiter z-decimal z-period z-ts">.</span>2</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">is_nice</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">Boolean</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-constant z-language z-boolean z-true z-ts">true</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
-</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">Is_Nice</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-variable z-other z-readwrite z-ts">True</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">true is case incensitive</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">Is_Nice</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">boolean</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-variable z-other z-readwrite z-ts">True</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">true is case insensitive</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">profile</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Json</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>{}<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>                
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">thumbnail</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Base64</span> <span class="z-keyword z-control z-switch z-ts">default</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span><span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
@@ -374,7 +374,7 @@
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-whitespace z-comment z-leading z-ts">    </span><span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">with nullable values</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">ScalarsNullable</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span> <span class="z-variable z-other z-readwrite z-ts">nullablE</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
-</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">age</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Integer</span> <span class="z-variable z-other z-constant z-ts">NULLABLE</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">nullable is case incensitive</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">age</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Integer</span> <span class="z-variable z-other z-constant z-ts">NULLABLE</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">nullable is case insensitive</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">height</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Float</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">is_nice</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">Boolean</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">profile</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Json</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>                 
@@ -395,7 +395,7 @@ There is two kinds of relation field:</p>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">pet</span><span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-variable z-other z-readwrite z-ts">Pet</span><span class="z-punctuation z-separator z-comma z-ts">,</span>           <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">unique relationship</span>
-</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">parents</span><span class="z-punctuation z-separator z-label z-ts">:</span><span class="z-meta z-array z-literal z-ts"><span class="z-meta z-brace z-square z-ts">[</span><span class="z-variable z-other z-readwrite z-ts">Person</span><span class="z-meta z-brace z-square z-ts">]</span></span>    <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">mutiple relationship</span>
+</span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">parents</span><span class="z-punctuation z-separator z-label z-ts">:</span><span class="z-meta z-array z-literal z-ts"><span class="z-meta z-brace z-square z-ts">[</span><span class="z-variable z-other z-readwrite z-ts">Person</span><span class="z-meta z-brace z-square z-ts">]</span></span>    <span class="z-comment z-line z-double-slash z-ts"><span class="z-punctuation z-definition z-comment z-ts">//</span></span><span class="z-comment z-line z-double-slash z-ts">multiple relationship</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Pet</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -441,12 +441,12 @@ There is two kinds of relation field:</p>
 <li><strong>mdate</strong>: last modification date</li>
 <li><strong>verifying_key</strong> : identity of the user that created or last modified the tuple</li>
 <li><strong>_json</strong>: stores the entity data</li>
-<li><strong>_binary</strong>: a binary field. This field is not used internaly and can be freely used to store any data</li>
+<li><strong>_binary</strong>: a binary field. This field is not used internally and can be freely used to store any data</li>
 <li><strong>_signature</strong>: upon insertion, the verifying_key is used to verify this signature to ensure data integrity</li>
 </ul>
 <p>Those fields can be queried like regular fields, but only <strong>room_id</strong> and <strong>_binary</strong> can be modified directly.</p>
 <h1 id="index">Index</h1>
-<p>The base system already possesses indexes that should be enought for a lot of use cases. 
+<p>The base system already possesses indexes that should be enough for a lot of use cases. 
 If an entity contains a very large number of tuples, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature <em>wisely</em>, two many indexes can result in degraded insertion performances, . </p>
 <p>Indexes can only be put on scalar and system fields. </p>
 <p>This example creates an index on the <strong>(name, id)</strong> tuple:</p>
@@ -475,7 +475,7 @@ If an entity contains a very large number of tuples, and if a specific set of fi
 <ul>
 <li>Entities, Fields and Namespaces cannot be deleted.</li>
 <li>Namespace must be inserted in the same order, new Namespaces must be inserted at the end.</li>
-<li>Entities must be inserted in the same order wihtin their namespace. New entities must be inserted at the end of a namespace.</li>
+<li>Entities must be inserted in the same order within their namespace. New entities must be inserted at the end of a namespace.</li>
 <li>Fields must appear in the same order in an entity. New fields must be inserted at the end of the entity.</li>
 </ul>
 <p>Fields update and insertion must obey strict rules:</p>
@@ -485,7 +485,7 @@ If an entity contains a very large number of tuples, and if a specific set of fi
 <li>Fields can be made not nullable only if a <em>default</em> value is provided. </li>
 <li>New Fields must be either <em>nullable</em> or contains a default value.</li>
 </ul>
-<p>This set of constraints allows the datamodel to evolve without requiring versionning.</p>
+<p>This set of constraints allows the datamodel to evolve without requiring versioning.</p>
 <p>Let take an example, if we consider the following to be the old data model </p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>

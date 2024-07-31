@@ -6,7 +6,7 @@ weight = 3
 
 *Discret* provides a query engine inspired by GraphQL
 
-Most of the examples of this document will use the following [data model](@/learn/datamodel/schema.md) suivant:
+Most of the examples of this document will use the following [data model](@/learn/datamodel/schema.md):
 ```js
 {
     Person {
@@ -250,7 +250,7 @@ It produces the following result:
 ```
 
 The query only provides **Person** that have at least a **Pet**. **Person** without pets are filtered. 
-This makes the result very easy to use as it is guaranted that you will never encouter a **null** value
+This makes the result very easy to use as it is guaranteed that you will never encounter a **null** value
 
 Filters can be applied to sub-entities:
 ```js
@@ -359,7 +359,7 @@ query {
 ```
 
 # Sorting result
-When a query returns several tuples, the tuple order is not guaranted. Sorting results can be done by using the **order_by** keyword.
+When a query returns several tuples, the tuple order is not guaranteed. Sorting results can be done by using the **order_by** keyword.
 
 You can sort on multiple fields. Each field must have a sort order:
 - **asc** lower to greater (ascending)
@@ -393,9 +393,9 @@ The **order_by** clause can be used in sub-entities.
 
 # Limiting the number of results
 
-If a query is expected to return a large number of results, you can limit the number of fied by using the  **first** keyword.
+If a query is expected to return a large number of results, you can limit the number of field by using the  **first** keyword.
 
-The following query returns the fisrt two tuples:
+The following query returns the first two tuples:
 ```js
 query {
     Person(

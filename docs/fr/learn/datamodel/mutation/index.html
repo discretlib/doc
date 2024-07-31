@@ -372,7 +372,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Les alias <em>p1, p2, last</em> peuvent être n'importe quelle chaine de caractères mais doivent être uniques pour la mutation, car chaque requête va retourner un champs JSON différent. Le résultat de la mutation sera l'object JSON suivant:</p>
+<p>Les alias <em>p1, p2, last</em> peuvent être n'importe quelle chaîne de caractères mais doivent être uniques pour la mutation, car chaque requête va retourner un champs JSON différent. Le résultat de la mutation sera l'object JSON suivant:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>last<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>:<span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-objectliteral z-ts">        <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>id<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span></span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>JoC5F5bxu-zQm5xer5o5-w<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -412,7 +412,7 @@
 <li>la définition des deux parents est séparée par une virgule;</li>
 <li>il n'est pas nécessaire d'indiquer que Alice et Bob sont de type <strong>Person</strong> car cela et sous entendu par la définition du schéma.</li>
 </ul>
-<p>Si les relations ont déja été insérées et que vous connaissez leur <strong>id</strong> il est possible de les utiliser lors de l'insertion d'un nouveau tuple</p>
+<p>Si les relations ont déjà été insérées et que vous connaissez leur <strong>id</strong> il est possible de les utiliser lors de l'insertion d'un nouveau tuple</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>Doe<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
@@ -429,7 +429,7 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Si les <strong>id</strong> fournits n'existent pas, une erreur est retournée.</p>
+<p>Si les <strong>id</strong> fournis n'existent pas, une erreur est retournée.</p>
 <h1 id="mettre-a-jour">Mettre à jour</h1>
 <p>Une requête de mise à jour est de type <em>mutation</em> qui contient l'identifiant du tuple à modifier.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">mutate</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -453,9 +453,9 @@
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">    <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
-<p>Cette requête va ajouter au tuple reférencé par <strong>$id</strong>:</p>
+<p>Cette requête va ajouter au tuple référencé par <strong>$id</strong>:</p>
 <ul>
-<li>une reférence au tuple défini par <strong>$mother_id</strong></li>
+<li>une référence au tuple défini par <strong>$mother_id</strong></li>
 <li>un nouveau tuple <strong>Person</strong> ayant pour nom &quot;Bob&quot;</li>
 </ul>
 <p>Il est aussi possible de supprimer toutes les relation d'un champ donné en lui passant la valeur <strong>null</strong>:</p>
@@ -470,7 +470,7 @@
 <h1 id="suppression-de-donnees">Suppression de données</h1>
 <p>La suppression de données s'effectue en utilisant une requête de type <strong>delete</strong>.
 il est possible de supprimer un tuple, ou bien une relation dans un champs du tuple.</p>
-<p>La requête suivante supprimer un tuple ayant pour identitifiant <strong>$id</strong>:</p>
+<p>La requête suivante supprimer un tuple ayant pour identifiant <strong>$id</strong>:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-keyword z-operator z-expression z-delete z-ts">delete</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-variable z-other z-readwrite z-ts">$id</span> <span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>

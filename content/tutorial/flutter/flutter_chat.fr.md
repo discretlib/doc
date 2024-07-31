@@ -153,14 +153,14 @@ Future<void> initialise() async {
 }
 ```
 
-La ligne 60 récupère la *Room* privée de l'utiliteur. Le concept de Room définit le système d'autorisations utilisé par *Discret* pour synchroniser les données avec ses Pairs. Les données insérées dans une *Room* ne seront synchronisées qu'avec les Pairs ayant accès à cette *Room*. 
+La ligne 60 récupère la *Room* privée de l'utilisateur. Le concept de Room définit le système d'autorisations utilisé par *Discret* pour synchroniser les données avec ses Pairs. Les données insérées dans une *Room* ne seront synchronisées qu'avec les Pairs ayant accès à cette *Room*. 
 
-Nous allons insérer les messages dans la *Room* Privée de l'utilisateur, donc lui seul sera capable d'y accèder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. 
+Nous allons insérer les messages dans la *Room* Privée de l'utilisateur, donc lui seul sera capable d'y accéder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. 
 
 Vous pourrez en apprendre plus dans la section [Room](@/learn/access_rights/room.fr.md) de la documentation.
 
 ---
-A partir de la ligne 62, nous allons écouter le flux d'évènements envoyé par *Discret*. Nous ne nous interessont qu'à l'évènement **EventType.dataChanged** qui est envoyé quand *Discret* détecte que des données ont été modifiées. 
+A partir de la ligne 62, nous allons écouter le flux d'évènements envoyé par *Discret*. Nous ne nous intéressons qu'à l'évènement **EventType.dataChanged** qui est envoyé quand *Discret* détecte que des données ont été modifiées. 
 
 Dans cet exemple, cet évènement est déclenché:
 - quand vous insérez un message depuis cette instance de l'application
@@ -168,10 +168,10 @@ Dans cet exemple, cet évènement est déclenché:
 
 Quand cet évènement est détecté, la fonction **refreshChat()** est appelée pout mettre à jours la liste des messages.
 
- Vous pourrez en apprendre plus sur les différents evènements dans la section [Evènements système](@/learn/events.fr.md) de la documentation.
+ Vous pourrez en apprendre plus sur les différents évènements dans la section [Évènements Système](@/learn/events.fr.md) de la documentation.
 
 ---
-Une fois l'initialisation terminée la fonction **refreshChat()** est appelée un première fois pour récupérer les messages qui ont pu être écrits lors d'une session précedente.
+Une fois l'initialisation terminée la fonction **refreshChat()** est appelée un première fois pour récupérer les messages qui ont pu être écrits lors d'une session précédente.
 
 
 # Récupérer les messages: la fonction refreshChat()
@@ -260,9 +260,9 @@ Future<void> sendMessage() async {
 ```
 Nous utilisons une requête de type **mutation** pour insérer un tuple de l'entité **chat.Message** définie dans le modèle de données. 
 
-Vous noterez que **room_id** n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  
+Vous noterez que **room_id** n'a pas été défini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  
 
-**\$room_id** et **\$message** sont des paramêtres de la requête qui sont passés lors de l'appel à l'API: 
+**\$room_id** et **\$message** sont des paramètres de la requête qui sont passés lors de l'appel à l'API: 
 ```dart
 ResultMsg res = await Discret().mutate(
   query, {

@@ -9,7 +9,7 @@ page_template = "index-page.fr.html"
 
 - Commencer en suivant les [Tutoriels](@/tutorial/_index.fr.md).
 
-- Un *binding* Flutter est disponible pour créer des applications sans avoir à écrire une seule ligne de Rust. [Commencer avec Flutter](@/tutorial/flutter/_index.fr.md) fournit toutes les étapes pour déveloper avec Flutter. 
+- Un *binding* Flutter est disponible pour créer des applications sans avoir à écrire une seule ligne de Rust. [Commencer avec Flutter](@/tutorial/flutter/_index.fr.md) fournit toutes les étapes pour développer avec Flutter. 
 
 - Approfondissez vos connaissances dans la section [Apprendre](@/learn/_index.fr.md).
 

@@ -24,9 +24,9 @@ We defined an entity named **Person** that contains three fields:
 - **nickname** which is defined as nullable and may contain a **String**
 - **parents** contains an array of **Person**. We we call it a *relation field* in the documentation 
 
-Entity names are *case censitive*, **Person** and  **person** would define two different entities.
+Entity names are *case sensitive*, **Person** and  **person** would define two different entities.
 
-Field names are *case censitive*, a field **name** will be different from **Name** 
+Field names are *case sensitive*, a field **name** will be different from **Name** 
 
 # Scalar Fields
 Discret defines the following scalar types to store your data:
@@ -38,7 +38,7 @@ Discret defines the following scalar types to store your data:
 - **Json**: a Json String,
 - **Base64**: a base64 encoded String to store binary data.
 
-Scalar types are *case incensitive*. for example, **integer** or **iNteGer** is valid.
+Scalar types are *case insensitive*. for example, **integer** or **iNteGer** is valid.
 
 By default scalar types are *not* nullable. but it is possible to :
 - provide a default value
@@ -54,7 +54,7 @@ You cannot combine **nullable** and **default** for the same field.
         age: Integer default 0,
         height: Float default 3.2,
         is_nice: Boolean default true,
-        Is_Nice: boolean default True, //true is case incensitive
+        Is_Nice: boolean default True, //true is case insensitive
         profile: Json default "{}",                
         thumbnail: Base64 default ""
     }
@@ -62,7 +62,7 @@ You cannot combine **nullable** and **default** for the same field.
     //with nullable values
     ScalarsNullable {
         name: String nullablE,
-        age: Integer NULLABLE, //nullable is case incensitive
+        age: Integer NULLABLE, //nullable is case insensitive
         height: Float nullable,
         is_nice: Boolean nullable,
         profile: Json nullable,                 
@@ -86,7 +86,7 @@ The syntax is the following.
     Person {
         name: String,
         pet: Pet,           //unique relationship
-        parents:[Person]    //mutiple relationship
+        parents:[Person]    //multiple relationship
     }
 
     Pet {
@@ -134,13 +134,13 @@ Every entity have a set of system fields, most of which being used internaly by 
 - **mdate**: last modification date
 - **verifying_key** : identity of the user that created or last modified the tuple
 - **_json**: stores the entity data
-- **_binary**: a binary field. This field is not used internaly and can be freely used to store any data
+- **_binary**: a binary field. This field is not used internally and can be freely used to store any data
 - **_signature**: upon insertion, the verifying_key is used to verify this signature to ensure data integrity
 
 Those fields can be queried like regular fields, but only **room_id** and **_binary** can be modified directly.
 
 # Index
-The base system already possesses indexes that should be enought for a lot of use cases. 
+The base system already possesses indexes that should be enough for a lot of use cases. 
 If an entity contains a very large number of tuples, and if a specific set of fields are queried a lot, it is possible to create an index to improve query performances. you should use this feature *wisely*, two many indexes can result in degraded insertion performances, . 
  
 Indexes can only be put on scalar and system fields. 
@@ -180,7 +180,7 @@ A data model modification must contains the full data model, not just the change
 
 - Entities, Fields and Namespaces cannot be deleted.
 - Namespace must be inserted in the same order, new Namespaces must be inserted at the end.
-- Entities must be inserted in the same order wihtin their namespace. New entities must be inserted at the end of a namespace.
+- Entities must be inserted in the same order within their namespace. New entities must be inserted at the end of a namespace.
 - Fields must appear in the same order in an entity. New fields must be inserted at the end of the entity.
 
 Fields update and insertion must obey strict rules:
@@ -189,7 +189,7 @@ Fields update and insertion must obey strict rules:
 - Fields can be made not nullable only if a *default* value is provided. 
 - New Fields must be either *nullable* or contains a default value.
 
-This set of constraints allows the datamodel to evolve without requiring versionning.
+This set of constraints allows the datamodel to evolve without requiring versioning.
 
 Let take an example, if we consider the following to be the old data model 
 ```js

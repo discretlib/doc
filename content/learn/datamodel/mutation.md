@@ -18,7 +18,7 @@ Examples of this document will use the following [data model](@/learn/datamodel/
 ```
 
 # Inserting data
-Inserting a new tuple is done using the followinf query::
+Inserting a new tuple is done using the following query::
 ```js
 mutate {
     Person {
@@ -80,7 +80,7 @@ mutate {
         }
 }
 ```
-You will notice that for technical reasons, the JSON field order is not guaranted ot be the same as the aliases order in query.
+You will notice that for technical reasons, the JSON field order is not guaranteed ot be the same as the aliases order in query.
 
 # Nesting mutation
 
@@ -106,7 +106,7 @@ You can notice that
 - Alice and Bob are not defined as **Person** because it is implied by the data model definition
 - the two parents definition is separated by a comma
 
-If some tuples have allready been created, you can use them during the creation of a new tuple.
+If some tuples have already been created, you can use them during the creation of a new tuple.
 ```js
 mutate {
     Person {
@@ -153,7 +153,7 @@ mutate {
 }
 ```
 This query will add to the tuple with the provided **$id**:
-- a refeérence to the tuple defined **$mother_id**
+- a reference to the tuple defined **$mother_id**
 - create a new tuple **Person** for "Bob" and add its reference to the parent tuple.
 
 You can also delete all references of a field by setting its value to **null**:

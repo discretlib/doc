@@ -9,7 +9,7 @@ page_template = "index-page.html"
 
 - Learn more by getting started in the [Tutorials](@/tutorial/_index.md).
 
-- A Flutter binding is provided to easily develop P2P applications without having to write a single line of Rust. [Getting Started with Flutter](@/tutorial/flutter/_index.md) provides all the necessary steps to bootrap a Flutter app. 
+- A Flutter binding is provided to easily develop P2P applications without having to write a single line of Rust. [Getting Started with Flutter](@/tutorial/flutter/_index.md) provides all the necessary steps to bootstrap a Flutter app. 
 
 - Dive deeper in the [Learn](@/learn/_index.md) section. 
 

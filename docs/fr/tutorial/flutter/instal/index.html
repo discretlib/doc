@@ -286,25 +286,26 @@
         Installer les composants
     </h1>
     <h1 id="installing-components">Installing Components</h1>
-<p>To get started, you need to have <a href="https://docs.flutter.dev/get-started/install">Flutter SDK</a> and <a href="https://www.rust-lang.org/tools/install">Rust toolchain</a> installed on your system.</p>
-<p>If you're working on Linux, <strong>do not</strong> install Flutter from <strong>snap</strong>. Flutter from snap comes with its own binary linker called ld, which is currently incompatible with Rust. Instead, follow the manual installation method as written in the Flutter docs.</p>
-<p>Ensure that your rust version is greater o equal to <em>1.79.0</em></p>
-<p>Once you're done with the installations, verify your system's readiness with the following commands. </p>
+<p>Avant de commencer, sous devez avoir installé le <a href="https://docs.flutter.dev/get-started/install">Flutter SDK</a> et <a href="https://www.rust-lang.org/tools/install">Rust</a>. </p>
+<p>Si vous travaillez sous linix, <strong>n'installez pas</strong> Flutter avec <strong>snap</strong>. Le <strong>snap</strong> Flutter contient un linker appelé ld qui n'est pas compatible avec Rust. A la place, installez Flutter manuellement Flutter en suivant la documentation.</p>
+<p>Vous devez vous assurer que la version de Rust est supérieure ou égale à <strong>1.79.0</strong></p>
+<p>Vous pouvez vérifier l'état des deux installations avec les commandes</p>
 <pre class="z-code"><code><span class="z-text z-plain">rustc --version
 </span><span class="z-text z-plain">flutter doctor
 </span></code></pre>
-<h1 id="getting-the-binding">Getting the binding.</h1>
-<p>The binding is not provided as a library but as a complete Flutter project, if you have ideas on how to provides a simpler binding you are welcome to contribute!</p>
-<p>To install the binding clone the following repository:</p>
+<h1 id="recuperer-le-binding-flutter">Récupérer le <em>binding</em> Flutter</h1>
+<p>Le <em>binding</em> Flutter n'es pas une librairie mais un projet Flutter complet.</p>
+<p>Pour le récupérer, clonez le projet suivant:</p>
 <pre class="z-code"><code><span class="z-text z-plain">cd your_dev_repository
 </span><span class="z-text z-plain">git clone https://github.com/discretlib/discret_flutter.git
 </span></code></pre>
-<h1 id="building-and-running-a-sample-application">Building and Running a Sample application</h1>
-<p>To test the installation you can rename one of the provided example into main.dart and run the application.</p>
+<h1 id="tester-l-installation">Tester l'installation</h1>
+<p>Pour tester que tout fonctionne, vous pouvez lancer un des exemples fournit.
+Copiez un des exemple dans le fichier ./lib/main.dart et lancer le avec flutter</p>
 <pre class="z-code"><code><span class="z-text z-plain">cp ./lib/example_simple_chat.dart ./lib/main.dart
 </span><span class="z-text z-plain">flutter run
 </span></code></pre>
-<p>The first run will need to download all rust dependencies and compile them wich can take a few minutes.</p>
+<p>Le premier lancement va télécharger toutes les dépendances requises et les comiler. Cela peut prendre plusieurs minutes.</p>
 
 
     <nav class="lower_nav">
@@ -327,15 +328,15 @@
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/#getting-the-binding">Getting the binding.</a>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/#recuperer-le-binding-flutter">Récupérer le binding Flutter</a>
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/#building-and-running-a-sample-application">Building and Running a Sample application</a>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/instal/#tester-l-installation">Tester l&#x27;installation</a>
             </li>
             
         </ul>
-        <div class="wordcount">196 mots, 1 min de lecture</div>
+        <div class="wordcount">171 mots, 1 min de lecture</div>
     </section>
 </nav>
 

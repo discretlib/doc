@@ -1,6 +1,6 @@
 +++
 title = "System Events"
-description = "Learn more about system events triggered by discret"
+description = "Learn more about system events triggered by Discret"
 weight = 1
 +++
 
@@ -10,7 +10,7 @@ weight = 1
 
 This event is triggered whenever data is modified or inserted. Data is inserted/deleted in batches and this events describes each batch.
 
-**data_modification** constains a *HashMap*:
+**data_modification** contains a *HashMap*:
 - the key is the identifier of the *Rooms* that have been modified
 - the data contains the modified Entity name and the mutation days (date without hour:minutes:second).
  
@@ -45,7 +45,7 @@ This event is triggered when a *Room* has been synchronized.
 - **room_id**: the *Room* identifier
 
 # PendingPeer
-This event is triggered when a new peer is found when synchronising a **Room**.
+This event is triggered when a new peer is found when synchronizing a **Room**.
 A list of pending peers can be retrieved using the following query:
 
 ```js
@@ -64,7 +64,7 @@ query{
 
 # PendingHardware
 This event is triggered when a new device is detected. 
-A list of devices waiting for manual authorisation can be retrieved using the following query:
+A list of devices waiting for manual authorization can be retrieved using the following query:
 
 ```js
 query{

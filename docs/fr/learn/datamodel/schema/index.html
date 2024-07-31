@@ -465,7 +465,7 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="desactiver-l-indexation-plein-texte">Désactiver l'indexation plein texte</h1>
-<p>Par défaut, tout les champs de type <strong>String</strong> sont indexés ensemble pour fournir une fonctionalité de <em>recherche de texte libre</em>. Cette fonctionalité peut être désactivée en utlisant le mot clé <strong>no_full_text_index</strong>.</p>
+<p>Par défaut, tout les champs de type <strong>String</strong> sont indexés ensemble pour fournir une fonctionnalité de <em>recherche de texte libre</em>. Cette fonctionnalité peut être désactivée en utilisant le mot clé <strong>no_full_text_index</strong>.</p>
 <p>Les indexes définit dans l'entité ne sont pas désactivés.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">my_data</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Person</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">no_full_text_index</span><span class="z-meta z-brace z-round z-ts">)</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
@@ -475,23 +475,23 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="mettre-a-jour-le-modele">Mettre à jour le modèle</h1>
-<p>Pendant la durée de vie d'un logiciel, le modèle de données est appelé à evoluer. Un ensemble de règles doivent être respecter pour s'assurer que les évolution ne provoque pas de régressions.</p>
+<p>Pendant la durée de vie d'un logiciel, le modèle de données est appelé à évoluer. Un ensemble de règles doivent être respecter pour s'assurer que les évolution ne provoque pas de régressions.</p>
 <p>Un changement de modèle de donné doit contenir le modèle complet, pas seulement les modifications. <em>Discret</em> va comparer l'ancien et le nouveau modèle pour s'assurer que les règles suivantes sont respectées:</p>
 <ul>
-<li>Il est interdit de supprimier des entités, champs, et espace de nom.</li>
+<li>Il est interdit de supprimer des entités, champs, et espace de nom.</li>
 <li>Les espaces de nom doivent être insérés dans le même ordre. Les nouveaux espaces doivent être insérés à la fin.</li>
-<li>Les entités doivent être insérées dans le même ordre à l'interieur de leur espace de nom. Les nouvelles entités doivent être insérées à la fin.</li>
-<li>Les champs doivent apparaitre dans le même ordre au sein d'une entité. Le nouveaux champs doivent apparaitre à la fin.</li>
+<li>Les entités doivent être insérées dans le même ordre à l'intérieur de leur espace de nom. Les nouvelles entités doivent être insérées à la fin.</li>
+<li>Les champs doivent apparaître dans le même ordre au sein d'une entité. Le nouveaux champs doivent apparaître à la fin.</li>
 </ul>
 <p>L'insertion et la modification de champs doit obéir aux règles suivantes.</p>
 <ul>
-<li>le type d'un champ ne peut pas être modifé</li>
-<li>un champ scalaire peut être modifié pour devenir <strong>nullable</strong></li>
-<li>un champs peut devenir non vide à condition de rajouter une valeur par défaut </li>
+<li>le type d'un champ ne peut pas être modifié,</li>
+<li>un champ scalaire peut être modifié pour devenir <strong>nullable</strong>,</li>
+<li>un champs peut devenir non vide à condition de rajouter une valeur par défaut,</li>
 <li>un nouveau champ peut être soit <em>nullable</em> soit contenir une valeur par défaut.</li>
 </ul>
-<p>Cet ensemble de contrainte empêche les regression et permet d'éviter d'avoir à gérer differentes versions du modèle de données. </p>
-<p>Prenons un exemple, et considéront la définition suivante comme l'ancien modèle de données.</p>
+<p>Cet ensemble de contrainte empêche les regression et permet d'éviter d'avoir à gérer différentes versions du modèle de données. </p>
+<p>Prenons un exemple, et considérons la définition suivante comme l'ancien modèle de données.</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-meta z-block z-ts">        <span class="z-entity z-name z-label z-ts">name</span> <span class="z-punctuation z-separator z-label z-ts">:</span> <span class="z-support z-class z-builtin z-ts">String</span> <span class="z-variable z-other z-readwrite z-ts">nullable</span><span class="z-punctuation z-separator z-comma z-ts">,</span>
@@ -547,8 +547,8 @@ Cette fonctionalité doit être utilisée avec <em>prudence</em>, car les indexe
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">}</span></span>
 </span></code></pre>
 <h1 id="depreciation">Dépréciation</h1>
-<p>Nous avons vu dans le précédent chapitre qu'il est interdit de supprimer des champs et des entités. Il est neanmoins possible d'indiquer aux developeurs de l'application que des champs ou entités ne doivent plus être utilisés en les &quot;dépréciant&quot; avec le mot clé <strong>@deprecated</strong>. </p>
-<p>C'est un mot clé de documentation, les champs et entités dépréciés peuvent toujours être utlisé et aucune erreur ou avertissement ne sera généré.</p>
+<p>Nous avons vu dans le précédent chapitre qu'il est interdit de supprimer des champs et des entités. Il est néanmoins possible d'indiquer aux développeurs de l'application que des champs ou entités ne doivent plus être utilisés en les &quot;dépréciant&quot; avec le mot clé <strong>@deprecated</strong>. </p>
+<p>C'est un mot clé de documentation, les champs et entités dépréciés peuvent toujours être utilisé et aucune erreur ou avertissement ne sera généré.</p>
 <p>la syntaxe et la suivante:</p>
 <pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
 </span></span><span class="z-source z-ts"><span class="z-meta z-block z-ts">    <span class="z-meta z-decorator z-ts"><span class="z-punctuation z-decorator z-ts">@</span><span class="z-variable z-other z-readwrite z-ts">deprecated</span></span> <span class="z-variable z-other z-readwrite z-ts">Person</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
