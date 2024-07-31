@@ -5,7 +5,7 @@ weight = 0
 template = "index-section.fr.html"
 page_template = "index-page.fr.html"
 +++
-[Commencer avec Rust](@/tutorial/rust/_index.fr.md) [Commencer avec Flutter](@/tutorial/flutter/_index.fr.md) [Apprendre](@/learn/_index.fr.md) [Github](https://github.com/discretlib/)
+[Commencer avec Rust](@/tutorial/rust/_index.fr.md) [Commencer avec Flutter](@/tutorial/flutter/_index.fr.md) [Apprendre](@/learn/_index.fr.md) [Github](https://github.com/discretlib/discret)
 
 - Commencer en suivant les [Tutoriels](@/tutorial/_index.fr.md).
 
