@@ -203,7 +203,9 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Me Recruter</a></li>
+        
+         
+          <li><a  href="https://discretlib.github.io/doc/fr/hire_me/">Me Recruter</a></li>
           <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
           </li>
 
@@ -379,10 +381,10 @@
 <p>La différence entre une création de compte et une connection réside dans la valeur de <strong>create</strong>:</p>
 <ul>
 <li><strong>false</strong>: la fonction se connectera si le compte existe, et retournera une erreur si il n'existe pas</li>
-<li><strong>true</strong>: la fonction va créer le compte et se connecter si il n'existe pas, et retournera une erreur si le compte existe déja</li>
+<li><strong>true</strong>: la fonction va créer le compte et se connecter si il n'existe pas, et retournera une erreur si le compte existe déjà.</li>
 </ul>
-<p>Si la connection est un succès, la fonction <em>initialise();</em> est appellée. La librairie <strong>Discret</strong> ne démarre qu'après l'authentification, donc le <strong>ChatState</strong>  ne peut pas être initialisé avant.</p>
-<h1 id="initalisation-du-chatstate">Initalisation du <em>ChatState</em></h1>
+<p>Si la connection est un succès, la fonction <em>initialise();</em> est appelée. La librairie <strong>Discret</strong> ne démarre qu'après l'authentification, donc le <strong>ChatState</strong>  ne peut pas être initialisé avant.</p>
+<h1 id="initialisation-du-chatstate">Initialisation du <em>ChatState</em></h1>
 <p>La fonction d'initialisation est la suivante:</p>
 <pre data-linenos data-lang="dart" class="language-dart z-code"><code class="language-dart" data-lang="dart"><table><tbody><tr><td>58</td><td><span class="z-source z-dart"><span class="z-support z-class z-dart">Future</span><span class="z-keyword z-operator z-comparison z-dart">&lt;</span><span class="z-storage z-type z-primitive z-dart">void</span><span class="z-keyword z-operator z-comparison z-dart">&gt;</span> <span class="z-entity z-name z-function z-dart">initialise</span>() <span class="z-keyword z-control z-dart">async</span> {
 </span></td></tr><tr><td>59</td><td><span class="z-source z-dart">  <span class="z-support z-class z-dart">ResultMsg</span> msg <span class="z-keyword z-operator z-assignment z-dart">=</span> <span class="z-keyword z-control z-dart">await</span> <span class="z-support z-class z-dart">Discret</span>()<span class="z-punctuation z-dot z-dart">.</span><span class="z-entity z-name z-function z-dart">privateRoom</span>()<span class="z-punctuation z-terminator z-dart">;</span>
@@ -530,7 +532,7 @@
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#initalisation-du-chatstate">Initalisation du ChatState</a>
+                <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-chat/#initialisation-du-chatstate">Initialisation du ChatState</a>
             </li>
             
             <li>

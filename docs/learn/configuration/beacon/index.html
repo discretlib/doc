@@ -203,7 +203,8 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Hire Me</a></li>
+          
+          <li><a  href="https://discretlib.github.io/doc/hire_me/">Hire Me</a></li>
           <li><a href="/fr/" class="flag"><img src="/fr.svg" alt="french translation" /></a>
         </section>
       </ul>
@@ -323,7 +324,115 @@
     <h1>
         The Beacon Server
     </h1>
-    
+    <p>On a local network, <strong>Discret</strong> can discover other peers without any specific hardware. But when peers are connecting over Internet a meeting server named beacon is required to allow peers to discover each others.</p>
+<p>The beacon server works as follow. Let's suppose that Alice and Bob want's to connect:</p>
+<ul>
+<li>Alice sends a token known by Bog to the beacons server. The sever will keep this token until Alice disconnect herself.</li>
+<li>Bob send the same token to the server.</li>
+<li>The beacon server acknowledge that Alice and Bob share the same token:
+<ul>
+<li>it sends Alice's public IP address to Bob</li>
+<li>And send Bob'as public IP address to Alice</li>
+</ul>
+</li>
+<li>Alice and Bob know their respective public address and can initiate a connection.</li>
+<li>Once connected Alice and Bob check their identity, because the shared token is not a proof of identity  but just a mean to find each others</li>
+</ul>
+<h1 id="hosting">Hosting</h1>
+<p>The Beacon server is used to resolve public IP address of peers that want's to connect. It cannot be installed on your local local network because it will fail to resolve your public IP. It must be hosted elsewhere. </p>
+<p>The server is not ressource intensive and can be hosted a cheap server as a start. For example:</p>
+<ul>
+<li>a free tier server from a cloud company,</li>
+<li>a cheap virtual private server (VPS).</li>
+<li>etc.</li>
+</ul>
+<h1 id="installation">Installation</h1>
+<p>No pre-compiled binaries are available, you have to compile it yourself.</p>
+<p>Starts by cloning the beacon repository:</p>
+<pre class="z-code"><code><span class="z-text z-plain">git clone https://github.com/discretlib/discret_beacon.git
+</span></code></pre>
+<p>and then compile it, the compilation can take a few minutes:</p>
+<pre class="z-code"><code><span class="z-text z-plain">cd discret_beacon
+</span><span class="z-text z-plain">cargo build --release
+</span></code></pre>
+<p>The compiled server will be located in the  <em>./target/release/</em>. Its exact name depends on you OS, on Linux it is named  <strong>discret_beacon</strong>.</p>
+<p>Copy the file in a folder of your choice, then run it. On Linux, the following command will start it as a background task:</p>
+<pre class="z-code"><code><span class="z-text z-plain">nohup ./discret_beacon &amp;
+</span></code></pre>
+<h1 id="usage">Usage</h1>
+<p>At first run, <em>Beacon</em> will create the following file and folders:</p>
+<pre class="z-code"><code><span class="z-text z-plain">logs/
+</span><span class="z-text z-plain">Beacon.conf.toml  
+</span><span class="z-text z-plain">certificate_hash.txt  
+</span><span class="z-text z-plain">cert_der.bin
+</span><span class="z-text z-plain">log4rs.yml
+</span></code></pre>
+<ul>
+<li><strong>logs/</strong>: the folder that contains the application logs.</li>
+<li><strong>Beacon.conf.toml</strong>: the <strong>Beacon</strong> configuraiton file that allows to change the IPV4 and IPV6 listening port.</li>
+<li><strong>certificate_hash.txt</strong>: a text file that contains the server's certificate hash. This hash is used to register the Beacon sever in the Discret <a href="https://discretlib.github.io/doc/learn/configuration/configuration/">configuration</a> </li>
+<li><strong>cert_der.bin</strong>: the server certificate  and private key.</li>
+<li><strong>log4rs.yml</strong>: The <a href="https://docs.rs/log4rs/latest/log4rs/">log4rs</a> configuration file.</li>
+</ul>
+<h1 id="backup-and-restore">Backup and Restore</h1>
+<p>The <strong>cert_der.bin</strong> file should be backed up to be able to reconfigure a server in case of a crash.</p>
+<p>If you need to recover after a crash:</p>
+<ul>
+<li>copy the backed up <strong>cert_der.bin</strong> in the <strong>discret_beacon</strong> folder,</li>
+<li>run the server.</li>
+</ul>
+<h1 id="certificate-reuse">Certificate Reuse</h1>
+<p>The <strong>cert_der.bin</strong> file can be used on several servers. For a production system, you will need to declare several Beacon server for failover.
+To simplify deployment, you can use a single <strong>cert_der.bin</strong> for all the server which makes certificate management easier.</p>
+<h1 id="disret-configuration">Disret configuration</h1>
+<p>Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com, thirdbeacon.com) with the same <strong>cert_der.bin</strong>.</p>
+<p>A <strong>Discret</strong> client will be <a href="https://discretlib.github.io/doc/learn/configuration/configuration/">configured</a> as follow (we suppose that the configuration is stored in a TOML file):</p>
+<pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv4</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>firstbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv6</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.firstbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv4</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>secondbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv6</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.secondbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv4</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>thirdbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml">
+</span><span class="z-source z-toml"><span class="z-comment z-line z-number-sign z-toml"><span class="z-punctuation z-definition z-comment z-toml">#</span>Ipv6</span>
+</span><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-array z-begin z-toml">[[</span><span class="z-meta z-tag z-table z-array z-toml"><span class="z-entity z-name z-table z-toml">beacons</span></span><span class="z-punctuation z-definition z-table z-array z-end z-toml">]]</span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.thirdbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
+</span></code></pre>
+<p>The <strong>cert_hash</strong> is the value stored in the <strong>certificate_hash.txt</strong> file
+You will notice that each server is declared two times:</p>
+<ul>
+<li>once for the IPV4 port,</li>
+<li>once for the IPV6 port.</li>
+</ul>
+<h1 id="beacon-conf-toml-configuration">Beacon.conf.toml Configuration</h1>
+<p>This file contains only three parameters:</p>
+<ul>
+<li><strong>ipv4_port</strong>: the IPV4 listening port,</li>
+<li><strong>ipv6_port</strong>: the IPV6 listening port,</li>
+<li><strong>num_buffers</strong>: The number of shared data buffers that are used by the connections. Increasing this value can increase the performances, but at the cost of more memory usage. Each buffer consumes 4kb of RAM.</li>
+</ul>
+<p>Changes in this file will be taken into account after a restart of the system.</p>
+
     <nav class="lower_nav">
         <div> <a href="https://discretlib.github.io/doc/learn/configuration/hardware/"><i class="fa fa-arrow-left"></i> Previous:
                 Hardware Key</a>
@@ -333,6 +442,44 @@
     </nav>
 </article>
 
+
+<nav class="sticky">
+    <section class="toc">
+        <h1>On this page</h1>
+        <ul>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#hosting">Hosting</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#installation">Installation</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#usage">Usage</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#backup-and-restore">Backup and Restore</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#certificate-reuse">Certificate Reuse</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#disret-configuration">Disret configuration</a>
+            </li>
+            
+            <li>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#beacon-conf-toml-configuration">Beacon.conf.toml Configuration</a>
+            </li>
+            
+        </ul>
+        <div class="wordcount">663 words, 4 min read</div>
+    </section>
+</nav>
 
 
 

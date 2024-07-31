@@ -395,6 +395,42 @@ article {
     }
 }
 
+.hire {
+    margin-left: 0px;
+    padding-left: 0px;
+
+    h1 {
+        text-align: left;
+        font-size: 2rem;
+        font-weight: 300;
+        padding-bottom: 0.25rem;
+        padding-top: 1rem;
+        margin-bottom: 0rem;
+        border-bottom: 0px;
+
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 400;
+        padding: 0;
+        padding-bottom: 0.25rem;
+        margin: 0;
+    }
+
+    h3 {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 400;
+        padding: 0;
+        padding-bottom: 0.25rem;
+        margin: 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+}
+
 .lower_nav {
     margin-top: 2rem;
     width: 100%;

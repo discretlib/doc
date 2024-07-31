@@ -13,7 +13,7 @@ cargo new rust_simple_chat
 cd rust_simple_chat
 ```
 
-Editez le fichier **Cargo.toml** pour rajouter les dépendances suivantes:
+Éditez le fichier **Cargo.toml** pour rajouter les dépendances suivantes:
 ```toml
 [dependencies]
     discret = "0.6.0"
@@ -25,7 +25,7 @@ Editez le fichier **Cargo.toml** pour rajouter les dépendances suivantes:
 # Initialiser *Discret*
 Discret nécessite un certain nombre de paramètres pour être lancé:
 - **Un modèle de données**: définit les types de données qui peuvent être utilisés dans *Discret*.
-- **Un identifiant unique pour l'application**: une fois définit, cet identifiant ne devra jamais changer une fois l'application mise en production. Cet identifiant est utilisé pour dériver des secrets utilisés par *Discret*. Si cet identifiant change, les utisateurs ne pourront plus se connecter.
+- **Un identifiant unique pour l'application**: une fois définit, cet identifiant ne devra jamais changer une fois l'application mise en production. Cet identifiant est utilisé pour dériver des secrets utilisés par *Discret*. Si cet identifiant change, les utilisateurs ne pourront plus se connecter.
 -  **Un secret maître**: ce secret sera utilisé avec l'identifiant unique pour dériver les secrets de l'utilisateur. Nous utiliserons dans cet exemple un secret dérivé d'un nom d'utilisateur et d'un mot de passe.
 -  **Un repertoire**: où stocker des données.
 -  **Une configuration**: nous utiliserons la configuration par défaut.
@@ -68,13 +68,15 @@ async fn main() {
   ).await.unwrap();
 }
 ```
+---
 
-La ligne 10 definit un nom unique de l'application:
+La ligne 10 définit un nom unique de l'application:
 ```rust,linenos,linenostart=9
 //...
 const APPLICATION_KEY: &str = "github.com/discretlib/rust_example_simple_chat";
 //...
 ```
+---
 
 Les lignes 15 à 19 définissent le modèle de données qui pourra être utilisé dans l'application. Ce modèle définit un espace de nom nommé **chat** qui contient l'entité **Message**, qui elle même contient un unique champ nommé **content** qui peut contenir une chaine de caractères. 
 
@@ -88,10 +90,11 @@ Vous pourrez en apprendre plus dans la section [Schémas et Entités](@/learn/da
   }";
 //...
 ```
+---
 
-La Ligne 24 créee le secret maitre. Ce secret est utilisé par Discret pour créer, en autre:
+La Ligne 24 crée le secret maitre. Ce secret est utilisé par Discret pour créer, en autre:
 - La clé de chiffrement de la base de données. Toutes les donnes sont cryptées avant d'être stockées
-- Un couple clé publique/clé privé qui sera utilisé pour signer toutes les données insérées et modfiées par cet utilisateurs. Toutes les données échangées par les pairs sont signées et vérifiées. 
+- Un couple clé publique/clé privé qui sera utilisé pour signer toutes les données insérées et modifiées par cet utilisateurs. Toutes les données échangées par les pairs sont signées et vérifiées. 
 
 la fonction **derive_pass_phrase** utilise la fonction de dérivation Argon2id avec les paramètres recommandés par [owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
 
@@ -136,11 +139,13 @@ Insérer les lignes suivantes apres la ligne 33 **).await.unwrap()**;
   }
 ```
 
-La ligne 34 récupère la *Room* privée de l'utiliteur. Le concept de Room définit le système d'autorisations utilisé par *Discret* pour synchroniser les données avec ses Pairs. Les données insérées dans une *Room* ne seront synchronisées qu'avec les Pairs ayant accès à cette *Room*. 
+La ligne 34 récupère la *Room* privée de l'utilisateur. Le concept de Room définit le système d'autorisations utilisé par *Discret* pour synchroniser les données avec ses Pairs. Les données insérées dans une *Room* ne seront synchronisées qu'avec les Pairs ayant accès à cette *Room*. 
 
-Nous allons utiliser la *Room* Privée de l'utilisateur, donc lui seul sera capable d'y accèder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. 
+Nous allons utiliser la *Room* Privée de l'utilisateur, donc lui seul sera capable d'y acceder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. 
 
 Vous pourrez en apprendre plus dans la section [Room](@/learn/access_rights/room.fr.md) de la documentation.
+
+---
 
 Les lignes 47 à 57 définissent la requête utilisée pour insérer des messages:
 ```rust,linenos,linenostart=46
@@ -159,11 +164,11 @@ Les lignes 47 à 57 définissent la requête utilisée pour insérer des message
 
 Nous utilisons une requête de type **mutation** pour insérer un tuple de l'entité **chat.Message** définie dans le modèle de données. 
 
-Vous noterez que **room_id** n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  **\$room_id** et **\$message** sont des paramêtres de la requête qui sont passés par l'objet **Some(params)**.
+Vous noterez que **room_id** n'a pas été défini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  **\$room_id** et **\$message** sont des paramètres de la requête qui sont passés par l'objet **Some(params)**.
 
 Vous pourrez en apprendre plus sur l'insertion et la modification de données dans la section [Mutations et Suppression](@/learn/datamodel/mutation.fr.md) de la documentation.
 
-Si vous lancez l'application, vous devrier pouvoir écrire des messages
+Si vous lancez l'application, vous devriez pouvoir écrire des messages
 ```
 cargo run
 ```
@@ -172,7 +177,7 @@ cargo run
 
 A ce stade, les données que vous insérez seront synchronisées entre chaque instance de l'application. Si vous copiez le programme dans deux répertoires ou appareils différents, les données seront synchronisées. Par contre vous ne verrez pas les messages des autres.
 
-Pour récupérer les messages synchronisés, nous allons écouter les évènements envoyé par **Discret**, et lire les messages quand un evenements indiquera que de nouvelles données sont disponibles. Pour ce faire, insérez le code suivant entre la ligne 33 **).await.unwrap();** et la ligne 34: **let private_room: String = app.private_room();**
+Pour récupérer les messages synchronisés, nous allons écouter les évènements envoyé par *Discret*, et lire les messages quand un évènements indiquera que de nouvelles données sont disponibles. Pour ce faire, insérez le code suivant entre la ligne 33 **).await.unwrap();** et la ligne 34: **let private_room: String = app.private_room();**
 ```rust ,linenos,linenostart=33
 //cette structure permet de désérialiser les messages
 #[derive(Deserialize)]
@@ -228,11 +233,14 @@ tokio::spawn(async move {
   }
 });
 ```
-Les lignes 42 à 86 definissent la boucle qui va écouter les évenements **Discret**. Elle est lancée dans une tache asynchrone pour que l'application ait ainsi deux boucles indépendantes:
+
+---
+
+Les lignes 42 à 86 définissent la boucle qui va écouter les événements *Discret*. Elle est lancée dans une tache asynchrone pour que l'application ait ainsi deux boucles indépendantes:
 - la boucle de lecture des évènements
 - la boucle lisant les messages écrit dans la console 
 
-Lors qu'un évenement de type **DataChanged** est détecté, nous effectuons une requête pour récupérer les données nouvellement recues:
+Lors qu'un événement de type **DataChanged** est détecté, nous effectuons une requête pour récupérer les données nouvellement reçues:
 ```rust ,linenos,linenostart=58
 //...
 let result: String = event_app.query(
@@ -253,7 +261,9 @@ let result: String = event_app.query(
 ```
 Vous pourrez en apprendre plus sur les requêtes de selection de données  dans la section [Requête](@/learn/datamodel/query.fr.md) de la documentation.
 
-Les lignes permettent de lire le résultat JSON de la requête et de les tranformer en liste d'objects *Chat* 
+---
+
+Les lignes 74 et 75 permettent de lire le résultat JSON de la requête et de les transformer en liste d'objects *Chat* 
 ```rust ,linenos,linenostart=73
 //...
 let mut query_result = ResultParser::new(&result).unwrap();
@@ -266,11 +276,11 @@ Si vous lancez ce code dans deux repertoires ou sur deux machines différentes e
 Félicitation! vous pouvez désormais discuter avec vous même en communicant en *Peer to Peer*! 
 
 # Aller plus loin
-Ce tutorial vous a donné un aperçu des bases nécessaires à l'utilisation de **Discret**. Ces connaissances sont suffisantes pour créer des applications ne necessitant la synchronisation qu'avec un seul utilisateur. 
+Ce tutorial vous a donné un aperçu des bases nécessaires à l'utilisation de **Discret**. Ces connaissances sont suffisantes pour créer des applications ne nécessitant la synchronisation qu'avec un seul utilisateur. 
 
-Par exemple, vous pouvez créer un gestionaire de mot de passes qui se synchronisera entre vos différent apprareils en réseau local.
+Par exemple, vous pouvez créer un gestionnaire de mot de passes qui se synchronisera entre vos différent appareils en réseau local.
 
-Pour en apprendre plus, vous pouvez suivre les tutoriaux Flutter, en particulier le [chat multi utilisateurs ](@/tutorial/flutter/flutter_multiuser_chat.fr.md) qui introduit la gestion des invitations et la création de *Room*.
+Pour en apprendre plus, vous pouvez suivre les tutorials Flutter, en particulier le [chat multi utilisateurs ](@/tutorial/flutter/flutter_multiuser_chat.fr.md) qui introduit la gestion des invitations et la création de *Room*.
 
 La section  [Apprendre](@/learn/_index.fr.md) vous permettra d'approfondir vos connaissances.
 

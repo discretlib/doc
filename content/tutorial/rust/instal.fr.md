@@ -4,7 +4,7 @@ description = "Comment installer Discret"
 weight = 0
 +++
 
-# Installer la librarie *Discret*
+# Installer la librairie *Discret*
 
 La version de Rust installée doit être supérieure à *1.79.0*. Vous pouvez vérifier votre numéro de version en utilisant la commande:
 ```

@@ -127,11 +127,11 @@ La création d'un compte et la connection se font avec une unique fonction de l'
 ```
 La différence entre une création de compte et une connection réside dans la valeur de **create**:
 - **false**: la fonction se connectera si le compte existe, et retournera une erreur si il n'existe pas
-- **true**: la fonction va créer le compte et se connecter si il n'existe pas, et retournera une erreur si le compte existe déja
+- **true**: la fonction va créer le compte et se connecter si il n'existe pas, et retournera une erreur si le compte existe déjà.
 
-Si la connection est un succès, la fonction *initialise();* est appellée. La librairie **Discret** ne démarre qu'après l'authentification, donc le **ChatState**  ne peut pas être initialisé avant.
+Si la connection est un succès, la fonction *initialise();* est appelée. La librairie **Discret** ne démarre qu'après l'authentification, donc le **ChatState**  ne peut pas être initialisé avant.
 
-# Initalisation du *ChatState* 
+# Initialisation du *ChatState*  
 
 La fonction d'initialisation est la suivante:
 

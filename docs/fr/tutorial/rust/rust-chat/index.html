@@ -203,7 +203,9 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Me Recruter</a></li>
+        
+         
+          <li><a  href="https://discretlib.github.io/doc/fr/hire_me/">Me Recruter</a></li>
           <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
           </li>
 
@@ -291,7 +293,7 @@
 <pre class="z-code"><code><span class="z-text z-plain">cargo new rust_simple_chat
 </span><span class="z-text z-plain">cd rust_simple_chat
 </span></code></pre>
-<p>Editez le fichier <strong>Cargo.toml</strong> pour rajouter les dépendances suivantes:</p>
+<p>Éditez le fichier <strong>Cargo.toml</strong> pour rajouter les dépendances suivantes:</p>
 <pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-punctuation z-definition z-table z-begin z-toml">[</span><span class="z-meta z-tag z-table z-toml"><span class="z-entity z-name z-table z-toml">dependencies</span></span><span class="z-punctuation z-definition z-table z-end z-toml">]</span>
 </span><span class="z-source z-toml">    <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">discret</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>0.6.0<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span>
 </span><span class="z-source z-toml">    <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">tokio</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span> <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">version</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>1.38.0<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span> <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">features</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-punctuation z-definition z-array z-begin z-toml">[</span><span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>full<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-array z-end z-toml">]</span> <span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span>
@@ -302,7 +304,7 @@
 <p>Discret nécessite un certain nombre de paramètres pour être lancé:</p>
 <ul>
 <li><strong>Un modèle de données</strong>: définit les types de données qui peuvent être utilisés dans <em>Discret</em>.</li>
-<li><strong>Un identifiant unique pour l'application</strong>: une fois définit, cet identifiant ne devra jamais changer une fois l'application mise en production. Cet identifiant est utilisé pour dériver des secrets utilisés par <em>Discret</em>. Si cet identifiant change, les utisateurs ne pourront plus se connecter.</li>
+<li><strong>Un identifiant unique pour l'application</strong>: une fois définit, cet identifiant ne devra jamais changer une fois l'application mise en production. Cet identifiant est utilisé pour dériver des secrets utilisés par <em>Discret</em>. Si cet identifiant change, les utilisateurs ne pourront plus se connecter.</li>
 <li><strong>Un secret maître</strong>: ce secret sera utilisé avec l'identifiant unique pour dériver les secrets de l'utilisateur. Nous utiliserons dans cet exemple un secret dérivé d'un nom d'utilisateur et d'un mot de passe.</li>
 <li><strong>Un repertoire</strong>: où stocker des données.</li>
 <li><strong>Une configuration</strong>: nous utiliserons la configuration par défaut.</li>
@@ -343,11 +345,13 @@
 </span></span></span></span></td></tr><tr><td>33</td><td><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">  </span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span>await<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">unwrap</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></span></span></td></tr><tr><td>34</td><td><span class="z-source z-rust"><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
 </span></td></tr></tbody></table></code></pre>
-<p>La ligne 10 definit un nom unique de l'application:</p>
+<hr />
+<p>La ligne 10 définit un nom unique de l'application:</p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>9</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr><tr><td>10</td><td><span class="z-source z-rust"><span class="z-storage z-type z-rust">const</span> <span class="z-constant z-other z-rust">APPLICATION_KEY</span><span class="z-punctuation z-separator z-rust">:</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span><span class="z-storage z-type z-rust">str</span> <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>github.com/discretlib/rust_example_simple_chat<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></td></tr><tr><td>11</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr></tbody></table></code></pre>
+<hr />
 <p>Les lignes 15 à 19 définissent le modèle de données qui pourra être utilisé dans l'application. Ce modèle définit un espace de nom nommé <strong>chat</strong> qui contient l'entité <strong>Message</strong>, qui elle même contient un unique champ nommé <strong>content</strong> qui peut contenir une chaine de caractères. </p>
 <p>Vous pourrez en apprendre plus dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/schema/">Schémas et Entités</a> de la documentation.</p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>14</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
@@ -358,10 +362,11 @@
 </span></span></td></tr><tr><td>19</td><td><span class="z-source z-rust"><span class="z-string z-quoted z-double z-rust">  }<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></td></tr><tr><td>20</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr></tbody></table></code></pre>
-<p>La Ligne 24 créee le secret maitre. Ce secret est utilisé par Discret pour créer, en autre:</p>
+<hr />
+<p>La Ligne 24 crée le secret maitre. Ce secret est utilisé par Discret pour créer, en autre:</p>
 <ul>
 <li>La clé de chiffrement de la base de données. Toutes les donnes sont cryptées avant d'être stockées</li>
-<li>Un couple clé publique/clé privé qui sera utilisé pour signer toutes les données insérées et modfiées par cet utilisateurs. Toutes les données échangées par les pairs sont signées et vérifiées. </li>
+<li>Un couple clé publique/clé privé qui sera utilisé pour signer toutes les données insérées et modifiées par cet utilisateurs. Toutes les données échangées par les pairs sont signées et vérifiées. </li>
 </ul>
 <p>la fonction <strong>derive_pass_phrase</strong> utilise la fonction de dérivation Argon2id avec les paramètres recommandés par <a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html">owasp.org</a></p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>23</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
@@ -398,9 +403,10 @@
 </span></span></td></tr><tr><td>57</td><td><span class="z-source z-rust"><span class="z-meta z-block z-rust">    line<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">clear</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></span></td></tr><tr><td>58</td><td><span class="z-source z-rust"><span class="z-meta z-block z-rust">  </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
 </span></td></tr></tbody></table></code></pre>
-<p>La ligne 34 récupère la <em>Room</em> privée de l'utiliteur. Le concept de Room définit le système d'autorisations utilisé par <em>Discret</em> pour synchroniser les données avec ses Pairs. Les données insérées dans une <em>Room</em> ne seront synchronisées qu'avec les Pairs ayant accès à cette <em>Room</em>. </p>
-<p>Nous allons utiliser la <em>Room</em> Privée de l'utilisateur, donc lui seul sera capable d'y accèder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. </p>
+<p>La ligne 34 récupère la <em>Room</em> privée de l'utilisateur. Le concept de Room définit le système d'autorisations utilisé par <em>Discret</em> pour synchroniser les données avec ses Pairs. Les données insérées dans une <em>Room</em> ne seront synchronisées qu'avec les Pairs ayant accès à cette <em>Room</em>. </p>
+<p>Nous allons utiliser la <em>Room</em> Privée de l'utilisateur, donc lui seul sera capable d'y acceder. Si l'utilisateur se connecte sur plusieurs machines, les données seront synchronisées entre les machines. </p>
 <p>Vous pourrez en apprendre plus dans la section <a href="https://discretlib.github.io/doc/fr/learn/access_rights/room/">Room</a> de la documentation.</p>
+<hr />
 <p>Les lignes 47 à 57 définissent la requête utilisée pour insérer des messages:</p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>46</td><td><span class="z-source z-rust">    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr><tr><td>47</td><td><span class="z-source z-rust">    app<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">mutate</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
@@ -415,14 +421,14 @@
 </span></td></tr><tr><td>56</td><td><span class="z-source z-rust">    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr></tbody></table></code></pre>
 <p>Nous utilisons une requête de type <strong>mutation</strong> pour insérer un tuple de l'entité <strong>chat.Message</strong> définie dans le modèle de données. </p>
-<p>Vous noterez que <strong>room_id</strong> n'a pas été defini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  <strong>$room_id</strong> et <strong>$message</strong> sont des paramêtres de la requête qui sont passés par l'objet <strong>Some(params)</strong>.</p>
+<p>Vous noterez que <strong>room_id</strong> n'a pas été défini dans le modèle de données. C'est un champ système disponible pour toutes les entités.  <strong>$room_id</strong> et <strong>$message</strong> sont des paramètres de la requête qui sont passés par l'objet <strong>Some(params)</strong>.</p>
 <p>Vous pourrez en apprendre plus sur l'insertion et la modification de données dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/mutation/">Mutations et Suppression</a> de la documentation.</p>
-<p>Si vous lancez l'application, vous devrier pouvoir écrire des messages</p>
+<p>Si vous lancez l'application, vous devriez pouvoir écrire des messages</p>
 <pre class="z-code"><code><span class="z-text z-plain">cargo run
 </span></code></pre>
 <h1 id="lire-les-donnees-synchronisees">Lire les données synchronisées</h1>
 <p>A ce stade, les données que vous insérez seront synchronisées entre chaque instance de l'application. Si vous copiez le programme dans deux répertoires ou appareils différents, les données seront synchronisées. Par contre vous ne verrez pas les messages des autres.</p>
-<p>Pour récupérer les messages synchronisés, nous allons écouter les évènements envoyé par <strong>Discret</strong>, et lire les messages quand un evenements indiquera que de nouvelles données sont disponibles. Pour ce faire, insérez le code suivant entre la ligne 33 <strong>).await.unwrap();</strong> et la ligne 34: <strong>let private_room: String = app.private_room();</strong></p>
+<p>Pour récupérer les messages synchronisés, nous allons écouter les évènements envoyé par <em>Discret</em>, et lire les messages quand un évènements indiquera que de nouvelles données sont disponibles. Pour ce faire, insérez le code suivant entre la ligne 33 <strong>).await.unwrap();</strong> et la ligne 34: <strong>let private_room: String = app.private_room();</strong></p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>33</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>cette structure permet de désérialiser les messages
 </span></span></td></tr><tr><td>34</td><td><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Deserialize</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
 </span></td></tr><tr><td>35</td><td><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">Chat</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
@@ -477,12 +483,13 @@
 </span></span></span></span></td></tr><tr><td>84</td><td><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">  </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
 </span></span></span></td></tr><tr><td>85</td><td><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></td></tr></tbody></table></code></pre>
-<p>Les lignes 42 à 86 definissent la boucle qui va écouter les évenements <strong>Discret</strong>. Elle est lancée dans une tache asynchrone pour que l'application ait ainsi deux boucles indépendantes:</p>
+<hr />
+<p>Les lignes 42 à 86 définissent la boucle qui va écouter les événements <em>Discret</em>. Elle est lancée dans une tache asynchrone pour que l'application ait ainsi deux boucles indépendantes:</p>
 <ul>
 <li>la boucle de lecture des évènements</li>
 <li>la boucle lisant les messages écrit dans la console </li>
 </ul>
-<p>Lors qu'un évenement de type <strong>DataChanged</strong> est détecté, nous effectuons une requête pour récupérer les données nouvellement recues:</p>
+<p>Lors qu'un événement de type <strong>DataChanged</strong> est détecté, nous effectuons une requête pour récupérer les données nouvellement reçues:</p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>58</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr><tr><td>59</td><td><span class="z-source z-rust"><span class="z-storage z-type z-rust">let</span> result<span class="z-punctuation z-separator z-rust">:</span> <span class="z-support z-type z-rust">String</span> <span class="z-keyword z-operator z-assignment z-rust">=</span> event_app<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">query</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
 </span></span></td></tr><tr><td>60</td><td><span class="z-source z-rust"><span class="z-meta z-group z-rust">  <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>query {
@@ -501,7 +508,8 @@
 </span></td></tr><tr><td>73</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr></tbody></table></code></pre>
 <p>Vous pourrez en apprendre plus sur les requêtes de selection de données  dans la section <a href="https://discretlib.github.io/doc/fr/learn/datamodel/query/">Requête</a> de la documentation.</p>
-<p>Les lignes permettent de lire le résultat JSON de la requête et de les tranformer en liste d'objects <em>Chat</em> </p>
+<hr />
+<p>Les lignes 74 et 75 permettent de lire le résultat JSON de la requête et de les transformer en liste d'objects <em>Chat</em> </p>
 <pre data-linenos data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><table><tbody><tr><td>73</td><td><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span>...
 </span></span></td></tr><tr><td>74</td><td><span class="z-source z-rust"><span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> query_result <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">ResultParser<span class="z-punctuation z-accessor z-rust">::</span></span>new<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>result</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">unwrap</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
 </span></td></tr><tr><td>75</td><td><span class="z-source z-rust"><span class="z-storage z-type z-rust">let</span> res<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Chat<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> query_result<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">take_array</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>res<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">unwrap</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
@@ -510,9 +518,9 @@
 <p>Si vous lancez ce code dans deux repertoires ou sur deux machines différentes en réseau local, vous pourrez voir les messages s'afficher sur les différentes consoles. </p>
 <p>Félicitation! vous pouvez désormais discuter avec vous même en communicant en <em>Peer to Peer</em>! </p>
 <h1 id="aller-plus-loin">Aller plus loin</h1>
-<p>Ce tutorial vous a donné un aperçu des bases nécessaires à l'utilisation de <strong>Discret</strong>. Ces connaissances sont suffisantes pour créer des applications ne necessitant la synchronisation qu'avec un seul utilisateur. </p>
-<p>Par exemple, vous pouvez créer un gestionaire de mot de passes qui se synchronisera entre vos différent apprareils en réseau local.</p>
-<p>Pour en apprendre plus, vous pouvez suivre les tutoriaux Flutter, en particulier le <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/">chat multi utilisateurs </a> qui introduit la gestion des invitations et la création de <em>Room</em>.</p>
+<p>Ce tutorial vous a donné un aperçu des bases nécessaires à l'utilisation de <strong>Discret</strong>. Ces connaissances sont suffisantes pour créer des applications ne nécessitant la synchronisation qu'avec un seul utilisateur. </p>
+<p>Par exemple, vous pouvez créer un gestionnaire de mot de passes qui se synchronisera entre vos différent appareils en réseau local.</p>
+<p>Pour en apprendre plus, vous pouvez suivre les tutorials Flutter, en particulier le <a href="https://discretlib.github.io/doc/fr/tutorial/flutter/flutter-multiuser-chat/">chat multi utilisateurs </a> qui introduit la gestion des invitations et la création de <em>Room</em>.</p>
 <p>La section  <a href="https://discretlib.github.io/doc/fr/learn/">Apprendre</a> vous permettra d'approfondir vos connaissances.</p>
 <h1 id="le-code-source-complet">Le code source complet</h1>
 <pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">std<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>io<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">path<span class="z-punctuation z-accessor z-rust">::</span></span>PathBuf</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
@@ -674,7 +682,7 @@
             </li>
             
         </ul>
-        <div class="wordcount">1602 mots, 9 min de lecture</div>
+        <div class="wordcount">1605 mots, 9 min de lecture</div>
     </section>
 </nav>
 

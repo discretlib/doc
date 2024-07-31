@@ -107,7 +107,9 @@
         </li>
 
         <section class="header_right">
-          <li><a href="">Me Recruter</a></li>
+        
+         {% set id = get_section(path="hire_me/_index.fr.md") %}
+          <li><a  href="{{ id.permalink | safe }}">Me Recruter</a></li>
           <li><a href="/" class="flag"><img src="/gb.svg" alt="english translation" /></a>
           </li>
 
