@@ -8,7 +8,9 @@ weight = 0
 Avant de commencer, sous devez avoir installé le [Flutter SDK](https://docs.flutter.dev/get-started/install) et [Rust](https://www.rust-lang.org/tools/install). 
 
 
-Si vous travaillez sous linix, **n'installez pas** Flutter avec **snap**. Le **snap** Flutter contient un linker appelé ld qui n'est pas compatible avec Rust. A la place, installez Flutter manuellement Flutter en suivant la documentation.
+Si vous travaillez sous Linux, **n'installez pas** Flutter avec **snap**. Le **snap** Flutter contient un linker appelé ld qui n'est pas compatible avec Rust. A la place, installez Flutter manuellement Flutter en suivant la documentation.
+
+
 
 Vous devez vous assurer que la version de Rust est supérieure ou égale à **1.79.0**
 
@@ -37,4 +39,4 @@ cp ./lib/example_simple_chat.dart ./lib/main.dart
 flutter run
 ```
 
-Le premier lancement va télécharger toutes les dépendances requises et les comiler. Cela peut prendre plusieurs minutes.
+Le premier lancement va télécharger toutes les dépendances requises et les compiler. Cela peut prendre plusieurs minutes.

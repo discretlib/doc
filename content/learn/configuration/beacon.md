@@ -82,36 +82,14 @@ Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com,
 A **Discret** client will be [configured](@/learn/configuration/configuration.md) as follow (we suppose that the configuration is stored in a TOML file):
 
 ```toml 
-#Ipv4
-[[beacons]]
-hostname = "firstbeacon.com:4264"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
-
-#Ipv6
-[[beacons]]
-hostname = "ipv6.firstbeacon.com:4266"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
-
-#Ipv4
-[[beacons]]
-hostname = "secondbeacon.com:4264"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
-
-#Ipv6
-[[beacons]]
-hostname = "ipv6.secondbeacon.com:4266"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
-
-
-#Ipv4
-[[beacons]]
-hostname = "thirdbeacon.com:4264"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
-
-#Ipv6
-[[beacons]]
-hostname = "ipv6.thirdbeacon.com:4266"
-cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"
+beacons =[
+  {hostname = "firstbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+  {hostname = "ipv6.firstbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+  {hostname = "secondbeacon.com:4264",      cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+  {hostname = "ipv6.secondbeacon.com:4266", cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+  {hostname = "thirdbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+  {hostname = "ipv6.thirdbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
+]
 ```
 
 The **cert_hash** is the value stored in the **certificate_hash.txt** file
