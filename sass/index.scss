@@ -4,18 +4,18 @@
 :root {
     --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-size: 1.2rem;
-    --link-color: #2fa4e7;
-    --link--over-color: #2683b9;
+    --link-color: #2fa3e6;
+    --link--over-color: #2784b9;
     --border-color: dimgrey;
 
 
-    --background-color-dark: #212529;
+    --background-color-dark: #222525;
     --secondary-background-dark: #2b303b;
     --text-color-dark: #ddd;
 
     --background-color-light: #fff;
     --secondary-background-light: #fcfcfc; //#495057;
-    --text-color-light: #212529;
+    --text-color-light: #252525;
 
     --header-height: 3rem;
     --menu-width: 17rem;
@@ -27,7 +27,7 @@
     --header-font-color: #f5f5f5;
     --header-over-color: #fff;
     --header-font-weight: 300;
-    --header-background-image: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
+    --header-background-image: linear-gradient(#51b2ec, #2fa3e6 60%, #2d9bd9);
 }
 
 @media screen and (max-width: 86rem) {
