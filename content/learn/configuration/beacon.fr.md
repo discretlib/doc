@@ -82,29 +82,28 @@ Pour un système en production il est nécessaire d'avoir plusieurs serveurs Bea
 
 Pour simplifier le déploiement de ces serveurs, un seul fichier **cert_der.bin** peut être utilisé. Ce n'est pas obligatoire, mais cela simplifie la gestion des certificats.
 
+
+# Configuration du client Discret 
+
 En supposant que vous ayez déployé trois serveurs (firstbeacon.com, secondbeacon.com, thirdbeacon.com) avec le même fichier **cert_der.bin**, Discret pourra être [configuré](@/learn/configuration/configuration.fr.md) de la façon suivante (en supposant que le fichier de configuration est enregistré au format TOML):
+
+Vous devez vous assurez que les noms de domaines sont résolu en adresse **IPV4 uniquement**. IPV6 n'est pas supporté car le support est encore partiel. 
 
 ```toml 
 beacons =[
   {hostname = "firstbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.firstbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
   {hostname = "secondbeacon.com:4264",      cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.secondbeacon.com:4266", cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
   {hostname = "thirdbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.thirdbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
 ]
 ```
 
 Le **cert_hash** étant la valeur récupérée dans le fichier **certificate_hash.txt**
-Vous noterez que chaque serveur est déclaré deux fois: 
-- une fois pour le port d'écoute IPV4 
-- une fois pour le port d'écoute IPV6
+
 
 # Configuration de Beacon.conf.toml 
 
-le fichier ne contient que trois paramètres:
+le fichier ne contient que deux paramètres:
 - **ipv4_port**: le port d'écoute IPV4
-- **ipv6_port**: le port d'écoute IPV6
 - **num_buffers**: le nombre de buffer partagé par les connections. Augmenter ce nombre peut améliorer les performances si votre serveur est utilisé par de nombreuses personnes, mais ce au prix d'une augmentation de la consommation mémoire. Chaque buffer consommant 4kb de mémoire.
 
 les changements dans ce fichier ne seront pris en compte qu'après le redémarrage du service.  

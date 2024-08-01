@@ -76,32 +76,26 @@ The **cert_der.bin** file can be used on several servers. For a production syste
 To simplify deployment, you can use a single **cert_der.bin** for all the server which makes certificate management easier.
 
 
-# Disret configuration
+# Discret configuration
 Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com, thirdbeacon.com) with the same **cert_der.bin**.
+You must make sure that the domain name only resolve to **an IPV4 address**. IPV6 is not supported because it is not availabe for all peers.
 
 A **Discret** client will be [configured](@/learn/configuration/configuration.md) as follow (we suppose that the configuration is stored in a TOML file):
+The **cert_hash** is the value stored in the **certificate_hash.txt** file.
 
 ```toml 
 beacons =[
   {hostname = "firstbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.firstbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
   {hostname = "secondbeacon.com:4264",      cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.secondbeacon.com:4266", cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
   {hostname = "thirdbeacon.com:4264",       cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
-  {hostname = "ipv6.thirdbeacon.com:4266",  cert_hash = "weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk"},
 ]
 ```
 
-The **cert_hash** is the value stored in the **certificate_hash.txt** file
-You will notice that each server is declared two times:
-- once for the IPV4 port,
-- once for the IPV6 port.
 
 # Beacon.conf.toml Configuration
 
-This file contains only three parameters:
+This file contains only two parameters:
 - **ipv4_port**: the IPV4 listening port,
-- **ipv6_port**: the IPV6 listening port,
 - **num_buffers**: The number of shared data buffers that are used by the connections. Increasing this value can increase the performances, but at the cost of more memory usage. Each buffer consumes 4kb of RAM.
 
 Changes in this file will be taken into account after a restart of the system.  
