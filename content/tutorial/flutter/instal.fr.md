@@ -3,6 +3,14 @@ title = "Installer les composants"
 description = "Comment installer et tester l'API rust"
 weight = 0
 +++
+# Platform Support
+- Linux: Tested and supported
+- Windows: testé
+- macOS: non testé, devrait fonctioner
+- Android: Instable, arch64 à l'air de fonctionner, 32bit and x86_64 ont des problèmes
+- iOS: non testé
+
+
 # Installing Components
 
 Avant de commencer, sous devez avoir installé le [Flutter SDK](https://docs.flutter.dev/get-started/install) et [Rust](https://www.rust-lang.org/tools/install). 

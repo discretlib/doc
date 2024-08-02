@@ -384,29 +384,21 @@
 <h1 id="certificate-reuse">Certificate Reuse</h1>
 <p>The <strong>cert_der.bin</strong> file can be used on several servers. For a production system, you will need to declare several Beacon server for failover.
 To simplify deployment, you can use a single <strong>cert_der.bin</strong> for all the server which makes certificate management easier.</p>
-<h1 id="disret-configuration">Disret configuration</h1>
-<p>Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com, thirdbeacon.com) with the same <strong>cert_der.bin</strong>.</p>
-<p>A <strong>Discret</strong> client will be <a href="https://discretlib.github.io/doc/learn/configuration/configuration/">configured</a> as follow (we suppose that the configuration is stored in a TOML file):</p>
+<h1 id="discret-configuration">Discret configuration</h1>
+<p>Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com, thirdbeacon.com) with the same <strong>cert_der.bin</strong>.
+You must make sure that the domain name only resolve to <strong>an IPV4 address</strong>. IPV6 is not supported because it is not availabe for all peers.</p>
+<p>A <strong>Discret</strong> client will be <a href="https://discretlib.github.io/doc/learn/configuration/configuration/">configured</a> as follow (we suppose that the configuration is stored in a TOML file):
+The <strong>cert_hash</strong> is the value stored in the <strong>certificate_hash.txt</strong> file.</p>
 <pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">beacons</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span><span class="z-punctuation z-definition z-array z-begin z-toml">[</span>
 </span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>firstbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>       <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
-</span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.firstbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>  <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
 </span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>secondbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>      <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
-</span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.secondbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span> <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
 </span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>thirdbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>       <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
-</span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>ipv6.thirdbeacon.com:4266<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>  <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
 </span><span class="z-source z-toml"><span class="z-punctuation z-definition z-array z-end z-toml">]</span>
 </span></code></pre>
-<p>The <strong>cert_hash</strong> is the value stored in the <strong>certificate_hash.txt</strong> file
-You will notice that each server is declared two times:</p>
-<ul>
-<li>once for the IPV4 port,</li>
-<li>once for the IPV6 port.</li>
-</ul>
 <h1 id="beacon-conf-toml-configuration">Beacon.conf.toml Configuration</h1>
-<p>This file contains only three parameters:</p>
+<p>This file contains only two parameters:</p>
 <ul>
 <li><strong>ipv4_port</strong>: the IPV4 listening port,</li>
-<li><strong>ipv6_port</strong>: the IPV6 listening port,</li>
 <li><strong>num_buffers</strong>: The number of shared data buffers that are used by the connections. Increasing this value can increase the performances, but at the cost of more memory usage. Each buffer consumes 4kb of RAM.</li>
 </ul>
 <p>Changes in this file will be taken into account after a restart of the system.</p>
@@ -447,7 +439,7 @@ You will notice that each server is declared two times:</p>
             </li>
             
             <li>
-                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#disret-configuration">Disret configuration</a>
+                <a href="https://discretlib.github.io/doc/learn/configuration/beacon/#discret-configuration">Discret configuration</a>
             </li>
             
             <li>
@@ -455,7 +447,7 @@ You will notice that each server is declared two times:</p>
             </li>
             
         </ul>
-        <div class="wordcount">652 words, 4 min read</div>
+        <div class="wordcount">632 words, 4 min read</div>
     </section>
 </nav>
 

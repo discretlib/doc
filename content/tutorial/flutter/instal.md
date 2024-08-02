@@ -3,6 +3,15 @@ title = "Installing Components"
 description = "Learn how to setup the Flutter binding"
 weight = 0
 +++
+# Platform Support
+
+# Platform Support
+- Linux: Tested and supported
+- Windows: Tested and supported
+- macOS: not tested, should work
+- Android: Unstable, Some success with arch64, 32bit and x86_64 have issues with sqlite
+- iOS: not tested
+
 # Installing Components
 
 To get started, you need to have [Flutter SDK](https://docs.flutter.dev/get-started/install) and [Rust toolchain](https://www.rust-lang.org/tools/install) installed on your system.
