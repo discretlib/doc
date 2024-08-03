@@ -6,10 +6,10 @@ weight = 0
 # Platform Support
 
 # Platform Support
-- Linux: Tested and supported
-- Windows: Tested and supported
+- Linux: Tested 
+- Windows: Tested 
 - macOS: not tested, should work
-- Android: Unstable, Some success with arch64, 32bit and x86_64 have issues with sqlite
+- Android: works on arch64 architecture. Architectures i686 and x86_64 have some low level linker issues when working with Flutter.
 - iOS: not tested
 
 # Installing Components

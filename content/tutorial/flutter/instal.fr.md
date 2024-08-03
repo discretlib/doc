@@ -4,10 +4,10 @@ description = "Comment installer et tester l'API rust"
 weight = 0
 +++
 # Platform Support
-- Linux: Tested and supported
+- Linux: testé
 - Windows: testé
 - macOS: non testé, devrait fonctioner
-- Android: Instable, arch64 à l'air de fonctionner, 32bit and x86_64 ont des problèmes
+- Android: Fonctionne sur architecture arch64. Les architectures i686 and x86_64 ont des problèmes liés au *linker*
 - iOS: non testé
 
 
