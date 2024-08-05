@@ -87,7 +87,6 @@ Pour simplifier le déploiement de ces serveurs, un seul fichier **cert_der.bin*
 
 En supposant que vous ayez déployé trois serveurs (firstbeacon.com, secondbeacon.com, thirdbeacon.com) avec le même fichier **cert_der.bin**, Discret pourra être [configuré](@/learn/configuration/configuration.fr.md) de la façon suivante (en supposant que le fichier de configuration est enregistré au format TOML):
 
-Vous devez vous assurez que les noms de domaines sont résolu en adresse **IPV4 uniquement**. IPV6 n'est pas supporté car le support est encore partiel. 
 
 ```toml 
 beacons =[
@@ -102,10 +101,8 @@ Le **cert_hash** étant la valeur récupérée dans le fichier **certificate_has
 
 # Configuration de Beacon.conf.toml 
 
-le fichier ne contient que deux paramètres:
-- **ipv4_port**: le port d'écoute IPV4
-- **num_buffers**: le nombre de buffer partagé par les connections. Augmenter ce nombre peut améliorer les performances si votre serveur est utilisé par de nombreuses personnes, mais ce au prix d'une augmentation de la consommation mémoire. Chaque buffer consommant 4kb de mémoire.
+Le fichier ne contient qu'un seul paramètre:
+- **port**: le port d'écoute IPV4
 
-les changements dans ce fichier ne seront pris en compte qu'après le redémarrage du service.  
 
 

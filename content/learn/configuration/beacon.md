@@ -78,7 +78,6 @@ To simplify deployment, you can use a single **cert_der.bin** for all the server
 
 # Discret configuration
 Let's suppose you have created three servers (firstbeacon.com, secondbeacon.com, thirdbeacon.com) with the same **cert_der.bin**.
-You must make sure that the domain name only resolve to **an IPV4 address**. IPV6 is not supported because it is not availabe for all peers.
 
 A **Discret** client will be [configured](@/learn/configuration/configuration.md) as follow (we suppose that the configuration is stored in a TOML file):
 The **cert_hash** is the value stored in the **certificate_hash.txt** file.
@@ -95,9 +94,7 @@ beacons =[
 # Beacon.conf.toml Configuration
 
 This file contains only two parameters:
-- **ipv4_port**: the IPV4 listening port,
-- **num_buffers**: The number of shared data buffers that are used by the connections. Increasing this value can increase the performances, but at the cost of more memory usage. Each buffer consumes 4kb of RAM.
+- **port**: the IPV4 listening port,
 
-Changes in this file will be taken into account after a restart of the system.  
 
 
