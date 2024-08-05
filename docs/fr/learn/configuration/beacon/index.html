@@ -394,7 +394,6 @@ Pour un système en production il est nécessaire d'avoir plusieurs serveurs Bea
 <p>Pour simplifier le déploiement de ces serveurs, un seul fichier <strong>cert_der.bin</strong> peut être utilisé. Ce n'est pas obligatoire, mais cela simplifie la gestion des certificats.</p>
 <h1 id="configuration-du-client-discret">Configuration du client Discret</h1>
 <p>En supposant que vous ayez déployé trois serveurs (firstbeacon.com, secondbeacon.com, thirdbeacon.com) avec le même fichier <strong>cert_der.bin</strong>, Discret pourra être <a href="https://discretlib.github.io/doc/fr/learn/configuration/configuration/">configuré</a> de la façon suivante (en supposant que le fichier de configuration est enregistré au format TOML):</p>
-<p>Vous devez vous assurez que les noms de domaines sont résolu en adresse <strong>IPV4 uniquement</strong>. IPV6 n'est pas supporté car le support est encore partiel. </p>
 <pre data-lang="toml" class="language-toml z-code"><code class="language-toml" data-lang="toml"><span class="z-source z-toml"><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">beacons</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span><span class="z-punctuation z-definition z-array z-begin z-toml">[</span>
 </span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>firstbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>       <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
 </span><span class="z-source z-toml">  <span class="z-punctuation z-definition z-inline-table z-begin z-toml">{</span><span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">hostname</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>secondbeacon.com:4264<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-separator z-inline-table z-toml">,</span>      <span class="z-meta z-tag z-key z-toml"><span class="z-entity z-name z-tag z-toml">cert_hash</span></span> <span class="z-punctuation z-definition z-key-value z-toml">=</span> <span class="z-string z-quoted z-double z-basic z-toml"><span class="z-punctuation z-definition z-string z-begin z-toml">&quot;</span>weOsoMPwj976xqxRvLElsbb-gijWWn0netOtgPflZnk<span class="z-punctuation z-definition z-string z-end z-toml">&quot;</span></span><span class="z-punctuation z-definition z-inline-table z-end z-toml">}</span><span class="z-punctuation z-separator z-array z-toml">,</span>
@@ -403,12 +402,10 @@ Pour un système en production il est nécessaire d'avoir plusieurs serveurs Bea
 </span></code></pre>
 <p>Le <strong>cert_hash</strong> étant la valeur récupérée dans le fichier <strong>certificate_hash.txt</strong></p>
 <h1 id="configuration-de-beacon-conf-toml">Configuration de Beacon.conf.toml</h1>
-<p>le fichier ne contient que deux paramètres:</p>
+<p>Le fichier ne contient qu'un seul paramètre:</p>
 <ul>
-<li><strong>ipv4_port</strong>: le port d'écoute IPV4</li>
-<li><strong>num_buffers</strong>: le nombre de buffer partagé par les connections. Augmenter ce nombre peut améliorer les performances si votre serveur est utilisé par de nombreuses personnes, mais ce au prix d'une augmentation de la consommation mémoire. Chaque buffer consommant 4kb de mémoire.</li>
+<li><strong>port</strong>: le port d'écoute IPV4</li>
 </ul>
-<p>les changements dans ce fichier ne seront pris en compte qu'après le redémarrage du service.</p>
 
 
     <nav class="lower_nav">
@@ -455,7 +452,7 @@ Pour un système en production il est nécessaire d'avoir plusieurs serveurs Bea
             </li>
             
         </ul>
-        <div class="wordcount">694 mots, 4 min de lecture</div>
+        <div class="wordcount">613 mots, 4 min de lecture</div>
     </section>
 </nav>
 
