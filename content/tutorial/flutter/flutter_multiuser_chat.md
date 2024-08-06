@@ -49,8 +49,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final path = await _localPath;
   String dataPath = '$path/.discret_data';
-  ```
+```
+---
 
+We also set the log level to **info**. Log levels can be changed anytime with the values:
+- **error**
+- **warn**
+- **info**
+- **debug**
+- **trace**
+
+```dart,linenos, linenostart=27
+  await Discret().setLogLevel("info");
+```
 # Architecture
 
 To manage several discussion groups, the **ChatState** provides a list of **ChatRoom** and all the functions required to
@@ -79,16 +90,30 @@ class ChatRoom {
 # Initialization
 The **ChatState** initialization is more complex that the previous one.
 
-Line 60 retrieve the user's **verifyingKey**. It represents the public identity of this user. 
+During the ChatSate creation, a log listener is created. Those logs are primarily used to send error message that are not directly related to an API call.
+
+The code only push the *logs* in the Flutter log Flutter log for debugging purposes.
+
+```dart,linenos, linenostart=50
+  final StreamSubscription<LogMsg> loglistener =
+      Discret().logStream().listen((event) async {
+    var message = event.data;
+    var level = event.level;
+    logger.log('$level: $message');
+  });
+```
+
+--
+
+Line 68 retrieve the user's **verifyingKey**. It represents the public identity of this user. 
 
 Data created by this user are signed with the associated  signature key and other peers will verify the signature during data synchronization.
 
-```dart,linenos, linenostart=59
-//...
+```dart
     msg = await Discret().verifyingKey();
     myVerifyingKey = msg.data;
-//..
 ```
+
 
 ---
 The event stream is also more complex and manage more events.
@@ -136,26 +161,7 @@ A new event is managed: **EventType.roomModified**. This event is triggered by t
 
 The events **EventType.peerConnected** and **EventType.peerDisconnected** are triggered when a peer connect or disconnect. It is not directly used by the code but put in the flutter log for debugging purposes.
 
----
 
-The initialization then listen for the logs sent by *Discret*. Those logs are primarily used to send error message that are not directly related to an API call.
-The code only push the *logs* in the Flutter log Flutter log for debugging purposes.
-
-```dart
-loglistener = Discret().logStream().listen((event) async {
-  var date = DateTime.fromMillisecondsSinceEpoch(event.date);
-  var message = event.message;
-  switch (event.type) {
-    case LogType.info:
-      message = 'INFO: $message';
-
-    case LogType.error:
-      var source = event.source;
-      message = 'ERROR: source: $source message: $message';
-  }
-  logger.log(message, time: date);
-});
-```
 
 # Creating an Account
 
@@ -166,7 +172,7 @@ accepting invitations.
 
 This association is done in the **sys.Peer** that contains all known peers, including you.
 
-```dart,linenos, linenostart=135
+```dart,linenos, linenostart=128
  Future<ResultMsg> createAccount(
       String userName, String password, String displayName) async {
     ResultMsg msg = await Discret().login(userName, password, true);
@@ -207,7 +213,7 @@ This association is done in the **sys.Peer** that contains all known peers, incl
 ```
 ---
 
-The first query line 140 retrieve the unique identifier **id** of the tuple that stores your identity.
+The first query line 133 retrieve the unique identifier **id** of the tuple that stores your identity.
 
 Every tuple in the *Discret* database have a unique **id**  generated during the insertion.
 
@@ -220,7 +226,7 @@ String query = """query{
 ```
 ---
 
-The second query line 157 updates the **name** field with the **Display Name** value.
+The second query line 150 updates the **name** field with the **Display Name** value.
 Every **mutation** query that provides an **id** is an update query. If the **id** is not found, an error will be returned.
 
 ```dart
@@ -238,7 +244,7 @@ String mutate = """mutate {
 Every new invites needs to create a new [Room](@/learn/access_rights/room.md) to limit access to to discussion group to you and the invited peer.
 
 
-```dart,linenos, linenostart=280
+```dart,linenos, linenostart=273
   Future<String> createInvite() async {
     String query = """mutate {
       sys.Room{
@@ -284,7 +290,7 @@ Every new invites needs to create a new [Room](@/learn/access_rights/room.md) to
   }
 ```
 
-The query ligne 281 creates a new room for the invited peer.
+The query ligne 274 creates a new room for the invited peer.
 
 ```dart
 String query = """mutate {
@@ -319,7 +325,7 @@ The API to create an invite requires:
 - The *Room* **id** de la *Room*,
 - The **id** of an autorisation that belongs to that *Room*.
 
-Those identifiers are retrieved by parsing the result of the query  (lines 308 to 314) that contains every ids generated during insertion.
+Those identifiers are retrieved by parsing the result of the query  (lines 293 to 307) that contains every ids generated during insertion.
 
 Once the invite accepted, the new peer identity will be inserted in the **user** field of the provided autorisation.
 
@@ -340,7 +346,7 @@ Accepting an invitation is just an API call with the invitation string.
 
 An invitation can only be used once.
 
-```dart,linenos, linenostart=18
+```dart,linenos, linenostart=320
   Future<void> acceptInvite(String invite) async {
     ResultMsg msg = await Discret().acceptInvite(invite);
     if (!msg.successful) {

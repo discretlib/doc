@@ -47,7 +47,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final path = await _localPath;
   String dataPath = '$path/.discret_data';
-  ```
+```
+
+---
+
+Le niveau de log est mis au niveau **info**. ce niveau peut être changé n'importe quand en passant une de ces valeurs:
+- **error**
+- **warn**
+- **info**
+- **debug**
+- **trace**
+```dart,linenos, linenostart=27
+  await Discret().setLogLevel("info");
+```
 
 # Architecture
 Pour gérer les différents groupes de discussion, la classe  **ChatState** contient une liste de **ChatRoom** ainsi que tous les champs et fonctions pour gérer:
@@ -61,6 +73,7 @@ class ChatState extends ChangeNotifier {
 //..
 }
 ```
+
 
 La classe **ChatRoom** contient tous les champs et fonctions pour:
  - envoyer des message 
@@ -78,11 +91,29 @@ class ChatRoom {
 # Initialisation
 L'initialisation du **ChatState** est plus complexe que la précédente.
 
-La ligne 60 récupère la **verifyingKey** de l'utilisateur connecté. Cela représente l'identité publique de l'utilisateur.
+
+Pendant la création de l'objet, on définit la gestion du flux de *logs* envoyé par *Discret*.
+Ces *logs* sont principalement utilisés pour renvoyer des erreurs techniques qui ne sont pas particulièrement liées à un appel de l'API.
+
+Le code suivant ne fait que renvoyer ces *logs* dans le log Flutter de deboggage.
+
+
+```dart,linenos, linenostart=50
+  final StreamSubscription<LogMsg> loglistener =
+      Discret().logStream().listen((event) async {
+    var message = event.data;
+    var level = event.level;
+    logger.log('$level: $message');
+  });
+```
+
+--
+
+La ligne 68 récupère la **verifyingKey** de l'utilisateur connecté. Cela représente l'identité publique de l'utilisateur.
 
 Toutes les données insérés sont signées avec la clé de signature associée, et les autres utilisateurs vérifieront cette signature lors de la synchronisation des données.
 
-```dart,linenos, linenostart=59
+```dart
 //...
     msg = await Discret().verifyingKey();
     myVerifyingKey = msg.data;
@@ -135,28 +166,7 @@ Un nouvel évènement est traité **EventType.roomModified**. Cet évènement se
 
 Les évènements **EventType.peerConnected**, **EventType.peerDisconnected** permettent de détecter qu'un Pair vient de se connecter ou de se déconnecter. Ils ne sont pas utilisés dans le code et ne font qu'écrire dans le log.
 
----
 
-L'initialisation définit ensuite la gestion du flux de *logs* envoyé par *Discret*.
-Ces *logs* sont principalement utilisés pour renvoyer des erreurs techniques qui ne sont pas particulièrement liées à un appel de l'API.
-
-Le code suivant ne fait que renvoyer ces *logs* dans le log Flutter de deboggage.
-
-```dart
-loglistener = Discret().logStream().listen((event) async {
-  var date = DateTime.fromMillisecondsSinceEpoch(event.date);
-  var message = event.message;
-  switch (event.type) {
-    case LogType.info:
-      message = 'INFO: $message';
-
-    case LogType.error:
-      var source = event.source;
-      message = 'ERROR: source: $source message: $message';
-  }
-  logger.log(message, time: date);
-});
-```
 
 # Créer un Compte
 
@@ -166,7 +176,7 @@ Ce champ est utilisé pour associer un nom à votre identité publique (votre ve
 
 Cette association se fait dans l'entité **sys.Peer** qui contient tous les Pairs que vous connaissez, vous y compris.
 
-```dart,linenos, linenostart=135
+```dart,linenos, linenostart=128
  Future<ResultMsg> createAccount(
       String userName, String password, String displayName) async {
     ResultMsg msg = await Discret().login(userName, password, true);
@@ -207,7 +217,7 @@ Cette association se fait dans l'entité **sys.Peer** qui contient tous les Pair
 ```
 ---
 
-La première requête ligne 140 va récupérer l'identifiant **id** du tuple correspondant à votre identité.
+La première requête ligne 133 va récupérer l'identifiant **id** du tuple correspondant à votre identité.
 
 Chaque tuple en base de données possède un identifiant unique généré lors de l'insertion.
 
@@ -220,7 +230,7 @@ String query = """query{
 ```
 ---
 
-La seconde requête ligne 157 va mettre à jour le champ **name** avec la valeur de **Display Name**.
+La seconde requête ligne 150 va mettre à jour le champ **name** avec la valeur de **Display Name**.
 
 Toute requête de type **mutate** qui fournit un **id** est une requête de mise à jours. Si l'identifiant n'existe pas en base de données, une erreur est retournée.
 
@@ -239,7 +249,7 @@ String mutate = """mutate {
 Chaque demande d'invitation va créer une nouvelle [Room](@/learn/access_rights/room.fr.md) qui va permettre de limiter les droits d'accès au groupe de discussion.
 
 
-```dart,linenos, linenostart=280
+```dart,linenos, linenostart=273
   Future<String> createInvite() async {
     String query = """mutate {
       sys.Room{
@@ -285,7 +295,7 @@ Chaque demande d'invitation va créer une nouvelle [Room](@/learn/access_rights/
   }
 ```
 
-La requête ligne 281 va créer une nouvelle Room pour accueillir le nouvel invité.
+La requête ligne 274 va créer une nouvelle Room pour accueillir le nouvel invité.
 
 ```dart
 String query = """mutate {
@@ -322,7 +332,7 @@ L'API de creation d'invitation requiers:
 - l'**id** de la *Room*,
 - l'**id** d'une autorisation interne à cette *Room*.
 
-Ces identifiants sont récupérés en lisant le résultat de la requête de création (lignes 308 à 314), qui contient les identifiants générés lors de la création.
+Ces identifiants sont récupérés en lisant le résultat de la requête de création (lignes 293 à 307), qui contient les identifiants générés lors de la création.
 
 Lorsque l'invitation sera acceptée, l'identité du Pair sera rajoutée automatiquement à l'autorisation fournie, vous pourrez commencer à communiquer en insérant des messages dans cette *Room*.
 
@@ -342,7 +352,7 @@ Accepter une invitation se résume à appeler la fonction de l'API avec l'invita
 
 Une invitation ne peut être utilisée qu'une seule fois.
 
-```dart,linenos, linenostart=18
+```dart,linenos, linenostart=320
   Future<void> acceptInvite(String invite) async {
     ResultMsg msg = await Discret().acceptInvite(invite);
     if (!msg.successful) {
