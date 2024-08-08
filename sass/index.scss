@@ -396,8 +396,10 @@ article {
 }
 
 .hire {
-    margin-left: 0px;
-    padding-left: 0px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 
     h1 {
         text-align: left;
@@ -427,6 +429,10 @@ article {
         padding-bottom: 0.25rem;
         margin: 0;
         border-bottom: 1px solid var(--border-color);
+    }
+
+    a {
+        font-size: 1.2rem;
     }
 
 }
