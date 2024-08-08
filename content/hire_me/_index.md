@@ -15,5 +15,5 @@ For large scale projects, I can intervene and provide counsels on every steps of
 
 Besides the *Discret* project, you will find my past experiences in my [Resume](../ADRIEN_SALAIS_CV.fr.pdf) 
 
-Do not hesitate to contact me at the address adrien.salais @ proton.me 
+Do not hesitate to contact me at the address adrien.salais @ proton.me
 
