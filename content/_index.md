@@ -1,6 +1,6 @@
 +++
 title = "Discret"
-description = "A Rust backend to create peer to peer (P2P) applications, using a GraphQL inspired syntax"
+description = "A Rust back-end to create peer to peer (P2P) applications, using a GraphQL inspired syntax"
 weight = 0
 template = "index-section.html"
 page_template = "index-page.html"
