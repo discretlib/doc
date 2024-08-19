@@ -13,7 +13,7 @@ My large array of expertise allows me to work on small to medium project (in ter
 
 For large scale projects, I can intervene and provide counsels on every steps of the project.
 
-Besides the *Discret* project, you will find my past experiences in my [Resume](../ADRIEN_SALAIS_CV.en.pdf) 
+Besides the *Discret* project, you will find my past experiences in my [Resume](../ADRIEN_SALAIS_RESUME_WEB.en.pdf) 
 
 Do not hesitate to contact me at the address adrien.salais @ proton.me
 

@@ -13,7 +13,7 @@ Mon large domaine de compétences me permet de travailler de façon autonome sur
 
 Pour des projets de grande ampleur, mes connaissances me permettent de travailler et de conseiller sur les différentes étapes d'un projet.
 
-En dehors du projet *Discret*, vous trouverez mes précédentes experiences dans mon [Curriculum Vitae (CV)](../../ADRIEN_SALAIS_CV.fr.pdf) 
+En dehors du projet *Discret*, vous trouverez mes précédentes experiences dans mon [Curriculum Vitae (CV)](../../ADRIEN_SALAIS_RESUME_WEB.fr.pdf) 
 
 N'hésitez pas à me contacter l'adresse "adrien.salais @ proton.me"
 
