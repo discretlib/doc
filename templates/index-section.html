@@ -9,6 +9,9 @@
         {{ section.description | safe }}
     </h2>
 
+    {% set index = get_page(path="landing_page/description.md") %}
+    {{ index.content | safe}}
+
     <section class="tuto">
         {% set index = get_section(path="landing_page/tuto/_index.md") %}
         <section class="flexbox">
